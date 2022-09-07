@@ -14,7 +14,6 @@ const HelloWorldApp = () => {
         justifyContent: "center",
         alignItems: "center"
       }}>
-      <Text>Hello, world!</Text>
       <Text style = {{fontSize: 30}}>Henry Cavill</Text>
       <Image
         style = {{width: 200, height: 200}}
