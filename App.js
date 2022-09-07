@@ -14,8 +14,29 @@ const HelloWorldApp = () => {
         style = {{width: 200, height: 200}}
         source = {require('./assets/cavill.jpg')}
       />
+
+      <Box
+            style={{
+              backgroundColor: '#FFF',
+              borderRadius: 4,
+              color: '#eee',
+              minHeight: 200,
+              padding: 12,
+              width: 300,
+            }}
+          >
+            <Text>Henry Cavill</Text>
+          </Box>
+
+
     </View>
   )
 }
+
+
+function Box({ children, ...props }) {
+  return <View {...props}>{children}</View>
+}
+
 
 export default HelloWorldApp;
