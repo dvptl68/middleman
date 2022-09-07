@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+// import { Text, View, Image } from 'react-native';
+// import {Component, useState} from 'react';
+import { Text, View, StyleSheet, Image, TextInput } from 'react-native';
 
 function Box({ children, ...props }) {
   return <View {...props}>{children}</View>
@@ -42,8 +44,36 @@ const HelloWorldApp = () => {
     >
       <Text style = {{color: "white"}}>Karthick Sivasubramanian</Text>
     </Box>
+
+    <Image
+        style={styles.imgr}
+        source={require('./assets/lg_heart.png')}
+    />
     </View>
   
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    justifyContent: 'flex-end',
+  },
+  img: {
+    width: '50%',
+    height: '100%',
+    resizeMode: 'cover',
+    width: 50, height: 50
+  },
+  imgr: {
+    width: '50%',
+    height: '100%',
+    resizeMode: 'cover',
+    width: 50, height: 50
+  }
+});
 export default HelloWorldApp;
