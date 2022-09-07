@@ -1,59 +1,69 @@
-import React from 'react';
-// import { Text, View, Image } from 'react-native';
-// import {Component, useState} from 'react';
+import React, {Component, useState} from 'react';
 import { Text, View, StyleSheet, Image, TextInput } from 'react-native';
 
-function Box({ children, ...props }) {
-  return <View {...props}>{children}</View>
-}
-
-function padding(a, b, c, d) {
-  return {
-    paddingTop: a,
-    paddingRight: b ? b : a,
-    paddingBottom: c ? c : a,
-    paddingLeft: d ? d : (b ? b : a)
-  }
-}
-
 const HelloWorldApp = () => {
+  const [text, setText] = useState('');
   return (
-
     <View
       style={{
         flex: 1,
-        //justifyContent: "center",
-        alignItems: "center",
-        // justifyContent: 'space-between'
+        justifyContent: "center",
+        alignItems: "center"
       }}>
-      <Text style = {{margin: 20,  fontSize: 30}}>Henry Cavill</Text>
+      <Text style = {{margin: 20, fontSize: 30}}>Henry Cavill</Text>
       <Image
         style = {{margin: 20, width: 200, height: 200}}
         source = {require('./assets/cavill.jpg')}
       />
-      <Box
-      style={{
-        backgroundColor: '#333',
-        borderRadius: 4,
-        color: '#000000',
-        minHeight: 200,
-        padding: 12,
-        width: 300,
-        margin: 20
-      }}
-    >
-      <Text style = {{color: "white"}}>Karthick Sivasubramanian</Text>
-    </Box>
 
-    <Image
-        style={styles.imgr}
-        source={require('./assets/lg_heart.png')}
-    />
+      <Box
+            style={{
+              backgroundColor: '#FFF',
+              borderRadius: 4,
+              color: '#eee',
+              minHeight: 200,
+              padding: 12,
+              width: 300,
+              margin: 20
+            }}
+          >
+            <Text>Henry Cavill, Superman, Witcher, ready to slay</Text>
+      </Box>
+      
+
+      <View style={{ flexDirection: 'row', height: 50, backgroundColor: 'goldenrod' }}>
+          <Image
+                style={styles.img}
+                source={require('./assets/lg_broken_heart.png')}
+          />
+          <Box
+            style={{
+              backgroundColor: '#FFF',
+              borderRadius: 4,
+              color: '#eee',
+              minHeight: 200,
+              padding: 12,
+              width: 150,
+            }}
+          >
+            <Text></Text>
+      </Box>
+      
+          <Image
+                  style={styles.imgr}
+                  source={require('./assets/lg_heart.png')}
+              />
+      </View>
+
+     
     </View>
-  
   )
 }
 
+
+function Box({ children, ...props }) {
+  return <View {...props}>{children}</View>
+}
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -76,4 +86,6 @@ const styles = StyleSheet.create({
     width: 50, height: 50
   }
 });
+
 export default HelloWorldApp;
+
