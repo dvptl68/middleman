@@ -1,8 +1,9 @@
+---
 name: CI
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -16,5 +17,10 @@ jobs:
         uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: true
+          VALIDATE_BASH: false
+          VALIDATE_CLANG_FORMAT: false
+          VALIDATE_CPP: false
+          VALIDATE_JAVA: false
+          JAVASCRIPT_ES_CONFIG_FILE: eslintrc.js
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
