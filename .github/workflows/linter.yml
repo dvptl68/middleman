@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm i -g eslint-plugin-flowtype
+        run:  npm install eslint-plugin-flowtype --save-dev
       - name: Run Linter
         uses: github/super-linter/slim@v4
         env:
