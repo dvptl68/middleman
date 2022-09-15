@@ -17,10 +17,10 @@ jobs:
         uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: true
-          VALIDATE_BASH: false
-          VALIDATE_CLANG_FORMAT: false
-          VALIDATE_CPP: false
-          VALIDATE_JAVA: false
-          VALIDATE_JAVASCRIPT_STANDARD: false
+#           VALIDATE_BASH: false
+#           VALIDATE_CLANG_FORMAT: false
+#           VALIDATE_CPP: false
+#           VALIDATE_JAVA: false
+#           VALIDATE_JAVASCRIPT_STANDARD: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
