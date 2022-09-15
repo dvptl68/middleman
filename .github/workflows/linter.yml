@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm i -g eslint-plugin-flowtype
       - name: Run Linter
         uses: github/super-linter/slim@v4
         env:
@@ -20,5 +22,8 @@ jobs:
           VALIDATE_CLANG_FORMAT: false
           VALIDATE_CPP: false
           VALIDATE_JAVA: false
+          LINTER_RULES_PATH: /
+          JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.js
+          VALIDATE_JAVASCRIPT_STANDARD: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
