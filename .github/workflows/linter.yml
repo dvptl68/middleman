@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm i
+        uses: actions/setup-node@v3
       - name: Run Linter
         uses: github/super-linter/slim@v4
         env:
