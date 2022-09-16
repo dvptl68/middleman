@@ -3,6 +3,8 @@ import {Text, View, StyleSheet, Image} from 'react-native';
 
 const HelloWorldApp = () => {
   return (
+
+    
     <View
       style={{
         flex: 1,
