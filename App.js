@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, TextInput} from 'react-native';
 
 const HelloWorldApp = () => {
-  const [text, setText] = useState('');
-  const [onChangeText] = React.useState("Useless Text");
+  // const [text, setText] = React.useState('');
+  const [onChangeText] = React.useState('Useless Text');
   return (
     <View
       style={{
@@ -15,18 +15,19 @@ const HelloWorldApp = () => {
         style={{
           height: 40,
           borderColor: 'gray',
-          
-          borderWidth: 1
+          borderWidth: 1,
         }}
-        onChangeText= {onChangeText}
+        onChangeText={onChangeText}
         clearTextOnFocus={true}
-        placeholder = 'Discover'
+        placeholder="Discover"
       />
-      <Text
-        style = {{margin: 20, fontSize: 30}}>Henry Cavill
-      </Text>
+      <Text style={{margin: 20, fontSize: 30}}>Henry Cavill</Text>
       <Image
-        style={{margin: 20, width: 200, height: 200}}
+        style={{
+          margin: 20,
+          width: 200,
+          height: 200,
+        }}
         source={require('./assets/cavill.jpg')}
       />
       <Box
