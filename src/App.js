@@ -1,8 +1,7 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, TextInput} from 'react-native';
 
-const HelloWorldApp = () => {
-  // const [text, setText] = React.useState('');
+const MiddleMan = () => {
   const [onChangeText] = React.useState('Useless Text');
   return (
     <View
@@ -28,7 +27,7 @@ const HelloWorldApp = () => {
           width: 200,
           height: 200,
         }}
-        source={require('./assets/cavill.jpg')}
+        source={require('./assets/images/cavill.jpg')}
       />
       <Box
         style={{
@@ -50,7 +49,7 @@ const HelloWorldApp = () => {
         }}>
         <Image
           style={styles.img}
-          source={require('./assets/lg_broken_heart.png')}
+          source={require('./assets/images/lg_broken_heart.png')}
         />
         <Box
           style={{
@@ -63,7 +62,7 @@ const HelloWorldApp = () => {
           }}>
           <Text />
         </Box>
-        <Image style={styles.imgr} source={require('./assets/lg_heart.png')} />
+        <Image style={styles.imgr} source={require('./assets/images/lg_heart.png')} />
       </View>
     </View>
   );
@@ -93,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HelloWorldApp;
+export default MiddleMan;
