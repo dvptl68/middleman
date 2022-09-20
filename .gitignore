@@ -63,4 +63,5 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 
+data/*.csv
 venv/
