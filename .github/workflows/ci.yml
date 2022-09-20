@@ -24,6 +24,7 @@ jobs:
         run: npm run lint
 
   tester:
+    needs: linter
     name: Test UI
     runs-on: ubuntu-latest
     steps:
