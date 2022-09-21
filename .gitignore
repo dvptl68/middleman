@@ -1,7 +1,9 @@
 # OSX
 #
 .DS_Store
-
+#
+.csv
+.crt
 # Xcode
 #
 build/
