@@ -63,5 +63,7 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 
-data/*.csv
+#Files and Virtual Env Python
+.csv
+.crt
 venv/
