@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Profile from './../components/Profile';
 
 const Discover = () => {
@@ -20,6 +20,12 @@ const Discover = () => {
         <Profile {...profile} />
       </View>
       <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.singleButtonContainer}>
+          <Image style={styles.buttons} source={require('./../../assets/images/broken-heart.png')} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.singleButtonContainer}>
+          <Image style={styles.buttons} source={require('./../../assets/images/heart.png')} />
+        </TouchableOpacity>
       </View>
     </>
   );
@@ -33,8 +39,21 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flex: 1,
+    flexDirection: 'row',
     borderWidth: 5,
     borderColor: 'blue',
+  },
+  singleButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 5,
+    borderColor: 'green',
+  },
+  buttons: {
+    width: 75,
+    height: 75,
+    resizeMode: 'stretch',
   }
 });
 
