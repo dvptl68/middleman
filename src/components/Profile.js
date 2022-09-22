@@ -1,10 +1,10 @@
 import React from 'react';
-// import {StyleSheet} from 'react-native';
+import {Text} from 'react-native';
 
 const Profile = () => {
-  return <></>;
+  return (
+    <Text>Open up App.js to start working on your app!</Text>
+  );
 };
-
-// const styles = StyleSheet.create({});
 
 export default Profile;

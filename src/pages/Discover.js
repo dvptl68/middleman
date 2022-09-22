@@ -4,17 +4,18 @@ import Profile from './../components/Profile';
 
 const Discover = () => {
   return (
-    <View style={styles.page}>
+    <View style={styles.container}>
       <Profile />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  page: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#fff',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
