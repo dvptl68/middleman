@@ -13,9 +13,8 @@ const Discover = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderWidth: 5,
+    borderColor: 'red',
   },
 });
 

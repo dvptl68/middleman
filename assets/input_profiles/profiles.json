@@ -1,66 +1,64 @@
 {
-    "profiles":
-    [
-        {
-            "id": "1",
-            "name": "Andrew",
-            "age": 24,
-            "gender": "male",
-            "height": 69,
-            "location": "Columbus",
-            "sexual_orientation": "straight",
-            "word1": "extrovert",
-            "word2": "soccer",
-            "word3": "marvel",
-        },
-        {
-            "id": "2",
-            "name": "Tony",
-            "age": 22,
-            "gender": "male",
-            "height": 68,
-            "location": "Columbus",
-            "sexual_orientation": "straight",
-            "word1": "introvert",
-            "word2": "pizza",
-            "word3": "marvel",
-        },
-        {
-            "id": "3",
-            "name": "Wanda",
-            "age": 52,
-            "gender": "female",
-            "height": 65,
-            "location": "Columbus",
-            "sexual_orientation": "straight",
-            "word1": "extrovert",
-            "word2": "tennis",
-            "word3": "movies",
-        },
-        {
-            "id": "4",
-            "name": "Tom",
-            "age": 25,
-            "gender": "male",
-            "height": 71,
-            "location": "Columbus",
-            "sexual_orientation": "straight",
-            "word1": "introvert",
-            "word2": "boxing",
-            "word3": "video games",
-        },
-        {
-            "id": "5",
-            "name": "Sydney",
-            "age": 21,
-            "gender": "female",
-            "height": 62,
-            "location": "Columbus",
-            "sexual_orientation": "straight",
-            "word1": "extrovert",
-            "word2": "soccer",
-            "word3": "catan",
-        },
-
-    ]
+  "profiles": [
+    {
+      "id": "1",
+      "name": "Andrew",
+      "age": 24,
+      "gender": "male",
+      "height": 69,
+      "location": "Columbus",
+      "sexual_orientation": "straight",
+      "word1": "extrovert",
+      "word2": "soccer",
+      "word3": "marvel"
+    },
+    {
+      "id": "2",
+      "name": "Tony",
+      "age": 22,
+      "gender": "male",
+      "height": 68,
+      "location": "Columbus",
+      "sexual_orientation": "straight",
+      "word1": "introvert",
+      "word2": "pizza",
+      "word3": "marvel"
+    },
+    {
+      "id": "3",
+      "name": "Wanda",
+      "age": 52,
+      "gender": "female",
+      "height": 65,
+      "location": "Columbus",
+      "sexual_orientation": "straight",
+      "word1": "extrovert",
+      "word2": "tennis",
+      "word3": "movies"
+    },
+    {
+      "id": "4",
+      "name": "Tom",
+      "age": 25,
+      "gender": "male",
+      "height": 71,
+      "location": "Columbus",
+      "sexual_orientation": "straight",
+      "word1": "introvert",
+      "word2": "boxing",
+      "word3": "video games"
+    },
+    {
+      "id": "5",
+      "name": "Sydney",
+      "age": 21,
+      "gender": "female",
+      "height": 62,
+      "location": "Columbus",
+      "sexual_orientation": "straight",
+      "word1": "extrovert",
+      "word2": "soccer",
+      "word3": "catan"
+    }
+  ]
 }
