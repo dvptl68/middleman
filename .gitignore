@@ -71,6 +71,7 @@ data/*.csv
 venv/
 
 node_modules/
+
 .expo/
 dist/
 npm-debug.*
