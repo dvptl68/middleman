@@ -1,7 +1,6 @@
 .expo/
 .expo-shared/
 .github/
-assets/
 node_modules/
 package-lock.json
 package.json
