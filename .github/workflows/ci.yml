@@ -21,21 +21,4 @@ jobs:
       - name: Install dependencies
         run: npm ci -f
       - name: Run Linter
-        run: npm run lint
-
-  tester:
-    needs: linter
-    name: Test UI
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci -f
-      - name: Run tests
-        run: npm run test
+        run: npm run check-lint
