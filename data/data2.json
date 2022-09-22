@@ -1,1 +1,11 @@
-{"age":38,"sex":"m","orientation":"straight","education":"graduated from masters program","height":68.0,"income":-1,"location":"san francisco, california","religion":null,"name":"Elisa Bahr"}
+{
+  "age": 38,
+  "sex": "m",
+  "orientation": "straight",
+  "education": "graduated from masters program",
+  "height": 68.0,
+  "income": -1,
+  "location": "san francisco, california",
+  "religion": null,
+  "name": "Elisa Bahr"
+}

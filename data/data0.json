@@ -1,1 +1,11 @@
-{"age":22,"sex":"m","orientation":"straight","education":"working on college\/university","height":75.0,"income":-1,"location":"south san francisco, california","religion":"agnosticism and very serious about it","name":"Albert Robb"}
+{
+  "age": 22,
+  "sex": "m",
+  "orientation": "straight",
+  "education": "working on college/university",
+  "height": 75.0,
+  "income": -1,
+  "location": "south san francisco, california",
+  "religion": "agnosticism and very serious about it",
+  "name": "Albert Robb"
+}
