@@ -37,9 +37,18 @@ local.properties
 # node.js
 #
 node_modules/
-npm-debug.log
-yarn-error.log
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
 
+<<<<<<< HEAD
 # BUCK
 buck-out/
 \.buckd/
@@ -69,3 +78,6 @@ buck-out/
 data/*.csv
 *.crt
 venv/
+
+# macOS
+.DS_Store
