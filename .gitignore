@@ -37,18 +37,13 @@ local.properties
 # node.js
 #
 node_modules/
-.expo/
-dist/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
+npm-debug.log
+yarn-error.log
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c1a550ea5f9b7018b25f88ba3701e44408c2e76e
 # BUCK
 buck-out/
 \.buckd/
@@ -79,5 +74,20 @@ data/*.csv
 *.crt
 venv/
 
+<<<<<<< HEAD
+=======
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+>>>>>>> c1a550ea5f9b7018b25f88ba3701e44408c2e76e
 # macOS
 .DS_Store
