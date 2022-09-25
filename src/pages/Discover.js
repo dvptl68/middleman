@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Profile from './../components/Profile';
 
 const Discover = () => {
   const [isLoading, setLoading] = useState(true);
   const [profiles, setProfiles] = useState([]);
+  const [error, setError] = useState(null);
   useEffect(() => {
     fetch('http://127.0.0.1:5000/get_users/5/20/70/f/straight')
       .then((response) => response.json())
       .then((json) => setProfiles(json))
-      .catch((error) => console.error(error))
+      .catch((error) => setError(error))
       .finally(() => setLoading(false));
   }, []);
   const popProfile = () => {
     setProfiles((profiles) => profiles.slice(1));
   };
   const displayProfile = <Profile {...profiles[0]} />;
-  return !isLoading && profiles.length > 0 ? (
+  return isLoading ? (
+    <View style={styles.profileContainer}>
+      <Text>Loading...</Text>
+    </View>
+  ) : (
+    error ? (
+      <View style={styles.profileContainer}>
+        <Text>{error.stack}</Text>
+      </View>
+    ) : (
     <>
       <View style={styles.profileContainer}>{displayProfile}</View>
       <View style={styles.buttonsContainer}>
@@ -40,8 +50,7 @@ const Discover = () => {
         </TouchableOpacity>
       </View>
     </>
-  ) : (
-    <View style={styles.profileContainer}></View>
+    )
   );
 };
 
