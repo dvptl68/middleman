@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
 
 const Profile = (props) => {
-  console.log(props)
+  console.log(props);
   return (
     <View style={styles.container}>
       <Image
