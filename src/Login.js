@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
+import Tabs from './Tabs';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return isLoggedIn ? (
     <View style={styles.container}>
-      <Text>Logged in as {username}</Text>
+      <Tabs username={username}/>
     </View>
   ) : (
     <View style={styles.container}>
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 5,
-    borderColor: 'red',
+    borderColor: 'blue',
   },
   input: {
     height: 40,
