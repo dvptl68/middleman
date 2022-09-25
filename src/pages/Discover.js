@@ -21,12 +21,11 @@ const Discover = () => {
     <View style={styles.profileContainer}>
       <Text>Loading...</Text>
     </View>
+  ) : error ? (
+    <View style={styles.profileContainer}>
+      <Text>{error.stack}</Text>
+    </View>
   ) : (
-    error ? (
-      <View style={styles.profileContainer}>
-        <Text>{error.stack}</Text>
-      </View>
-    ) : (
     <>
       <View style={styles.profileContainer}>{displayProfile}</View>
       <View style={styles.buttonsContainer}>
@@ -50,7 +49,6 @@ const Discover = () => {
         </TouchableOpacity>
       </View>
     </>
-    )
   );
 };
 
@@ -58,21 +56,21 @@ const styles = StyleSheet.create({
   profileContainer: {
     flex: 3,
     padding: 5,
-    // borderWidth: 5,
-    // borderColor: 'red',
+    borderWidth: 5,
+    borderColor: 'red',
   },
   buttonsContainer: {
     flex: 1,
     flexDirection: 'row',
-    // borderWidth: 5,
-    // borderColor: 'blue',
+    borderWidth: 5,
+    borderColor: 'blue',
   },
   singleButtonContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth: 5,
-    // borderColor: 'green',
+    borderWidth: 5,
+    borderColor: 'green',
   },
   buttons: {
     width: 75,
