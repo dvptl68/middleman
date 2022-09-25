@@ -29,7 +29,9 @@ class User(Resource):
     def get(self):                
         es.indices.refresh(index="dating_profiles")
         resp = es.get(index="dating_profiles", id=np.random.choice(100))
-        return json.dumps(resp['_source'])
+        response = make_response(json.dumps(resp['_source']))
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
     # methods go here
     pass
 
@@ -138,8 +140,9 @@ class Users(Resource):
             
         resp = es.search(index="dating_profiles", body=search_param)
         profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
-        
-        return json.dumps(profiles,indent=4)
+        response = make_response(json.dumps(profiles))
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
     # methods go here
     pass
     

@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
 
 const Profile = (props) => {
+  console.log(props)
   return (
     <View style={styles.container}>
       <Image
@@ -10,7 +11,7 @@ const Profile = (props) => {
       />
       <Text style={styles.nameText}>{props.name}</Text>
       <Text style={styles.text}>
-        {props.sexual_orientation} {props.gender}, Age {props.age}
+        {props.orientation} ({props.sex}), Age {props.age}
       </Text>
       <Text style={styles.text}>{props.location}</Text>
       <Text style={styles.text}>
