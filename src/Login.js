@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 const Login = () => {
   const [username, setUsername] = useState('');
-  return (
-    <>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          onChangeText={setUsername}
-          value={username}
-          placeholder='Username'
-        />
-        <Button
-          title='login'
-        />
-      </View>
-    </>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  return isLoggedIn ? (
+    <View style={styles.container}>
+      <Text>Logged in as {username}</Text>
+    </View>
+  ) : (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        onChangeText={setUsername}
+        value={username}
+        placeholder="Username"
+      />
+      <Button title="login" onPress={() => setIsLoggedIn(true)} />
+    </View>
   );
 };
 
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-  }
+  },
 });
 
 export default Login;
