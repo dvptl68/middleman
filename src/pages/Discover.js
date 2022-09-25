@@ -55,7 +55,6 @@ const Discover = () => {
 const styles = StyleSheet.create({
   profileContainer: {
     flex: 3,
-    padding: 5,
     borderWidth: 5,
     borderColor: 'red',
   },
