@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { ProfileStyles } from '../styles/Styles';
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <View style={ProfileStyles.container}>
-      <Text>Profile</Text>
+      <Text>Username: {props.username}</Text>
     </View>
   );
 };

@@ -6,12 +6,12 @@ import Matchmaking from './pages/Matchmaking';
 import Chat from './pages/Chat';
 import Profile from './pages/Profile';
 
-const MainView = () => {
+const MainView = (props) => {
   const [tabs] = useState([
-    <Discover key={1} />,
-    <Matchmaking key={2} />,
-    <Chat key={3} />,
-    <Profile key={4} />,
+    <Discover key={1} {...props} />,
+    <Matchmaking key={2} {...props} />,
+    <Chat key={3} {...props} />,
+    <Profile key={4} {...props} />,
   ]);
   const [activeTab, setActiveTab] = useState(0);
   return (
