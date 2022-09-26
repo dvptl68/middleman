@@ -26,7 +26,7 @@ const Discover = () => {
     <View style={DiscoverStyles.profileContainer}>
       <Text>{error.stack}</Text>
     </View>
-  ) : (
+  ) : profiles.length > 0 ? (
     <>
       <View style={DiscoverStyles.profileContainer}>{displayProfile}</View>
       <View style={DiscoverStyles.buttonsContainer}>
@@ -50,6 +50,8 @@ const Discover = () => {
         </TouchableOpacity>
       </View>
     </>
+  ) : (
+    <></>
   );
 };
 

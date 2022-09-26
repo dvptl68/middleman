@@ -18,7 +18,10 @@ const Profile = (props) => {
         {Math.floor(props.height / 12)}'{props.height % 12}"
       </Text>
       <Text style={styles.text}>
-        Three words to describe me: {props.word1}, {props.word2}, {props.word3}
+        Education: {props.education == null ? 'N/A' : props.education}
+      </Text>
+      <Text style={styles.text}>
+        Religion: {props.religion == null ? 'N/A' : props.religion}
       </Text>
     </View>
   );
