@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
-import Tabs from './Tabs';
+import MainView from './MainView';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return isLoggedIn ? (
-    <Tabs username={username} />
+    <MainView username={username} />
   ) : (
     <View style={styles.container}>
       <TextInput
