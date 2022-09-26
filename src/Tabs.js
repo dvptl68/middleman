@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Discover from './pages/Discover';
 import Matchmaking from './pages/Matchmaking';
 import Chat from './pages/Chat';
@@ -14,26 +14,20 @@ const Tabs = (props) => {
         {tabs[activeTab]}
       </View>
       <View style={styles.tabsContainer}>
-        <View style={styles.singleTabContainer}>
-          <Text onPress={() => setActiveTab(0)}>
-            Discover
-          </Text>
-        </View>
-        <View style={styles.singleTabContainer}>
-          <Text onPress={() => setActiveTab(1)}>
-            Matchmaking
-          </Text>
-        </View>
-        <View style={styles.singleTabContainer}>
-          <Text onPress={() => setActiveTab(2)}>
-            Chat
-          </Text>
-        </View>
-        <View style={styles.singleTabContainer}>
-          <Text onPress={() => setActiveTab(3)}>
-            Profile
-          </Text>
-        </View>
+        {['discover', 'matchmaking', 'chat', 'profile'].map((tabName, i) => {
+          return (
+              <TouchableOpacity
+                key={i}
+                style={styles.singleTabContainer}
+                onPress={() => setActiveTab(i)}
+              >
+                <Image
+                  style={styles.buttons}
+                  source={require(`./../assets/images/${tabName}.png`)}
+                />
+              </TouchableOpacity>
+          );
+        })}
       </View>
     </>
   );
@@ -41,7 +35,7 @@ const Tabs = (props) => {
 
 const styles = StyleSheet.create({
   pageContainer: {
-    flex: 3,
+    flex: 8,
     borderWidth: 5,
     borderColor: 'green',
   },
@@ -56,7 +50,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 5,
-    borderColor: 'green',
+    borderColor: 'blue',
+  },
+  buttons: {
+    width: 20,
+    height: 20,
+    resizeMode: 'stretch',
   },
 });
 
