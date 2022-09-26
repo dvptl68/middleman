@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button } from 'react-native';
+import { LoginStyles } from './styles/Styles';
 import MainView from './MainView';
 
 const Login = () => {
@@ -9,15 +10,15 @@ const Login = () => {
   return isLoggedIn ? (
     <MainView username={username} />
   ) : (
-    <View style={styles.container}>
+    <View style={LoginStyles.loginContainer}>
       <TextInput
-        style={styles.input}
+        style={LoginStyles.textInput}
         onChangeText={setUsername}
         value={username}
         placeholder="Username"
       />
       <TextInput
-        style={styles.input}
+        style={LoginStyles.textInput}
         onChangeText={setPassword}
         value={password}
         placeholder="Password"
@@ -27,22 +28,5 @@ const Login = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 5,
-    borderColor: 'blue',
-  },
-  input: {
-    height: 40,
-    width: 200,
-    margin: 5,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
 
 export default Login;
