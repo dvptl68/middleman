@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { DiscoverStyles } from '../styles/Styles';
-import Profile from './../components/Profile';
+import DiscoverProfile from '../components/DiscoverProfile';
 
 const Discover = () => {
   const [isLoading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const Discover = () => {
   const popProfile = () => {
     setProfiles((profiles) => profiles.slice(1));
   };
-  const displayProfile = <Profile {...profiles[0]} />;
+  const displayProfile = <DiscoverProfile {...profiles[0]} />;
   return isLoading ? (
     <View style={DiscoverStyles.profileContainer}>
       <Text>Loading...</Text>
