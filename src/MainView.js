@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
+import { MainViewStyles } from './styles/Styles';
 import Discover from './pages/Discover';
 import Matchmaking from './pages/Matchmaking';
 import Chat from './pages/Chat';
@@ -15,17 +16,17 @@ const MainView = () => {
   const [activeTab, setActiveTab] = useState(0);
   return (
     <>
-      <View style={styles.pageContainer}>{tabs[activeTab]}</View>
-      <View style={styles.tabsContainer}>
+      <View style={MainViewStyles.pageContainer}>{tabs[activeTab]}</View>
+      <View style={MainViewStyles.tabsContainer}>
         {['discover', 'matchmaking', 'chat', 'profile'].map((tabName, i) => {
           return (
             <TouchableOpacity
               key={i}
-              style={styles.singleTabContainer}
+              style={MainViewStyles.singleTabContainer}
               onPress={() => setActiveTab(i)}
             >
               <Image
-                style={styles.buttons}
+                style={MainViewStyles.buttons}
                 source={require(`./../assets/images/${tabName}.png`)}
               />
             </TouchableOpacity>
@@ -35,31 +36,5 @@ const MainView = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  pageContainer: {
-    flex: 8,
-    borderWidth: 5,
-    borderColor: 'green',
-  },
-  tabsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    borderWidth: 5,
-    borderColor: 'red',
-  },
-  singleTabContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 5,
-    borderColor: 'blue',
-  },
-  buttons: {
-    width: 30,
-    height: 30,
-    resizeMode: 'stretch',
-  },
-});
 
 export default MainView;

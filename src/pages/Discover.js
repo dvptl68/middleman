@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { DiscoverStyles } from '../styles/Styles';
 import Profile from './../components/Profile';
 
 const Discover = () => {
@@ -18,32 +19,32 @@ const Discover = () => {
   };
   const displayProfile = <Profile {...profiles[0]} />;
   return isLoading ? (
-    <View style={styles.profileContainer}>
+    <View style={DiscoverStyles.profileContainer}>
       <Text>Loading...</Text>
     </View>
   ) : error ? (
-    <View style={styles.profileContainer}>
+    <View style={DiscoverStyles.profileContainer}>
       <Text>{error.stack}</Text>
     </View>
   ) : (
     <>
-      <View style={styles.profileContainer}>{displayProfile}</View>
-      <View style={styles.buttonsContainer}>
+      <View style={DiscoverStyles.profileContainer}>{displayProfile}</View>
+      <View style={DiscoverStyles.buttonsContainer}>
         <TouchableOpacity
-          style={styles.singleButtonContainer}
+          style={DiscoverStyles.singleButtonContainer}
           onPress={popProfile}
         >
           <Image
-            style={styles.buttons}
+            style={DiscoverStyles.buttons}
             source={require('./../../assets/images/broken-heart.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.singleButtonContainer}
+          style={DiscoverStyles.singleButtonContainer}
           onPress={popProfile}
         >
           <Image
-            style={styles.buttons}
+            style={DiscoverStyles.buttons}
             source={require('./../../assets/images/heart.png')}
           />
         </TouchableOpacity>
@@ -51,31 +52,5 @@ const Discover = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  profileContainer: {
-    flex: 3,
-    borderWidth: 5,
-    borderColor: 'red',
-  },
-  buttonsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    borderWidth: 5,
-    borderColor: 'blue',
-  },
-  singleButtonContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 5,
-    borderColor: 'green',
-  },
-  buttons: {
-    width: 75,
-    height: 75,
-    resizeMode: 'stretch',
-  },
-});
 
 export default Discover;
