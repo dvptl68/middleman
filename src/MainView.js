@@ -5,7 +5,7 @@ import Matchmaking from './pages/Matchmaking';
 import Chat from './pages/Chat';
 import Profile from './pages/Profile';
 
-const Tabs = () => {
+const MainView = () => {
   const [tabs] = useState([
     <Discover key={1} />,
     <Matchmaking key={2} />,
@@ -56,10 +56,10 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
   },
   buttons: {
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     resizeMode: 'stretch',
   },
 });
 
-export default Tabs;
+export default MainView;
