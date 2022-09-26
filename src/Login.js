@@ -6,7 +6,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return isLoggedIn ? (
-    <Tabs username={username}/>
+    <Tabs username={username} />
   ) : (
     <View style={styles.container}>
       <TextInput
