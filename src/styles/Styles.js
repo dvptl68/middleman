@@ -102,6 +102,37 @@ const ProfileStyles = StyleSheet.create({
   },
 });
 
+const DiscoverProfileStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  picture: {
+    width: 100,
+    height: 115,
+    resizeMode: 'stretch',
+    margin: 5,
+  },
+  nameText: {
+    fontFamily: 'sans',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'black',
+    margin: 5,
+  },
+  text: {
+    textAlign: 'center',
+    fontFamily: 'sans',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+    margin: 5,
+  },
+});
+
 export {
   LoginStyles,
   MainViewStyles,
@@ -109,4 +140,5 @@ export {
   MatchmakingStyles,
   ChatStyles,
   ProfileStyles,
+  DiscoverProfileStyles,
 };
