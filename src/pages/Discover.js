@@ -1,69 +1,58 @@
-import React, { useState } from 'react';
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import Profile from './../components/Profile';
+import React, { useState, useEffect } from 'react';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { DiscoverStyles } from '../styles/Styles';
+import DiscoverProfile from '../components/DiscoverProfile';
 
 const Discover = () => {
-  const [profiles, setProfile] = useState(
-    require('./../../assets/input_profiles/profiles.json')
-  );
+  const [isLoading, setLoading] = useState(true);
+  const [profiles, setProfiles] = useState([]);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/get_users/5/20/70/f/straight')
+      .then((response) => response.json())
+      .then((json) => setProfiles(json))
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
+  }, []);
   const popProfile = () => {
-    setProfile((profiles) => profiles.slice(1));
+    setProfiles((profiles) => profiles.slice(1));
   };
-  const displayProfile = <Profile {...profiles[0]} />;
-  return profiles.length > 0 ? (
+  const displayProfile = <DiscoverProfile {...profiles[0]} />;
+  return isLoading ? (
+    <View style={DiscoverStyles.profileContainer}>
+      <Text>Loading...</Text>
+    </View>
+  ) : error ? (
+    <View style={DiscoverStyles.profileContainer}>
+      <Text>{error.stack}</Text>
+    </View>
+  ) : profiles.length > 0 ? (
     <>
-      <View style={styles.profileContainer}>{displayProfile}</View>
-      <View style={styles.buttonsContainer}>
+      <View style={DiscoverStyles.profileContainer}>{displayProfile}</View>
+      <View style={DiscoverStyles.buttonsContainer}>
         <TouchableOpacity
-          style={styles.singleButtonContainer}
+          style={DiscoverStyles.singleButtonContainer}
           onPress={popProfile}
         >
           <Image
-            style={styles.buttons}
+            style={DiscoverStyles.buttons}
             source={require('./../../assets/images/broken-heart.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.singleButtonContainer}
+          style={DiscoverStyles.singleButtonContainer}
           onPress={popProfile}
         >
           <Image
-            style={styles.buttons}
+            style={DiscoverStyles.buttons}
             source={require('./../../assets/images/heart.png')}
           />
         </TouchableOpacity>
       </View>
     </>
   ) : (
-    <View style={styles.profileContainer}></View>
+    <></>
   );
 };
-
-const styles = StyleSheet.create({
-  profileContainer: {
-    flex: 3,
-    padding: 5,
-    // borderWidth: 5,
-    // borderColor: 'red',
-  },
-  buttonsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    // borderWidth: 5,
-    // borderColor: 'blue',
-  },
-  singleButtonContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    // borderWidth: 5,
-    // borderColor: 'green',
-  },
-  buttons: {
-    width: 75,
-    height: 75,
-    resizeMode: 'stretch',
-  },
-});
 
 export default Discover;
