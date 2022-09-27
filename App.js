@@ -1,7 +1,7 @@
-import Discover from './src/pages/Discover';
+import Login from './src/Login';
 
 const App = () => {
-  return <Discover />;
+  return <Login />;
 };
 
 export default App;
