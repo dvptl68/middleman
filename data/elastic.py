@@ -18,12 +18,17 @@ client = Elasticsearch(
     ssl_assert_fingerprint=(CERT_FINGERPRINT),
     basic_auth=("elastic", ELASTIC_PASSWORD)
 )
+# in case there already exists the index
+client.options(ignore_status=[400,404]).indices.delete(index='dating_profiles')
 
 # Successful response!
 print(client.info())
 # {'name': 'instance-0000000000', 'cluster_name': ...}
 data = pd.read_csv('data/okcupid_profiles.csv')
 data['name'] = np.nan
+data['username'] = np.nan
+data['password'] = np.nan
+data['matchmaker'] = np.nan
 dataToStore = ['id','name', 'age','sex','height','location','orientation','religion', 'income', 'education']
 # delete not needed categories
 for column in data:
@@ -34,9 +39,16 @@ for column in data:
 df = data.replace({np.nan: None}) # replace with None instead of np.nan since elastic does not parse np.nan
 
 # Store the First 100 Dating Profiles into dating_profiles index in Elastic
-for i in range(100):
-    df.loc[i, 'name'] = names.get_full_name()
+for i in range(400):
+    fname = names.get_first_name()
+    lname = names.get_last_name()
+    name = fname + ' ' + lname
+    df.loc[i, 'name'] = name
+    df.loc[i, 'username'] = lname + '.' + fname + str(i + 1)
+    df.loc[i, 'password'] = 'pw'
+    df.loc[i, 'matchmaker'] = 'nan'
     json = df.loc[i].to_dict()
+    json['liked_users'] = []
     print(json)
     client.index(index="dating_profiles", id=i+1, document=json)
     #time.sleep(2)
