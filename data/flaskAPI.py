@@ -60,14 +60,13 @@ class Users(Resource):
         upperAgeLimit = int(age) + gap
         lowerHeightLimit = int(height) - gap
         upperHeightLimit = int(height) + gap
-        print(searchGender)
         search_param = ""
         if searchGender is None:
             search_param = {
                 "size": n,
                 "query": {
                     "bool": {
-                        "must": [
+                        "should": [
                             {
                              "range":{
                         
@@ -80,11 +79,30 @@ class Users(Resource):
                                 }   
                             },
                             {
+                             "range":{
+                                    "age":{
+                                        "gte": lowerAgeLimit - 3,
+                                        "lte": upperAgeLimit + 3,
+                                        "boost": 2.0
+                                    }      
+                                }   
+                            },
+                            {
                                 
                                 "range": {
                                     "height":{
                                         "gte": lowerHeightLimit,
                                         "lte": upperHeightLimit,
+                                        "boost": 2.0
+                                    }
+                                }
+                            },
+                            {
+                                
+                                "range": {
+                                    "height":{
+                                        "gte": lowerHeightLimit - 3,
+                                        "lte": upperHeightLimit + 3,
                                         "boost": 2.0
                                     }
                                 }
@@ -94,7 +112,6 @@ class Users(Resource):
                 }
             }
         else:
-            print("here")
             search_param = {
                 "size": n,
                 "query": {
