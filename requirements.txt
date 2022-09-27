@@ -1,0 +1,6 @@
+elasticsearch==8.4.2
+Flask==2.2.2
+Flask_RESTful==0.3.9
+names==0.3.0
+numpy==1.23.3
+pandas==1.5.0
