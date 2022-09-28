@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const showContainerBorders = true;
+const showContainerBorders = false;
 const containerBorderWidth = 4;
 
 const LoginStyles = StyleSheet.create({
@@ -46,7 +46,13 @@ const MainViewStyles = StyleSheet.create({
   },
 });
 
-const DiscoverStyles = StyleSheet.create({});
+const DiscoverStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+});
 
 const MatchmakingStyles = StyleSheet.create({
   container: {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import DisplayProfile from '../components/DisplayProfile';
 import { MatchmakingStyles } from '../styles/Styles';
 
@@ -15,7 +15,6 @@ const Matchmaking = (props) => {
         newUserData[newUserData[username].matchmaker].mProfiles.push(newUserData[props.username].matchmaking);
       }
     }
-    console.log(newUserData);
     props.setUserData(newUserData);
     setProfiles(newUserData[props.username].mProfiles);
   };

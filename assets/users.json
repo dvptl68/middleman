@@ -10,7 +10,8 @@
     "matchmaking": "catwoman2",
     "matchmaker": "",
     "mProfiles": ["batman2"],
-    "approvedProfiles": []
+    "approvedProfiles": ["batman2"],
+    "userLiked": []
   },
   "batman1": {
     "profile": {
@@ -23,7 +24,8 @@
     "matchmaking": "batman2",
     "matchmaker": "",
     "mProfiles": [],
-    "approvedProfiles": []
+    "approvedProfiles": ["catwoman2"],
+    "userLiked": []
   },
   "catwoman2": {
     "profile": {
@@ -36,7 +38,8 @@
     "matchmaking": "",
     "matchmaker": "catwoman1",
     "mProfiles": [],
-    "approvedProfiles": []
+    "approvedProfiles": [],
+    "userLiked": []
   },
   "batman2": {
     "profile": {
@@ -49,6 +52,7 @@
     "matchmaking": "",
     "matchmaker": "batman1",
     "mProfiles": [],
-    "approvedProfiles": []
+    "approvedProfiles": [],
+    "userLiked": []
   }
 }
