@@ -8,9 +8,9 @@
       "orientation": "straight"
     },
     "matchmaking": "catwoman2",
-    "matchmaker": "",
+    "matchmaker": "catwoman1",
     "mProfiles": ["batman2"],
-    "approvedProfiles": ["batman2"],
+    "approvedProfiles": [],
     "userLiked": []
   },
   "batman1": {
@@ -22,9 +22,9 @@
       "orientation": "straight"
     },
     "matchmaking": "batman2",
-    "matchmaker": "",
+    "matchmaker": "batman1",
     "mProfiles": [],
-    "approvedProfiles": ["catwoman2"],
+    "approvedProfiles": [],
     "userLiked": []
   },
   "catwoman2": {
@@ -35,7 +35,7 @@
       "sex": "f",
       "orientation": "straight"
     },
-    "matchmaking": "",
+    "matchmaking": "catwoman2",
     "matchmaker": "catwoman1",
     "mProfiles": [],
     "approvedProfiles": [],
@@ -49,7 +49,7 @@
       "sex": "m",
       "orientation": "straight"
     },
-    "matchmaking": "",
+    "matchmaking": "batman2",
     "matchmaker": "batman1",
     "mProfiles": [],
     "approvedProfiles": [],

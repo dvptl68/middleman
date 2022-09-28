@@ -65,10 +65,32 @@ const MatchmakingStyles = StyleSheet.create({
 const ChatStyles = StyleSheet.create({
   container: {
     flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  listItemContainer: {
+    height: 100,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 1,
+    borderColor: showContainerBorders ? 'blue' : 'black',
+  },
+  listItemTextContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'red',
+    borderColor: 'green',
+  },
+  listItemText: {
+    fontSize: 20,
+  },
+  profilePicture: {
+    width: 50,
+    height: 50,
+    margin: 10,
+    resizeMode: 'stretch',
   },
 });
 

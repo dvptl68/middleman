@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList, Image } from 'react-native';
 import { ChatStyles } from '../styles/Styles';
 
 const Chat = (props) => {
@@ -11,10 +11,25 @@ const Chat = (props) => {
       chatUsernames.push(username)
     }
   });
-  console.log(chatUsernames)
+  const renderItem = username => {
+    return (
+      <View style={ChatStyles.listItemContainer}>
+        <Image
+          style={ChatStyles.profilePicture}
+          source={require(`./../../assets/images/${username}.jpg`)}
+        />
+        <View style={ChatStyles.listItemTextContainer}>
+          <Text style={ChatStyles.listItemText}>{props.userData[username].profile.name}</Text>
+        </View>
+      </View>
+    );
+  };
   return (
     <View style={ChatStyles.container}>
-      <Text>Chat</Text>
+      <FlatList
+        data={chatUsernames}
+        renderItem={({ item }) => renderItem(item)}
+      />
     </View>
   );
 };
