@@ -1,21 +1,35 @@
-import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
+import DisplayProfile from '../components/DisplayProfile';
 import { MatchmakingStyles } from '../styles/Styles';
 
 const Matchmaking = (props) => {
-  console.log(props);
-  return (
+  const [profiles, setProfiles] = useState(props.userData[props.username].mProfiles);
+  const likeProfile = (liked) => {
+    const username = profiles[0];
+    const newUserData = {...props.userData};
+    newUserData[props.username].mProfiles = profiles.slice(1);
+    if (liked) {
+      newUserData[props.username].approvedProfiles.push(username);
+      if (!newUserData[newUserData[username].matchmaker].approvedProfiles.includes(newUserData[props.username].matchmaking)) {
+        newUserData[newUserData[username].matchmaker].mProfiles.push(newUserData[props.username].matchmaking);
+      }
+    }
+    props.setUserData(newUserData);
+    setProfiles(newUserData[props.username].mProfiles);
+  };
+  return profiles.length > 0 ? (
     <View style={MatchmakingStyles.container}>
-      <Text>Currently Matchmaking For:</Text>
-      <View style={MatchmakingStyles.container}>
-      <FlatList
-        data={[
-          {key: 'Devin'},
-        ]}
-        renderItem={({item}) => <Text style={MatchmakingStyles.item}>{item.key}</Text>}
+      <DisplayProfile
+        username={profiles[0]}
+        likeProfile={likeProfile}
+        {...props.userData[profiles[0]].profile}
       />
     </View>
-    </View>
+  ) : (
+    <>
+      <Text>No profiles to show!</Text>
+    </>
   );
 };
 

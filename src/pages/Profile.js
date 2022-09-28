@@ -6,7 +6,7 @@ const Profile = (props) => {
   return (
     <View style={ProfileStyles.container}>
       <Text>Username: {props.username}</Text>
-      <Button title="logout" onPress={() => props.loggedIn(false)} />
+      <Button title="logout" onPress={() => props.setLoggedIn(false)} />
     </View>
   );
 };

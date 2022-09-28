@@ -58,14 +58,92 @@ const MainViewStyles = StyleSheet.create({
 });
 
 const DiscoverStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+});
+
+const MatchmakingStyles = StyleSheet.create({
   baseText: {
     fontFamily: defaultFont,
+  },
+  container: {
+    flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+    backgroundColor: Colors.LIGHT_PINK,
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+});
+
+const ChatStyles = StyleSheet.create({
+  baseText: {
+    fontFamily: defaultFont,
+  },
+  container: {
+    flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  listItemContainer: {
+    height: 100,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 1,
+    borderColor: showContainerBorders ? 'blue' : 'black',
+  },
+  listItemTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  listItemText: {
+    fontSize: 20,
+  },
+  profilePicture: {
+    width: 50,
+    height: 50,
+    margin: 10,
+    resizeMode: 'stretch',
+  },
+});
+
+const ProfileStyles = StyleSheet.create({
+  baseText: {
+    fontFamily: defaultFont,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+    backgroundColor: Colors.LIGHT_PINK,
+  },
+});
+
+const DisplayProfileStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+    backgroundColor: Colors.LIGHT_PINK,
   },
   profileContainer: {
     flex: 3,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
+    borderColor: 'green',
   },
   buttonsContainer: {
     flex: 1,
@@ -85,70 +163,9 @@ const DiscoverStyles = StyleSheet.create({
     height: 75,
     resizeMode: 'stretch',
   },
-});
-
-const MatchmakingStyles = StyleSheet.create({
-  baseText: {
-    fontFamily: defaultFont,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-});
-
-const ChatStyles = StyleSheet.create({
-  baseText: {
-    fontFamily: defaultFont,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
-  },
-});
-
-const ProfileStyles = StyleSheet.create({
-  baseText: {
-    fontFamily: defaultFont,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
-  },
-});
-
-const DiscoverProfileStyles = StyleSheet.create({
-  baseText: {
-    fontFamily: defaultFont,
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
-  },
   picture: {
-    width: 100,
-    height: 115,
+    width: 200,
+    height: 200,
     resizeMode: 'stretch',
     margin: 5,
   },
@@ -176,5 +193,5 @@ export {
   MatchmakingStyles,
   ChatStyles,
   ProfileStyles,
-  DiscoverProfileStyles,
+  DisplayProfileStyles,
 };
