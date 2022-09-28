@@ -1,11 +1,19 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { MatchmakingStyles } from '../styles/Styles';
 
 const Matchmaking = () => {
   return (
     <View style={MatchmakingStyles.container}>
-      <Text>Matchmaking</Text>
+      <Text>Currently Matchmaking For:</Text>
+      <View style={MatchmakingStyles.container}>
+      <FlatList
+        data={[
+          {key: 'Devin'},
+        ]}
+        renderItem={({item}) => <Text style={MatchmakingStyles.item}>{item.key}</Text>}
+      />
+    </View>
     </View>
   );
 };
