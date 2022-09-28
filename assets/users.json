@@ -1,43 +1,51 @@
 {
   "catwoman1": {
-    "name": "Anne Hathaway",
-    "age": "39",
-    "height": "68",
-    "sex": "f",
-    "orientation": "straight",
+    "profile": {
+      "name": "Anne Hathaway",
+      "age": "39",
+      "height": "68",
+      "sex": "f",
+      "orientation": "straight"
+    },
     "matchmaking": "catwoman2",
     "matchmaker": "",
     "mProfiles": ["batman2"],
     "approvedProfiles": []
   },
   "batman1": {
-    "name": "Christian Bale",
-    "age": "48",
-    "height": "72",
-    "sex": "m",
-    "orientation": "straight",
+    "profile": {
+      "name": "Christian Bale",
+      "age": "48",
+      "height": "72",
+      "sex": "m",
+      "orientation": "straight"
+    },
     "matchmaking": "batman2",
     "matchmaker": "",
     "mProfiles": [],
     "approvedProfiles": []
   },
   "catwoman2": {
-    "name": "Zoe Kravitz",
-    "age": "33",
-    "height": "62",
-    "sex": "f",
-    "orientation": "straight",
+    "profile": {
+      "name": "Zoe Kravitz",
+      "age": "33",
+      "height": "62",
+      "sex": "f",
+      "orientation": "straight"
+    },
     "matchmaking": "",
     "matchmaker": "catwoman1",
     "mProfiles": [],
     "approvedProfiles": []
   },
   "batman2": {
-    "name": "Robert Pattinson",
-    "age": "36",
-    "height": "73",
-    "sex": "m",
-    "orientation": "straight",
+    "profile": {
+      "name": "Robert Pattinson",
+      "age": "36",
+      "height": "73",
+      "sex": "m",
+      "orientation": "straight"
+    },
     "matchmaking": "",
     "matchmaker": "batman1",
     "mProfiles": [],

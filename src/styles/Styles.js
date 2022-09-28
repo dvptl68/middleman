@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const showContainerBorders = false;
+const showContainerBorders = true;
 const containerBorderWidth = 4;
 
 const LoginStyles = StyleSheet.create({
@@ -46,37 +46,11 @@ const MainViewStyles = StyleSheet.create({
   },
 });
 
-const DiscoverStyles = StyleSheet.create({
-  profileContainer: {
-    flex: 3,
-    borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'red',
-  },
-  buttonsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'blue',
-  },
-  singleButtonContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'green',
-  },
-  buttons: {
-    width: 75,
-    height: 75,
-    resizeMode: 'stretch',
-  },
-});
+const DiscoverStyles = StyleSheet.create({});
 
 const MatchmakingStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
   },
@@ -102,7 +76,7 @@ const ProfileStyles = StyleSheet.create({
   },
 });
 
-const DiscoverProfileStyles = StyleSheet.create({
+const DisplayProfileStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -110,9 +84,32 @@ const DiscoverProfileStyles = StyleSheet.create({
     border: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
   },
+  profileContainer: {
+    flex: 3,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  buttonsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  singleButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  buttons: {
+    width: 75,
+    height: 75,
+    resizeMode: 'stretch',
+  },
   picture: {
-    width: 100,
-    height: 115,
+    width: 200,
+    height: 200,
     resizeMode: 'stretch',
     margin: 5,
   },
@@ -140,5 +137,5 @@ export {
   MatchmakingStyles,
   ChatStyles,
   ProfileStyles,
-  DiscoverProfileStyles,
+  DisplayProfileStyles,
 };

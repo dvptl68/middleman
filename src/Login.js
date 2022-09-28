@@ -8,18 +8,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(require('./../assets/users.json'));
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     console.log('Logged in');
-  //   } else {
-  //     console.log('Not logged in');
-  //   }
-  // }, [isLoggedIn]);
   return isLoggedIn ? (
     <MainView
-      loggedIn={setIsLoggedIn}
       username={username}
+      password={password}
       userData={userData}
+      setUserData={setUserData}
+      setLoggedIn={setIsLoggedIn}
     />
   ) : (
     <View style={LoginStyles.loginContainer}>
