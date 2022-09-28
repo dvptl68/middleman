@@ -14,6 +14,7 @@ const MainView = (props) => {
     <Profile key={4} {...props} />,
   ]);
   const [activeTab, setActiveTab] = useState(0);
+  console.log(props);
   return (
     <>
       <View style={MainViewStyles.pageContainer}>{tabs[activeTab]}</View>

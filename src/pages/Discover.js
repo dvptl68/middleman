@@ -8,7 +8,9 @@ const Discover = (props) => {
   const [profiles, setProfiles] = useState([]);
   const [error, setError] = useState(null);
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/get_users/5/${props.age}/${props.height}/${props.sex}/${props.orientation}`)
+    fetch(
+      `http://127.0.0.1:5000/get_users/5/${props.age}/${props.height}/${props.sex}/${props.orientation}`
+    )
       .then((response) => response.json())
       .then((json) => setProfiles(json))
       .catch((error) => setError(error))
@@ -51,7 +53,9 @@ const Discover = (props) => {
       </View>
     </>
   ) : (
-    <></>
+    <View style={DiscoverStyles.profileContainer}>
+      <Text>No profiles to show!</Text>
+    </View>
   );
 };
 
