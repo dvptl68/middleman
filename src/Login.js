@@ -8,7 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return isLoggedIn ? (
-    <MainView username={username} />
+    <MainView username={username} {...require('./../assets/users.json')[username]} loggedIn={setIsLoggedIn}/>
   ) : (
     <View style={LoginStyles.loginContainer}>
       <TextInput

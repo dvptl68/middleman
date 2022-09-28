@@ -3,7 +3,6 @@ import { Image, Text, View } from 'react-native';
 import { DiscoverProfileStyles } from '../styles/Styles';
 
 const DiscoverProfile = (props) => {
-  console.log(props);
   return (
     <View style={DiscoverProfileStyles.container}>
       <Image
