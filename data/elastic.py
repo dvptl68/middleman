@@ -29,6 +29,7 @@ data['name'] = np.nan
 data['username'] = np.nan
 data['password'] = np.nan
 data['matchmaker'] = np.nan
+data['id'] = np.nan
 dataToStore = ['id','name', 'age','sex','height','location','orientation','religion', 'income', 'education']
 # delete not needed categories
 for column in data:
@@ -47,6 +48,7 @@ for i in range(400):
     df.loc[i, 'username'] = lname + '.' + fname + str(i + 1)
     df.loc[i, 'password'] = 'pw'
     df.loc[i, 'matchmaker'] = 'nan'
+    df.loc[i, 'id'] = i+1
     json = df.loc[i].to_dict()
     json['liked_users'] = []
     print(json)
