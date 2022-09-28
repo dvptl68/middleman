@@ -18,7 +18,9 @@ const Discover = (props) => {
   const likeProfile = (liked) => {
     const username = profiles[0];
     const newUserData = {...props.userData};
-    newUserData[props.username].userLiked = [...newUserData[props.username].userLiked, username];
+    if (liked) {
+      newUserData[props.username].userLiked = [...newUserData[props.username].userLiked, username];
+    }
     props.setUserData(newUserData);
     setProfiles(profiles.slice(1));
   };
