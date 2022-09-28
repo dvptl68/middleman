@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { MatchmakingStyles } from '../styles/Styles';
 
-const Matchmaking = () => {
+const Matchmaking = (props) => {
+  console.log(props);
   return (
     <View style={MatchmakingStyles.container}>
       <Text>Currently Matchmaking For:</Text>
