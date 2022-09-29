@@ -10,12 +10,10 @@ const Login = () => {
   const [userData, setUserData] = useState(require('./../assets/users.json'));
   const [elasticProfiles, setElasticProfiles] = useState([]);
   useEffect(() => {
-      fetch(
-        `http://127.0.0.1:5000/get_users/5/20/65/f/straight`
-      )
-        .then((response) => response.json())
-        .then((json) => setElasticProfiles(json))
-        .catch((error) => console.error(error));
+    fetch(`http://127.0.0.1:5000/get_users/5/20/65/f/straight`)
+      .then((response) => response.json())
+      .then((json) => setElasticProfiles(json))
+      .catch((error) => console.error(error));
   }, []);
   return isLoggedIn ? (
     <MainView
