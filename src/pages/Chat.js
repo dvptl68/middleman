@@ -26,14 +26,19 @@ const Chat = (props) => {
       </View>
     );
   };
-  return (
+  return chatUsernames.length > 0 ? (
     <View style={ChatStyles.container}>
       <FlatList
         data={chatUsernames}
         renderItem={({ item }) => renderItem(item)}
       />
     </View>
+  ) : (
+    <View style={ChatStyles.noProfilesTextContainer}>
+      <Text style={ChatStyles.noProfilesText}>
+        No chats yet!
+      </Text>
+    </View>
   );
 };
-
 export default Chat;

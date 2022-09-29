@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import Colors from './Colors';
 
-const showContainerBorders = false;
+const showContainerBorders = true;
 const containerBorderWidth = 4;
 const defaultFont = 'sans-serif';
 
@@ -64,6 +64,17 @@ const DiscoverStyles = StyleSheet.create({
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
   },
+  noProfilesTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  noProfilesText: {
+    fontSize: 20,
+    alignSelf: 'center',
+  },
 });
 
 const MatchmakingStyles = StyleSheet.create({
@@ -80,6 +91,17 @@ const MatchmakingStyles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44,
+  },
+  noProfilesTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  noProfilesText: {
+    fontSize: 20,
+    alignSelf: 'center',
   },
 });
 
@@ -115,6 +137,17 @@ const ChatStyles = StyleSheet.create({
     height: 50,
     margin: 10,
     resizeMode: 'stretch',
+  },
+  noProfilesTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  noProfilesText: {
+    fontSize: 20,
+    alignSelf: 'center',
   },
 });
 
