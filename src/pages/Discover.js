@@ -1,57 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import DisplayProfile from '../components/DisplayProfile';
 import { DiscoverStyles } from '../styles/Styles';
-import DiscoverProfile from '../components/DiscoverProfile';
 
-const Discover = () => {
-  const [isLoading, setLoading] = useState(true);
+const Discover = (props) => {
   const [profiles, setProfiles] = useState([]);
-  const [error, setError] = useState(null);
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/get_users/5/20/70/f/straight')
-      .then((response) => response.json())
-      .then((json) => setProfiles(json))
-      .catch((error) => setError(error))
-      .finally(() => setLoading(false));
+    const matchmakerApproved =
+      props.userData[props.userData[props.username].matchmaker]
+        .approvedProfiles;
+    matchmakerApproved.forEach((username) => {
+      const otherMatchmakerApproved =
+        props.userData[props.userData[username].matchmaker].approvedProfiles;
+      const userLiked = props.userData[props.username].userLiked;
+      if (
+        otherMatchmakerApproved.includes(props.username) &&
+        !userLiked.includes(username)
+      ) {
+        setProfiles((prevArr) => [...prevArr, username]);
+      }
+    });
   }, []);
-  const popProfile = () => {
-    setProfiles((profiles) => profiles.slice(1));
+  const likeProfile = (liked) => {
+    const username = profiles[0];
+    const newUserData = { ...props.userData };
+    if (liked) {
+      newUserData[props.username].userLiked = [
+        ...newUserData[props.username].userLiked,
+        username,
+      ];
+    }
+    props.setUserData(newUserData);
+    setProfiles(profiles.slice(1));
   };
-  const displayProfile = <DiscoverProfile {...profiles[0]} />;
-  return isLoading ? (
-    <View style={DiscoverStyles.profileContainer}>
-      <Text>Loading...</Text>
+  return profiles.length > 0 ? (
+    <View style={DiscoverStyles.container}>
+      <DisplayProfile
+        username={profiles[0]}
+        likeProfile={likeProfile}
+        {...props.userData[profiles[0]].profile}
+      />
     </View>
-  ) : error ? (
-    <View style={DiscoverStyles.profileContainer}>
-      <Text>{error.stack}</Text>
-    </View>
-  ) : profiles.length > 0 ? (
-    <>
-      <View style={DiscoverStyles.profileContainer}>{displayProfile}</View>
-      <View style={DiscoverStyles.buttonsContainer}>
-        <TouchableOpacity
-          style={DiscoverStyles.singleButtonContainer}
-          onPress={popProfile}
-        >
-          <Image
-            style={DiscoverStyles.buttons}
-            source={require('./../../assets/images/broken-heart.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={DiscoverStyles.singleButtonContainer}
-          onPress={popProfile}
-        >
-          <Image
-            style={DiscoverStyles.buttons}
-            source={require('./../../assets/images/heart.png')}
-          />
-        </TouchableOpacity>
-      </View>
-    </>
   ) : (
-    <></>
+    <>
+      <Text>No profiles to show!</Text>
+    </>
   );
 };
 
