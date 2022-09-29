@@ -3,7 +3,7 @@ import Colors from './Colors';
 
 const showContainerBorders = false;
 const containerBorderWidth = 4;
-const defaultFont = "sans-serif";
+const defaultFont = 'sans-serif';
 
 const LoginStyles = StyleSheet.create({
   baseText: {
