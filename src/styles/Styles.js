@@ -15,7 +15,7 @@ const LoginStyles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'blue',
-    backgroundColor: Colors.LIGHT_GREEN,
+    backgroundColor: Colors.LIGHT_PINK,
   },
   textInput: {
     height: 40,
@@ -41,6 +41,7 @@ const MainViewStyles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
+    backgroundColor: Colors.LIGHT_PINK,
   },
   singleTabContainer: {
     flex: 1,
