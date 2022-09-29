@@ -167,11 +167,73 @@ class Add(Resource):
     # methods go here
     pass
 
+class GetUserDetails(Resource):
+    def get(self, id):
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : id
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        response = make_response(json.dumps(profiles))
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
+
+class LikedUser(Resource):
+    def get(self, user1, user2):
+        print("Hello World")
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "id" : user1
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        print(profiles[0]['liked_users'])
+        lis = profiles[0]['liked_users']
+        lis.append(user2)
+        print('here')
+        print(lis)
+        body_update = {
+            "doc": {
+            "liked_users" : lis
+            }
+        } 
+        response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)  
+        print('response: ', response)
+
+
 app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(User, '/get_user/')  # '/users' is our entry point for Users
 api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>') 
 api.add_resource(Add, '/add_user')  # adding users api
+api.add_resource(GetUserDetails, '/get_user_detail/<username>')
+api.add_resource(LikedUser, '/like_user/<user1>/<user2>')
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="localhost", port=8000,debug=True)
