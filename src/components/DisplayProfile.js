@@ -3,14 +3,17 @@ import { Image, Text, View, TouchableOpacity } from 'react-native';
 import { DisplayProfileStyles } from '../styles/Styles';
 
 const DisplayProfile = (props) => {
+  let image = null;
+  if (props.username === '') {
+    image = require(`./../../assets/images/profile-pic.png`);
+  } else {
+    image = require(`./../../assets/images/${props.username}.jpg`);
+  }
   return (
     <>
       <View style={DisplayProfileStyles.profileContainer}>
         <View style={DisplayProfileStyles.container}>
-          <Image
-            style={DisplayProfileStyles.picture}
-            source={require(`./../../assets/images/${props.username}.jpg`)}
-          />
+          <Image style={DisplayProfileStyles.picture} source={image} />
           <Text style={DisplayProfileStyles.nameText}>{props.name}</Text>
           <Text style={DisplayProfileStyles.text}>
             {props.orientation} ({props.sex}), Age {props.age}

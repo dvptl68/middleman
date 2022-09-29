@@ -6,20 +6,29 @@ import { DiscoverStyles } from '../styles/Styles';
 const Discover = (props) => {
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    const matchmakerApproved = props.userData[props.userData[props.username].matchmaker].approvedProfiles
-    matchmakerApproved.forEach(username => {
-      const otherMatchmakerApproved = props.userData[props.userData[username].matchmaker].approvedProfiles;
+    const matchmakerApproved =
+      props.userData[props.userData[props.username].matchmaker]
+        .approvedProfiles;
+    matchmakerApproved.forEach((username) => {
+      const otherMatchmakerApproved =
+        props.userData[props.userData[username].matchmaker].approvedProfiles;
       const userLiked = props.userData[props.username].userLiked;
-      if (otherMatchmakerApproved.includes(props.username) && !userLiked.includes(username)) {
-        setProfiles(prevArr => [...prevArr, username])
+      if (
+        otherMatchmakerApproved.includes(props.username) &&
+        !userLiked.includes(username)
+      ) {
+        setProfiles((prevArr) => [...prevArr, username]);
       }
     });
   }, []);
   const likeProfile = (liked) => {
     const username = profiles[0];
-    const newUserData = {...props.userData};
+    const newUserData = { ...props.userData };
     if (liked) {
-      newUserData[props.username].userLiked = [...newUserData[props.username].userLiked, username];
+      newUserData[props.username].userLiked = [
+        ...newUserData[props.username].userLiked,
+        username,
+      ];
     }
     props.setUserData(newUserData);
     setProfiles(profiles.slice(1));

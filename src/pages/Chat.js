@@ -3,15 +3,15 @@ import { View, Text, FlatList, Image } from 'react-native';
 import { ChatStyles } from '../styles/Styles';
 
 const Chat = (props) => {
-  const chatUsernames = []
+  const chatUsernames = [];
   const userLiked = props.userData[props.username].userLiked;
-  userLiked.forEach(username => {
+  userLiked.forEach((username) => {
     const otherUserLiked = props.userData[username].userLiked;
     if (otherUserLiked.includes(props.username)) {
-      chatUsernames.push(username)
+      chatUsernames.push(username);
     }
   });
-  const renderItem = username => {
+  const renderItem = (username) => {
     return (
       <View style={ChatStyles.listItemContainer}>
         <Image
@@ -19,7 +19,9 @@ const Chat = (props) => {
           source={require(`./../../assets/images/${username}.jpg`)}
         />
         <View style={ChatStyles.listItemTextContainer}>
-          <Text style={ChatStyles.listItemText}>{props.userData[username].profile.name}</Text>
+          <Text style={ChatStyles.listItemText}>
+            {props.userData[username].profile.name}
+          </Text>
         </View>
       </View>
     );

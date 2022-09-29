@@ -8,20 +8,19 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(require('./../assets/users.json'));
-  // useEffect(() => {
-  //   fetch(
-  //     `http://127.0.0.1:5000/get_users/5/${props.age}/${props.height}/${props.sex}/${props.orientation}`
-  //   )
-  //     .then((response) => response.json())
-  //     .then((json) => setProfiles(json))
-  //     .catch((error) => setError(error))
-  //     .finally(() => setLoading(false));
-  // }, []);
+  const [elasticProfiles, setElasticProfiles] = useState([]);
+  useEffect(() => {
+    fetch(`http://127.0.0.1:5000/get_users/5/20/65/f/straight`)
+      .then((response) => response.json())
+      .then((json) => setElasticProfiles(json))
+      .catch((error) => console.error(error));
+  }, []);
   return isLoggedIn ? (
     <MainView
       username={username}
       password={password}
       userData={userData}
+      elasticProfiles={elasticProfiles}
       setUserData={setUserData}
       setLoggedIn={setIsLoggedIn}
     />
