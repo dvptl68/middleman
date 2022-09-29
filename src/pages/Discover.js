@@ -42,9 +42,9 @@ const Discover = (props) => {
       />
     </View>
   ) : (
-    <>
-      <Text>No profiles to show!</Text>
-    </>
+    <View style={DiscoverStyles.noProfilesTextContainer}>
+      <Text style={DiscoverStyles.noProfilesText}>No profiles to show!</Text>
+    </View>
   );
 };
 

@@ -55,9 +55,9 @@ const Matchmaking = (props) => {
       />
     </View>
   ) : (
-    <>
-      <Text>No profiles to show!</Text>
-    </>
+    <View style={MatchmakingStyles.noProfilesTextContainer}>
+      <Text style={MatchmakingStyles.noProfilesText}>No profiles to show!</Text>
+    </View>
   );
 };
 
