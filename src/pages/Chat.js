@@ -35,9 +35,7 @@ const Chat = (props) => {
     </View>
   ) : (
     <View style={ChatStyles.noProfilesTextContainer}>
-      <Text style={ChatStyles.noProfilesText}>
-        No chats yet!
-      </Text>
+      <Text style={ChatStyles.noProfilesText}>No chats yet!</Text>
     </View>
   );
 };
