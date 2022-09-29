@@ -1,15 +1,21 @@
 import { StyleSheet } from 'react-native';
+import Colors from './Colors';
 
 const showContainerBorders = false;
 const containerBorderWidth = 4;
+const defaultFont = 'sans-serif';
 
 const LoginStyles = StyleSheet.create({
+  baseText: {
+    fontFamily: defaultFont,
+  },
   loginContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'blue',
+    backgroundColor: Colors.LIGHT_PINK,
   },
   textInput: {
     height: 40,
@@ -21,16 +27,21 @@ const LoginStyles = StyleSheet.create({
 });
 
 const MainViewStyles = StyleSheet.create({
+  baseText: {
+    fontFamily: defaultFont,
+  },
   pageContainer: {
     flex: 8,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'green',
+    backgroundColor: Colors.LIGHT_PINK,
   },
   tabsContainer: {
     flex: 1,
     flexDirection: 'row',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
+    backgroundColor: Colors.LIGHT_PINK,
   },
   singleTabContainer: {
     flex: 1,
@@ -38,6 +49,7 @@ const MainViewStyles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'blue',
+    backgroundColor: Colors.LIGHT_PINK,
   },
   buttons: {
     width: 30,
@@ -55,14 +67,26 @@ const DiscoverStyles = StyleSheet.create({
 });
 
 const MatchmakingStyles = StyleSheet.create({
+  baseText: {
+    fontFamily: defaultFont,
+  },
   container: {
     flex: 1,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
+    backgroundColor: Colors.LIGHT_PINK,
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   },
 });
 
 const ChatStyles = StyleSheet.create({
+  baseText: {
+    fontFamily: defaultFont,
+  },
   container: {
     flex: 1,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
@@ -95,12 +119,16 @@ const ChatStyles = StyleSheet.create({
 });
 
 const ProfileStyles = StyleSheet.create({
+  baseText: {
+    fontFamily: defaultFont,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
+    backgroundColor: Colors.LIGHT_PINK,
   },
 });
 
@@ -111,6 +139,7 @@ const DisplayProfileStyles = StyleSheet.create({
     justifyContent: 'center',
     border: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
+    backgroundColor: Colors.LIGHT_PINK,
   },
   profileContainer: {
     flex: 3,
@@ -145,7 +174,7 @@ const DisplayProfileStyles = StyleSheet.create({
     fontFamily: 'sans',
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'black',
+    color: Colors.BROWN,
     margin: 5,
   },
   text: {
@@ -153,7 +182,7 @@ const DisplayProfileStyles = StyleSheet.create({
     fontFamily: 'sans',
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'black',
+    color: Colors.PINK,
     margin: 5,
   },
 });
