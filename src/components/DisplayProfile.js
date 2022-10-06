@@ -4,11 +4,11 @@ import { DisplayProfileStyles } from '../styles/Styles';
 
 const DisplayProfile = (props) => {
   let image = null;
-  if (props.username === '') {
+  // if (props.username === '') {
     image = require(`./../../assets/images/profile-pic.png`);
-  } else {
-    image = require(`./../../assets/images/${props.username}.jpg`);
-  }
+  // } else {
+  //   image = require(`./../../assets/images/${props.username}.jpg`);
+  // }
   return (
     <>
       <View style={DisplayProfileStyles.profileContainer}>
