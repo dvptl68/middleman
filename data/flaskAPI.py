@@ -2,7 +2,7 @@ import pandas as pd
 import sys
 import names
 import numpy as np
-from flask import Flask, jsonify, make_response, request
+from flask import Flask, jsonify, make_response, request, request
 from flask_restful import Resource, Api, reqparse, abort
 import ast
 import json
@@ -168,7 +168,7 @@ class Add(Resource):
     pass
 
 class GetUserDetails(Resource):
-    def get(self, id):
+    def get(self, username):
         es.indices.refresh(index="dating_profiles")
         search_param = {
                 "size": 1,
@@ -177,7 +177,7 @@ class GetUserDetails(Resource):
                         "should": [
                             {  
                                 "match": {
-                                "username" : id
+                                "username" : username
                             } 
                             }   
 
@@ -192,8 +192,14 @@ class GetUserDetails(Resource):
         return response
 
 class LikedUser(Resource):
-    def get(self, user1, user2):
-        print("Hello World")
+    def post(self):
+        record = json.loads(request.data)
+        for r in record:
+            if r == 'userA':
+                userA = record[r]
+            elif r == 'userB':
+                userB = record[r]
+
         es.indices.refresh(index="dating_profiles")
         search_param = {
                 "size": 1,
@@ -202,7 +208,7 @@ class LikedUser(Resource):
                         "should": [
                             {  
                                 "match": {
-                                "id" : user1
+                                "username" : userA
                             } 
                             }   
 
@@ -212,18 +218,295 @@ class LikedUser(Resource):
             }
         resp = es.search(index="dating_profiles", body=search_param)
         profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
-        print(profiles[0]['liked_users'])
-        lis = profiles[0]['liked_users']
-        lis.append(user2)
-        print('here')
-        print(lis)
+
+        users_liked = profiles[0]['usersLiked']
+        users_liked.append(userB)
+
         body_update = {
             "doc": {
-            "liked_users" : lis
+            "usersLiked" : users_liked
             }
         } 
-        response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)  
-        print('response: ', response)
+        response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)
+
+
+class DisLikeUser(Resource):
+    def post(self):
+        record = json.loads(request.data)
+        for r in record:
+            if r == 'userA':
+                userA = record[r]
+            elif r == 'userB':
+                userB = record[r]
+
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : userA
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileA = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        userALiked = profileA[0]['usersLiked']
+        matchmakerA = profileA[0]['matchmaker']
+
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : matchmakerA
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileMatchA = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        matchmaker_A_approved = profileMatchA[0]['approvedProfiles']
+        if userB in matchmaker_A_approved:
+            matchmaker_A_approved.remove(userB)
+
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : userB
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileB = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        userBLiked = profileB[0]['usersLiked']
+        matchmakerB = profileB[0]['matchmaker']
+
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : matchmakerB
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileMatchB = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        matchmaker_B_approved = profileMatchB[0]['approvedProfiles']
+        if userA in matchmaker_B_approved:
+            matchmaker_B_approved.remove(userA)
+
+        if userA in userBLiked:
+            userBLiked.remove(userA)
+
+        if userB in userALiked:
+            userALiked.remove(userB)
+
+
+
+        body_m_a_update = {
+            "doc": {
+            "approvedProfiles" : matchmaker_A_approved
+            }
+        } 
+
+        body_m_b_update = {
+            "doc": {
+            "approvedProfiles" : matchmaker_B_approved
+            }
+        }
+
+        body_a_update = {
+            "doc": {
+            "usersLiked" : userALiked
+            }
+        }
+
+        body_b_update = {
+            "doc": {
+            "usersLiked" : userBLiked
+            }
+        }
+        response = es.update(index='dating_profiles', id=profileA[0]['id'], body=body_a_update)
+
+        response = es.update(index='dating_profiles', id=profileB[0]['id'], body=body_b_update)
+
+        response = es.update(index='dating_profiles', id=profileMatchA[0]['id'], body=body_m_a_update)
+
+        response = es.update(index='dating_profiles', id=profileMatchB[0]['id'], body=body_m_b_update)
+      
+
+class DiscoverTab(Resource):
+    def get(self, userAusername):
+        list_profiles = []
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : userAusername
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        matchmaker = profiles[0]['matchmaker']
+        liked_users = profiles[0]['usersLiked']
+        print(matchmaker)
+
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : matchmaker
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        prof = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        usersCheck = prof[0]['approvedProfiles']
+        for user in usersCheck:
+            print(user)
+            es.indices.refresh(index="dating_profiles")
+            search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : user
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+            resp = es.search(index="dating_profiles", body=search_param)
+            profile = ProcessProfiles.get_source_list(resp['hits']['hits'])
+            userBMatchmaker = profile[0]['matchmaker']
+
+            es.indices.refresh(index="dating_profiles")
+            search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : userBMatchmaker
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+            resp = es.search(index="dating_profiles", body=search_param)
+            profile = ProcessProfiles.get_source_list(resp['hits']['hits'])
+            check = profile[0]['approvedProfiles']
+            if (userAusername in check) and (user not in liked_users):
+                list_profiles.append(user)
+
+        response = make_response(json.dumps(list_profiles))
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
+
+
+class GetChatUsers(Resource):
+    def get(self, userA):
+        chat_profiles = []
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : userA
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileA = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        likedAprofiles = profileA[0]['usersLiked']
+        
+        for user in likedAprofiles:
+            es.indices.refresh(index="dating_profiles")
+            search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : user
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+            resp = es.search(index="dating_profiles", body=search_param)
+            profileB = ProcessProfiles.get_source_list(resp['hits']['hits'])
+            likedBprofiles = profileB[0]['usersLiked']
+            if userA in likedBprofiles:
+                chat_profiles.append(user)
+                
+        response = make_response(json.dumps(chat_profiles))
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
 
 # mProfiles_post_args = reqparse.RequestParser()
 # mProfiles_post_args.add_argument("user",type=str, help="Please specify username with \"field\" to add to mProfiles", required=True)
@@ -303,8 +586,6 @@ class MProfiles(Resource):
         response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)  
         print('response: ', response)
         return approvedProfiles
-    
-    
 
 app = Flask(__name__)
 api = Api(app)
@@ -313,7 +594,11 @@ api.add_resource(User, '/get_user/')  # '/users' is our entry point for Users
 api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>') 
 api.add_resource(Add, '/add_user')  # adding users api
 api.add_resource(GetUserDetails, '/get_user_detail/<username>/')
-api.add_resource(LikedUser, '/like_user/<user1>/<user2>/')
+# New API endpoints
+api.add_resource(LikedUser, '/like_user/')
+api.add_resource(DisLikeUser, '/dis_like_user/')
+api.add_resource(DiscoverTab, '/discover_tab/<userAusername>')
+api.add_resource(GetChatUsers, '/chat_users/<userA>/')
 api.add_resource(MProfiles, '/matchmaker_profiles/<matchmaker>/')
 if __name__ == '__main__':
     app.run(debug=True)
