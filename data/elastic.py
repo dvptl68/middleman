@@ -46,7 +46,7 @@ for i in range(400):
     lname = names.get_last_name()
     name = fname + ' ' + lname
     df.loc[i, 'name'] = name
-    df.loc[i, 'username'] = lname + '.' + fname + str(i + 1)
+    df.loc[i, 'username'] = lname + fname + str(i + 1)
     df.loc[i, 'password'] = 'pw'
     df.loc[i, 'matchmaker'] = 'nan'
     df.loc[i, 'matchmaking'] = 'nan'

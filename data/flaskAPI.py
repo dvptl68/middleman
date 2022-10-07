@@ -2,8 +2,8 @@ import pandas as pd
 import sys
 import names
 import numpy as np
-from flask import Flask, jsonify, make_response
-from flask_restful import Resource, Api
+from flask import Flask, jsonify, make_response, request
+from flask_restful import Resource, Api, reqparse, abort
 import ast
 import json
 from elasticsearch import Elasticsearch
@@ -225,6 +225,86 @@ class LikedUser(Resource):
         response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)  
         print('response: ', response)
 
+# mProfiles_post_args = reqparse.RequestParser()
+# mProfiles_post_args.add_argument("user",type=str, help="Please specify username with \"field\" to add to mProfiles", required=True)
+
+class MProfiles(Resource):
+    def get(self, matchmaker): # matchmaker username
+        print(matchmaker)
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : matchmaker
+                                } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        print(profiles[0]['mProfiles'])
+        lis = profiles[0]['mProfiles']
+        print('here')
+        print(lis)
+        return lis
+        
+    def post(self, matchmaker):
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : matchmaker
+                                } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        print(profiles[0]['mProfiles'])
+        
+        mProfiles = profiles[0]['mProfiles']
+        approvedProfiles = profiles[0]['approvedProfiles']
+        # post args 
+        # request.get_json(force=True)
+        args = request.get_json(force=True)
+        if 'liked' not in args:
+            return "Please specify a \"liked\" key with \"y\" or \"n\" value in your json post object"
+        
+        print(args)
+        print(args['user'])
+        print(args["liked"])
+        if args['user'] in mProfiles:
+            mProfiles.remove(args['user'])
+        if args['liked'] == 'y':
+            approvedProfiles.append('user')
+        print(mProfiles)
+        print(approvedProfiles)
+        # return lis
+        body_update = {
+            "doc": {
+            "mProfiles" : mProfiles,
+            "approvedProfiles" : approvedProfiles
+            }
+        } 
+        response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)  
+        print('response: ', response)
+        return approvedProfiles
+    
+    
 
 app = Flask(__name__)
 api = Api(app)
@@ -232,8 +312,8 @@ api = Api(app)
 api.add_resource(User, '/get_user/')  # '/users' is our entry point for Users
 api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>') 
 api.add_resource(Add, '/add_user')  # adding users api
-api.add_resource(GetUserDetails, '/get_user_detail/<username>')
-api.add_resource(LikedUser, '/like_user/<user1>/<user2>')
-
+api.add_resource(GetUserDetails, '/get_user_detail/<username>/')
+api.add_resource(LikedUser, '/like_user/<user1>/<user2>/')
+api.add_resource(MProfiles, '/matchmaker_profiles/<matchmaker>/')
 if __name__ == '__main__':
     app.run(debug=True)
