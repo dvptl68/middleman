@@ -573,7 +573,7 @@ class MProfiles(Resource):
         if args['user'] in mProfiles:
             mProfiles.remove(args['user'])
         if args['liked'] == 'y':
-            approvedProfiles.append('user')
+            approvedProfiles.append(args['user'])
         print(mProfiles)
         print(approvedProfiles)
         # return lis
