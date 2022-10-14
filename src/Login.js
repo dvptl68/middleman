@@ -7,26 +7,27 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(require('./../assets/users.json'));
-  const [elasticProfiles, setElasticProfiles] = useState([]);
+  const [userData, setUserData] = useState();
   const getUserProfile = () => {
     const requestOptions = {
       method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
     };
-    console.log(username)
-    fetch(`http://127.0.0.1:5000/get_user_detail/KellerMargaret399/`, requestOptions)
-      .then((response) => response.json())
-      .then(console.log)
+    fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        const userProfile = data[0];
+        console.log(userProfile)
+        setUserData(userProfile);
+        setIsLoggedIn(true)
+      })
       .catch(console.error);
-    //setIsLoggedIn(true);
   }
   return isLoggedIn ? (
     <MainView
       username={username}
       password={password}
       userData={userData}
-      elasticProfiles={elasticProfiles}
-      setUserData={setUserData}
       setLoggedIn={setIsLoggedIn}
     />
   ) : (
