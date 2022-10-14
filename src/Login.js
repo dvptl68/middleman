@@ -9,12 +9,17 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(require('./../assets/users.json'));
   const [elasticProfiles, setElasticProfiles] = useState([]);
-  useEffect(() => {
-    fetch(`http://127.0.0.1:5000/get_users/5/20/65/f/straight`)
+  const getUserProfile = () => {
+    const requestOptions = {
+      method: 'GET',
+    };
+    console.log(username)
+    fetch(`http://127.0.0.1:5000/get_user_detail/KellerMargaret399/`, requestOptions)
       .then((response) => response.json())
-      .then((json) => setElasticProfiles(json))
-      .catch((error) => console.error(error));
-  }, []);
+      .then(console.log)
+      .catch(console.error);
+    //setIsLoggedIn(true);
+  }
   return isLoggedIn ? (
     <MainView
       username={username}
@@ -39,7 +44,7 @@ const Login = () => {
         placeholder="Password"
         secureTextEntry={true}
       />
-      <Button title="login" onPress={() => setIsLoggedIn(true)} />
+      <Button title="login" onPress={getUserProfile} />
     </View>
   );
 };
