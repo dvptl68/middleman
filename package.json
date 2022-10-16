@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
+    "cors": "^2.8.5",
     "expo": "~46.0.9",
     "expo-status-bar": "~1.4.0",
+    "express": "^4.18.2",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.5",

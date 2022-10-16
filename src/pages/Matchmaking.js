@@ -7,36 +7,24 @@ const Matchmaking = (props) => {
   const [profiles, setProfiles] = useState([
     ...props.userData[props.username].mProfiles,
   ]);
-  useEffect(() => {
-    if (props.username == 'catwoman1') {
-      setProfiles((prevProfiles) => [
-        ...prevProfiles,
-        ...props.elasticProfiles,
-      ]);
-    }
-  }, []);
   const likeProfile = (liked) => {
     const username = profiles[0];
-    if (typeof username === 'string') {
-      const newUserData = { ...props.userData };
-      newUserData[props.username].mProfiles = profiles.slice(1);
-      if (liked) {
-        newUserData[props.username].approvedProfiles.push(username);
-        if (
-          !newUserData[
-            newUserData[username].matchmaker
-          ].approvedProfiles.includes(newUserData[props.username].matchmaking)
-        ) {
-          newUserData[newUserData[username].matchmaker].mProfiles.push(
-            newUserData[props.username].matchmaking
-          );
-        }
+    const newUserData = { ...props.userData };
+    newUserData[props.username].mProfiles = profiles.slice(1);
+    if (liked) {
+      newUserData[props.username].approvedProfiles.push(username);
+      if (
+        !newUserData[
+          newUserData[username].matchmaker
+        ].approvedProfiles.includes(newUserData[props.username].matchmaking)
+      ) {
+        newUserData[newUserData[username].matchmaker].mProfiles.push(
+          newUserData[props.username].matchmaking
+        );
       }
-      props.setUserData(newUserData);
-      setProfiles(newUserData[props.username].mProfiles);
-    } else {
-      setProfiles((prevProfiles) => prevProfiles.slice(1));
     }
+    props.setUserData(newUserData);
+    setProfiles(newUserData[props.username].mProfiles);
   };
   let username = '';
   let params = null;
