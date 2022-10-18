@@ -7,11 +7,31 @@ const Matchmaking = (props) => {
   console.log(props)
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    // make api call to set initial matchmaker profiles
-    setProfiles([]);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'username': props['username']
+      })
+    };
+    fetch(`http://127.0.0.1:3000/matchmaker_profiles/`, requestOptions)
+      .then(response => response.json())
+      .then(data => setProfiles(data))
+      .catch(console.error);
   }, []);
   const likeProfile = (liked) => {
-    // make api call to like/dislike profile
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'username': props['username'],
+        'likedUsername': profiles[0],
+        'likedUsernameMatchmaker': '',
+        'liked': liked
+      })
+    };
+    fetch(`http://127.0.0.1:3000/matchmaker_like/`, requestOptions)
+      .catch(console.error);
     setProfiles(profiles.slice(1));
   };
   return profiles.length > 0 ? (
