@@ -4,7 +4,6 @@ import DisplayProfile from '../components/DisplayProfile';
 import { MatchmakingStyles } from '../styles/Styles';
 
 const Matchmaking = (props) => {
-  console.log(props)
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
     const requestOptions = {
@@ -19,14 +18,14 @@ const Matchmaking = (props) => {
       .then(data => setProfiles(data))
       .catch(console.error);
   }, []);
-  const likeProfile = (liked) => {
+  const likeProfile = (liked, matchmaker) => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         'username': props['username'],
         'likedUsername': profiles[0],
-        'likedUsernameMatchmaker': '',
+        'likedUsernameMatchmaker': matchmaker,
         'liked': liked
       })
     };
@@ -36,10 +35,10 @@ const Matchmaking = (props) => {
   };
   return profiles.length > 0 ? (
     <View style={MatchmakingStyles.container}>
-      {/* <DisplayProfile
-        username={username}
+      <DisplayProfile
+        username={profiles[0]}
         likeProfile={likeProfile}
-      /> */}
+      />
     </View>
   ) : (
     <View style={MatchmakingStyles.noProfilesTextContainer}>

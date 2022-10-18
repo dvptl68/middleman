@@ -218,6 +218,17 @@ const DisplayProfileStyles = StyleSheet.create({
     color: Colors.PINK,
     margin: 5,
   },
+  loadingTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  loadingText: {
+    fontSize: 20,
+    alignSelf: 'center',
+  },
 });
 
 export {
