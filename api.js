@@ -7,36 +7,7 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded());
 
-const data = {
-  'superman': {
-    'matchmaker': 'batman',
-    'matchmaking': 'batman',
-    'mProfiles': [],
-    'approvedProfiles': [],
-    'userLiked': [],
-  },
-  'batman': {
-    'matchmaker': 'superman',
-    'matchmaking': 'superman',
-    'mProfiles': [],
-    'approvedProfiles': [],
-    'userLiked': ['catwoman'],
-  },
-  'wonderwoman': {
-    'matchmaker': 'catwoman',
-    'matchmaking': 'catwoman',
-    'mProfiles': [],
-    'approvedProfiles': [],
-    'userLiked': [],
-  },
-  'catwoman': {
-    'matchmaker': 'wonderwoman',
-    'matchmaking': 'wonderwoman',
-    'mProfiles': [],
-    'approvedProfiles': [],
-    'userLiked': ['batman'],
-  }
-};
+const data = {};
 
 // Adds new profile to the data
 const initProfile = (username, matchmaker) => {

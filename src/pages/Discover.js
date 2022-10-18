@@ -4,22 +4,10 @@ import DisplayProfile from '../components/DisplayProfile';
 import { DiscoverStyles } from '../styles/Styles';
 
 const Discover = (props) => {
+  console.log(props)
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    const matchmakerApproved =
-      props.userData[props.userData[props.username].matchmaker]
-        .approvedProfiles;
-    matchmakerApproved.forEach((username) => {
-      const otherMatchmakerApproved =
-        props.userData[props.userData[username].matchmaker].approvedProfiles;
-      const userLiked = props.userData[props.username].userLiked;
-      if (
-        otherMatchmakerApproved.includes(props.username) &&
-        !userLiked.includes(username)
-      ) {
-        setProfiles((prevArr) => [...prevArr, username]);
-      }
-    });
+    
   }, []);
   const likeProfile = (liked) => {
     const username = profiles[0];
