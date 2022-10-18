@@ -11,7 +11,7 @@ const DisplayProfile = (props) => {
     };
     fetch(`http://127.0.0.1:5000/get_user_detail/${props['username']}/`, requestOptions)
       .then(response => response.json())
-      .then(data => setProfile(data[0]))
+      .then(data => {setProfile(data[0]); console.log(data[0])})
       .catch(console.error);
   }, []);
   return profile === null ? (

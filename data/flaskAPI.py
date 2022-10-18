@@ -159,6 +159,7 @@ class Users(Resource):
         resp = es.search(index="dating_profiles", body=search_param)
         profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
         response = make_response(json.dumps(profiles))
+        response.headers["Access-Control-Allow-Origin"] = "*"
         return response
     # methods go here
     pass
