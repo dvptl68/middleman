@@ -8,34 +8,34 @@ app.use(express.json())
 app.use(express.urlencoded());
 
 const data = {
-  // 'superman': {
-  //   'matchmaker': 'batman',
-  //   'matchmaking': 'batman',
-  //   'mProfiles': [],
-  //   'approvedProfiles': [],
-  //   'userLiked': [],
-  // },
-  // 'batman': {
-  //   'matchmaker': 'superman',
-  //   'matchmaking': 'superman',
-  //   'mProfiles': [],
-  //   'approvedProfiles': [],
-  //   'userLiked': [],
-  // },
-  // 'wonderwoman': {
-  //   'matchmaker': 'catwoman',
-  //   'matchmaking': 'catwoman',
-  //   'mProfiles': [],
-  //   'approvedProfiles': [],
-  //   'userLiked': [],
-  // },
-  // 'catwoman': {
-  //   'matchmaker': 'wonderwoman',
-  //   'matchmaking': 'wonderwoman',
-  //   'mProfiles': [],
-  //   'approvedProfiles': [],
-  //   'userLiked': [],
-  // }
+  'superman': {
+    'matchmaker': 'batman',
+    'matchmaking': 'batman',
+    'mProfiles': [],
+    'approvedProfiles': [],
+    'userLiked': [],
+  },
+  'batman': {
+    'matchmaker': 'superman',
+    'matchmaking': 'superman',
+    'mProfiles': [],
+    'approvedProfiles': [],
+    'userLiked': ['catwoman'],
+  },
+  'wonderwoman': {
+    'matchmaker': 'catwoman',
+    'matchmaking': 'catwoman',
+    'mProfiles': [],
+    'approvedProfiles': [],
+    'userLiked': [],
+  },
+  'catwoman': {
+    'matchmaker': 'wonderwoman',
+    'matchmaking': 'wonderwoman',
+    'mProfiles': [],
+    'approvedProfiles': [],
+    'userLiked': ['batman'],
+  }
 };
 
 // Adds new profile to the data
@@ -60,12 +60,9 @@ const initProfile = (username, matchmaker) => {
   }
 };
 
-// Returns a list of profiles that {matchmaker} needs to see
+// Returns a list of matchmaker profiles that {username} needs to see
 app.post('/matchmaker_profiles', (req, res) => {
-  const username = req.body.username;
-  const matchmaking = req.body.matchmaking;
-  initProfile(username, matchmaking);
-  res.send(data[username]['mProfiles']);
+  res.send(data[req.body.username]['mProfiles']);
 });
 
 // Likes/dislikes {userB} from {matchmakerA}
@@ -95,6 +92,7 @@ app.post('/matchmaker_like', (req, res) => {
 app.post('/user_profiles', (req, res) => {
   const username = req.body.username;
   const matchmaker = req.body.matchmaker;
+  initProfile(username, matchmaker);
   const userProfiles = []
   // Get every profile from matchmaker's approvedProfiles
   for (approvedUser of data[matchmaker]['approvedProfiles']) {
@@ -104,7 +102,7 @@ app.post('/user_profiles', (req, res) => {
       userProfiles.push(approvedUser);
     }
   }
-  res.send(userProfiles)
+  res.send(userProfiles);
 });
 
 // Likes/dislikes {userB} from {userA}
@@ -123,7 +121,21 @@ app.post('/user_like', (req, res) => {
     data[matchmaker]['approvedProfiles'] = data[matchmaker]['approvedProfiles'].filter(approvedUser => approvedUser !== likedUsername);
     data[likedUsernameMatchmaker]['approvedProfiles'] = data[likedUsernameMatchmaker]['approvedProfiles'].filter(approvedUser => approvedUser !== username);
   }
-  res.send(data)
+  res.send(data);
+});
+
+// Returns a list of profiles ready for chat for {username}
+app.post('/chat_profiles', (req, res) => {
+  const username = req.body.username;
+  const chatProfiles = [];
+  // Get every profile from user's userLiked
+  for (likedUser of data[username]['userLiked']) {
+    // Add liked user to list if user exists in their userLiked
+    if (data[likedUser]['userLiked'].includes(username)) {
+      chatProfiles.push(likedUser);
+    }
+  }
+  res.send(chatProfiles);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
