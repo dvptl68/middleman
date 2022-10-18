@@ -4,30 +4,42 @@ import DisplayProfile from '../components/DisplayProfile';
 import { DiscoverStyles } from '../styles/Styles';
 
 const Discover = (props) => {
-  console.log(props)
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'username': props['username'],
+        'matchmaker': props['matchmaker']
+      })
+    };
+    fetch(`http://127.0.0.1:3000/user_profiles/`, requestOptions)
+      .then(response => response.json())
+      .then(data => setProfiles(data))
+      .catch(console.error);
   }, []);
   const likeProfile = (liked) => {
-    const username = profiles[0];
-    const newUserData = { ...props.userData };
-    if (liked) {
-      newUserData[props.username].userLiked = [
-        ...newUserData[props.username].userLiked,
-        username,
-      ];
-    }
-    props.setUserData(newUserData);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'username': props['username'],
+        'likedUsername': profiles[0],
+        'liked': liked
+      })
+    };
+    fetch(`http://127.0.0.1:3000/user_like/`, requestOptions)
+      .catch(console.error);
     setProfiles(profiles.slice(1));
   };
   return profiles.length > 0 ? (
     <View style={DiscoverStyles.container}>
-      <DisplayProfile
+      {/* <DisplayProfile
         username={profiles[0]}
         likeProfile={likeProfile}
         {...props.userData[profiles[0]].profile}
-      />
+      /> */}
     </View>
   ) : (
     <View style={DiscoverStyles.noProfilesTextContainer}>

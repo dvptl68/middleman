@@ -56,7 +56,6 @@ app.post('/matchmaker_like', (req, res) => {
     // Remove disliked user from other matchmaker's approvedProfiles if it exists
     data[likedUsernameMatchmaker]['approvedProfiles'] = data[likedUsernameMatchmaker]['approvedProfiles'].filter(approvedUser => approvedUser !== matchmaking)
   }
-  res.send(data);
 });
 
 // Returns a list of profiles that {username} needs to see
@@ -92,7 +91,6 @@ app.post('/user_like', (req, res) => {
     data[matchmaker]['approvedProfiles'] = data[matchmaker]['approvedProfiles'].filter(approvedUser => approvedUser !== likedUsername);
     data[likedUsernameMatchmaker]['approvedProfiles'] = data[likedUsernameMatchmaker]['approvedProfiles'].filter(approvedUser => approvedUser !== username);
   }
-  res.send(data);
 });
 
 // Returns a list of profiles ready for chat for {username}

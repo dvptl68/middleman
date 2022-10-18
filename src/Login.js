@@ -17,7 +17,6 @@ const Login = () => {
       .then(response => response.json())
       .then(data => {
         const userProfile = data[0];
-        console.log(userProfile)
         setUserData(userProfile);
         setIsLoggedIn(true)
       })
@@ -25,9 +24,7 @@ const Login = () => {
   }
   return isLoggedIn ? (
     <MainView
-      username={username}
-      password={password}
-      userData={userData}
+      {...userData}
       setLoggedIn={setIsLoggedIn}
     />
   ) : (
