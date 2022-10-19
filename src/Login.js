@@ -18,7 +18,8 @@ const Login = () => {
       .then(data => {
         const userProfile = data[0];
         setUserData(userProfile);
-        setIsLoggedIn(true)
+        console.log(userProfile);
+        setIsLoggedIn(true);
       })
       .catch(console.error);
   }

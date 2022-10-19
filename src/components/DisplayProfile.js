@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Image, Text, View, TouchableOpacity } from 'react-native';
 import { DisplayProfileStyles } from '../styles/Styles';
 
 const DisplayProfile = (props) => {
-  const [profile, setProfile] = useState(null);
-  useEffect(() => {
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    };
-    fetch(`http://127.0.0.1:5000/get_user_detail/${props['username']}/`, requestOptions)
-      .then(response => response.json())
-      .then(data => {setProfile(data[0]); console.log(data[0])})
-      .catch(console.error);
-  }, []);
-  return profile === null ? (
-    <View style = {DisplayProfileStyles.loadingTextContainer}>
-      <Text style = {DisplayProfileStyles.loadingText}>
-        Loading...
-      </Text>
-    </View>
-  ) : (
+  const profile = props.profile;
+  return (
     <>
       <View style={DisplayProfileStyles.profileContainer}>
         <View style={DisplayProfileStyles.container}>

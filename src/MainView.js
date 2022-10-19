@@ -7,7 +7,6 @@ import Chat from './pages/Chat';
 import Profile from './pages/Profile';
 
 const MainView = (props) => {
-  console.log(props);
   const [tabs] = useState([
     <Discover key={1} {...props} />,
     <Matchmaking key={2} {...props} />,

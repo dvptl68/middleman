@@ -6,32 +6,40 @@ import { MatchmakingStyles } from '../styles/Styles';
 const Matchmaking = (props) => {
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    let profilesList = [];
-    let requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        'username': props['username']
-      })
-    };
-    fetch(`http://127.0.0.1:3000/matchmaker_profiles/`, requestOptions)
-      .then(response => response.json())
-      .then(data => profilesList = data)
-      .catch(console.error);
-    requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    };
-    //fetch(`http://127.0.0.1:5000/get_users/5/${props.age}/${props.height}/${props.sex}/${props.orientation}`, requestOptions)
-    fetch(`http://127.0.0.1:5000/get_users/5/20/68/m/straight`, requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        for (let profile of data) {
-          profilesList = [...profilesList, profile.username];
-        }
-        setProfiles(profilesList);
-      })
-      .catch(console.error);
+    const fetchData = async () => {
+      let usernameList = [];
+      let requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'username': props['username']
+        })
+      };
+      let response = await fetch(`http://127.0.0.1:3000/matchmaker_profiles/`, requestOptions);
+      let responseJSON = await response.json();
+      usernameList = responseJSON;
+      requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      };
+      // response = await fetch(`http://127.0.0.1:5000/get_users/5/${props.age}/${props.height}/${props.sex}/${props.orientation}`, requestOptions)
+      response = await fetch(`http://127.0.0.1:5000/get_users/5/20/68/m/straight`, requestOptions);
+      responseJSON = await response.json();
+      for (let profile of responseJSON)
+      usernameList = [...usernameList, profile.username];
+      requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      const profilesList = [];
+      for (let username of usernameList) {
+        response = await fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions);
+        responseJSON = await response.json();
+        profilesList.push(responseJSON[0]);
+      }
+      setProfiles(profilesList);
+    }
+    fetchData();
   }, []);
   const likeProfile = (liked, matchmaker) => {
     const requestOptions = {
@@ -55,7 +63,7 @@ const Matchmaking = (props) => {
   ) : (
     <View style={MatchmakingStyles.container}>
       <DisplayProfile
-        username={profiles[0]}
+        profile={profiles[0]}
         likeProfile={likeProfile}
       />
     </View>
