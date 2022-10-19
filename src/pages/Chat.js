@@ -1,42 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
 import { ChatStyles } from '../styles/Styles';
 
 const Chat = (props) => {
-  const chatUsernames = [];
-  const userLiked = props.userData[props.username].userLiked;
-  userLiked.forEach((username) => {
-    const otherUserLiked = props.userData[username].userLiked;
-    if (otherUserLiked.includes(props.username)) {
-      chatUsernames.push(username);
+  const [chatProfiles, setChatProfiles] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'username': props['username']
+        })
+      };
+      const response = await fetch(`http://127.0.0.1:3000/chat_profiles`, requestOptions);
+      const responseJSON = await response.json();
+      setChatProfiles(responseJSON);
     }
-  });
+    fetchData();
+  }, []);
   const renderItem = (username) => {
     return (
       <View style={ChatStyles.listItemContainer}>
         <Image
           style={ChatStyles.profilePicture}
-          source={require(`./../../assets/images/${username}.jpg`)}
+          source={require(`./../../assets/images/profile-pic.png`)}
         />
         <View style={ChatStyles.listItemTextContainer}>
           <Text style={ChatStyles.listItemText}>
-            {props.userData[username].profile.name}
+            {username}
           </Text>
         </View>
       </View>
     );
   };
-  return chatUsernames.length > 0 ? (
-    <View style={ChatStyles.container}>
-      <FlatList
-        data={chatUsernames}
-        renderItem={({ item }) => renderItem(item)}
-      />
-    </View>
-  ) : (
+  return chatProfiles.length === 0 ? (
     <View style={ChatStyles.noProfilesTextContainer}>
       <Text style={ChatStyles.noProfilesText}>No chats yet!</Text>
     </View>
+  ) : (
+    <View style={ChatStyles.container}>
+      <FlatList
+        data={chatProfiles}
+        renderItem={({ item }) => renderItem(item)}
+      />
+    </View>
   );
 };
+
 export default Chat;

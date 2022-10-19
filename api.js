@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const { touchProps } = require('react-native-web/dist/cjs/modules/forwardedProps');
 const port = 3000;
 
 const app = express();
@@ -8,7 +7,24 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded());
 
-const data = {};
+const data = {
+  'batman': {
+    'matchmaker': '',
+    'matchmaking': '',
+    'mProfiles': [],
+    'approvedProfiles': [],
+    'userLiked': ['catwoman'],
+    'chat': {},
+  },
+  'catwoman': {
+    'matchmaker': '',
+    'matchmaking': '',
+    'mProfiles': [],
+    'approvedProfiles': [],
+    'userLiked': ['batman'],
+    'chat': {},
+  },
+};
 
 // Adds new profile to the data
 const initProfile = (username, matchmaker) => {
