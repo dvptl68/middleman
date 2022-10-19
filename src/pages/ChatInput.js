@@ -8,15 +8,15 @@ import {
 	TouchableOpacity,
 } from "react-native";
 
-import Animated, {
-	useSharedValue,
-	withSpring,
-	withTiming,
-	useAnimatedStyle,
-} from "react-native-reanimated";
+// import Animated, {
+// 	useSharedValue,
+// 	withSpring,
+// 	withTiming,
+// 	useAnimatedStyle,
+// } from "react-native-reanimated";
 
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import EmojiPicker from "./emojis/EmojiPicker";
+//import EmojiPicker from "./emojis/EmojiPicker";
 
 import { useKeyboard } from "@react-native-community/hooks";
 
@@ -25,7 +25,7 @@ import { theme } from "../styles/Theme";
 const ChatInput = ({ reply, closeReply, isLeft, username }) => {
 	const [message, setMessage] = useState("");
 	//const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-	const height = useSharedValue(70);
+	//const height = useSharedValue(70);
 
 	// useEffect(() => {
 	// 	if (showEmojiPicker) {
@@ -43,15 +43,15 @@ const ChatInput = ({ reply, closeReply, isLeft, username }) => {
 	// 	}
 	// }, [reply]);
 
-	const heightAnimatedStyle = useAnimatedStyle(() => {
-		return {
-			height: height.value
-		}
-	})
+	// const heightAnimatedStyle = useAnimatedStyle(() => {
+	// 	return {
+	// 		height: height.value
+	// 	}
+	// })
 
 
 	return (
-		<Animated.View style={[styles.container, heightAnimatedStyle]}>
+		<View style={[styles.container]}>
 			{reply ? (
 				<View style={styles.replyContainer}>
 					<TouchableOpacity
@@ -69,16 +69,16 @@ const ChatInput = ({ reply, closeReply, isLeft, username }) => {
 			<View style={styles.innerContainer}>
 				<View style={styles.inputAndMicrophone}>
 					<TouchableOpacity
-						style={styles.emoticonButton}
+					//	style={styles.emoticonButton}
 						//onPress={() => setShowEmojiPicker((value) => !value)}
 					>
-						<Icon
+						{/* <Icon
 							name={
 								showEmojiPicker ? "close" : "emoticon-outline"
 							}
 							size={23}
 							color={theme.colors.description}
-						/>
+						/> */}
 					</TouchableOpacity>
 					<TextInput
 						multiline
@@ -110,8 +110,7 @@ const ChatInput = ({ reply, closeReply, isLeft, username }) => {
 					/>
 				</TouchableOpacity>
 			</View>
-			<EmojiPicker />
-		</Animated.View>
+		</View>
 	);
 };
 

@@ -3,14 +3,14 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import { MainViewStyles } from './styles/Styles';
 import Discover from './pages/Discover';
 import Matchmaking from './pages/Matchmaking';
-import ChatInput from './pages/ChatInput';
+import MessagesScreen from './pages/MessagesScreen';
 import Profile from './pages/Profile';
 
 const MainView = (props) => {
   const [tabs] = useState([
     <Discover key={1} {...props} />,
     <Matchmaking key={2} {...props} />,
-    <ChatInput key={3} {...props} />,
+    <MessagesScreen key={3} {...props} />,
     <Profile key={4} {...props} />,
   ]);
   const [activeTab, setActiveTab] = useState(0);

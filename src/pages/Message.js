@@ -5,18 +5,18 @@ import {
 	Directions,
 	State,
 } from "react-native-gesture-handler";
-import Animated, {
-	withSpring,
-	useAnimatedStyle,
-	useAnimatedGestureHandler,
-	useSharedValue
-} from "react-native-reanimated";
+// import Animated, {
+// 	withSpring,
+// 	useAnimatedStyle,
+// 	useAnimatedGestureHandler,
+// 	useSharedValue
+// } from "react-native-reanimated";
 
-import { theme } from "../../theme";
+import { theme } from "../Styles/Theme";
 
 const Message = ({ time, isLeft, message, onSwipe }) => {
 	const startingPosition = 0;
-	const x = useSharedValue(startingPosition);
+	//const x = useSharedValue(startingPosition);
 
 	const isOnLeft = (type) => {
 		if (isLeft && type === "messageContainer") {
@@ -40,35 +40,34 @@ const Message = ({ time, isLeft, message, onSwipe }) => {
 		}
 	};
 
-	const eventHandler = useAnimatedGestureHandler({
-		onStart: (event, ctx) => {
+	// const eventHandler = useAnimatedGestureHandler({
+	// 	onStart: (event, ctx) => {
 
-		},
-		onActive: (event, ctx) => {
-			x.value = isLeft ? 50 : -50;
-		},
-		onEnd: (event, ctx) => {
-			x.value = withSpring(startingPosition);
-		}
-	});
+	// 	},
+	// 	onActive: (event, ctx) => {
+	// 		x.value = isLeft ? 50 : -50;
+	// 	},
+	// 	onEnd: (event, ctx) => {
+	// 		x.value = withSpring(startingPosition);
+	// 	}
+	// });
 
-	const uas = useAnimatedStyle(() => {
-		return {
-			transform: [{ translateX: x.value }]
-		}
-	});
+	// const uas = useAnimatedStyle(() => {
+	// 	return {
+	// 		transform: [{ translateX: x.value }]
+	// 	}
+	// });
 
 	return (
 		<FlingGestureHandler
 			direction={isLeft ? Directions.RIGHT : Directions.LEFT}
-			onGestureEvent={eventHandler}
+			//onGestureEvent={eventHandler}
 			onHandlerStateChange={({ nativeEvent }) => {
 				if (nativeEvent.state === State.ACTIVE) {
 					onSwipe(message, isLeft);
 				}
 			}}
 		>
-			<Animated.View style={[styles.container, uas]}>
 				<View
 					style={[
 						styles.messageContainer,
@@ -86,7 +85,6 @@ const Message = ({ time, isLeft, message, onSwipe }) => {
 						</Text>
 					</View>
 				</View>
-			</Animated.View>
 		</FlingGestureHandler>
 	);
 };
