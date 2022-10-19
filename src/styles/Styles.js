@@ -151,6 +151,12 @@ const ChatStyles = StyleSheet.create({
   },
 });
 
+const ChatWindowStyles = StyleSheet.create({
+  
+
+
+});
+
 const ProfileStyles = StyleSheet.create({
   baseText: {
     fontFamily: defaultFont,
