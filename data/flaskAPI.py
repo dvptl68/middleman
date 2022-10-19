@@ -57,7 +57,7 @@ class Users(Resource):
             else:
                 searchGender = 'm'
                 
-        gap = 3
+        gap = 20
         lowerAgeLimit = int(age) - gap
         upperAgeLimit = int(age) + gap
         lowerHeightLimit = int(height) - gap

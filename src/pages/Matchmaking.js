@@ -22,11 +22,12 @@ const Matchmaking = (props) => {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       };
-      // response = await fetch(`http://127.0.0.1:5000/get_users/5/${props.age}/${props.height}/${props.sex}/${props.orientation}`, requestOptions)
-      response = await fetch(`http://127.0.0.1:5000/get_users/5/20/68/m/straight`, requestOptions);
+      // response = await fetch(`http://127.0.0.1:5000/get_user_detail/${props.matchmaking}/`, requestOptions);
+      // const user = await response.json();
+      response = await fetch(`http://127.0.0.1:5000/get_users/5/${props.age}/${props.height}/${props.sex}/${props.orientation}`, requestOptions)
       responseJSON = await response.json();
       for (let profile of responseJSON)
-      usernameList = [...usernameList, profile.username];
+        usernameList.push(profile.username);
       requestOptions = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -34,11 +35,10 @@ const Matchmaking = (props) => {
       const profilesList = [];
       for (let username of usernameList) {
         response = await fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions);
-        responseJSON = await response.json();
-        profilesList.push(responseJSON[0]);
+        profilesList.push((await response.json())[0]);
       }
       setProfiles(profilesList);
-    }
+    };
     fetchData();
   }, []);
   const likeProfile = (liked, matchmaker) => {
@@ -47,7 +47,7 @@ const Matchmaking = (props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         'username': props['username'],
-        'likedUsername': profiles[0],
+        'likedUsername': profiles[0]['username'],
         'likedUsernameMatchmaker': matchmaker,
         'liked': liked
       })

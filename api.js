@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { touchProps } = require('react-native-web/dist/cjs/modules/forwardedProps');
 const port = 3000;
 
 const app = express();
@@ -18,6 +19,7 @@ const initProfile = (username, matchmaker) => {
       'mProfiles': [],
       'approvedProfiles': [],
       'userLiked': [],
+      'chat': {},
     }
   }
   if (!(matchmaker in data)) {
@@ -27,6 +29,7 @@ const initProfile = (username, matchmaker) => {
       'mProfiles': [],
       'approvedProfiles': [],
       'userLiked': [],
+      'chat': {},
     }
   }
 };
@@ -105,6 +108,30 @@ app.post('/chat_profiles', (req, res) => {
     }
   }
   res.send(chatProfiles);
+});
+
+// Gets all chat messages
+app.post('/get_chat', (req, res) => {
+  const fromUsername = req.body.fromUsername;
+  const toUsername = req.body.toUsername;
+  if (!(toUsername in data[fromUsername]['chat'])) {
+    data[fromUsername]['chat'][toUsername] = [];
+    data[toUsername]['chat'][fromUsername] = [];
+  }
+  res.send(data[fromUsername]['chat'][toUsername]);
+});
+
+// Makes a new chat
+app.post('/make_chat', (req, res) => {
+  const fromUsername = req.body.fromUsername;
+  const toUsername = req.body.toUsername;
+  data[fromUsername]['chat'][toUsername] = [...data[fromUsername]['chat'][toUsername], { 'type': 'sent', 'message': req.body.message }];
+  data[toUsername]['chat'][fromUsername] = [...data[toUsername]['chat'][fromUsername], { 'type': 'received', 'message': req.body.message }];
+});
+
+// Returns all data
+app.get('/data', (req, res) => {
+  res.send(data);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -6,18 +6,29 @@ import { DiscoverStyles } from '../styles/Styles';
 const Discover = (props) => {
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        'username': props['username'],
-        'matchmaker': props['matchmaker']
-      })
+    const fetchData = async () => {
+      let requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'username': props['username'],
+          'matchmaker': props['matchmaker']
+        })
+      };
+      let response = await fetch(`http://127.0.0.1:3000/user_profiles/`, requestOptions);
+      let usernameList = await response.json();
+      requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      const profilesList = [];
+      for (let username of usernameList) {
+        response = await fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions);
+        profilesList.push((await response.json())[0]);
+      }
+      setProfiles(profilesList);
     };
-    fetch(`http://127.0.0.1:3000/user_profiles/`, requestOptions)
-      .then(response => response.json())
-      .then(data => setProfiles(data))
-      .catch(console.error);
+    fetchData();
   }, []);
   const likeProfile = (liked, _) => {
     const requestOptions = {
@@ -25,7 +36,7 @@ const Discover = (props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         'username': props['username'],
-        'likedUsername': profiles[0],
+        'likedUsername': profiles[0]['username'],
         'liked': liked
       })
     };
@@ -33,16 +44,16 @@ const Discover = (props) => {
       .catch(console.error);
     setProfiles(profiles.slice(1));
   };
-  return profiles.length > 0 ? (
-    <View style={DiscoverStyles.container}>
-      <DisplayProfile
-        username={profiles[0]}
-        likeProfile={likeProfile}
-      />
-    </View>
-  ) : (
+  return profiles.length === 0 ? (
     <View style={DiscoverStyles.noProfilesTextContainer}>
       <Text style={DiscoverStyles.noProfilesText}>No profiles to show!</Text>
+    </View>
+  ) : (
+    <View style={DiscoverStyles.container}>
+      <DisplayProfile
+        profile={profiles[0]}
+        likeProfile={likeProfile}
+      />
     </View>
   );
 };
