@@ -22,9 +22,9 @@ const Matchmaking = (props) => {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       };
-      // response = await fetch(`http://127.0.0.1:5000/get_user_detail/${props.matchmaking}/`, requestOptions);
-      // const user = await response.json();
-      response = await fetch(`http://127.0.0.1:5000/get_users/5/${props.age}/${props.height}/${props.sex}/${props.orientation}`, requestOptions)
+      response = await fetch(`http://127.0.0.1:5000/get_user_detail/${props.matchmaking}/`, requestOptions);
+      const user = (await response.json())[0];
+      response = await fetch(`http://127.0.0.1:5000/get_users/5/${user.age}/${user.height}/${user.sex}/${user.orientation}`, requestOptions);
       responseJSON = await response.json();
       for (let profile of responseJSON)
         usernameList.push(profile.username);
