@@ -268,8 +268,35 @@ const ChatWindowStyles = StyleSheet.create({
   },
   footerContainer: {
     flex: 1,
+    flexDirection: 'row',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'blue',
+  },
+  textBoxContainer: {
+    flex: 4,
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  textInput: {
+    height: 50,
+    margin: 5,
+    borderWidth: 1,
+    padding: 10,
+  },
+  sendButtonContainer: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  sendButton: {
+    width: 50,
+    height: 50,
+    margin: 5,
+    resizeMode: 'stretch',
   },
 });
 

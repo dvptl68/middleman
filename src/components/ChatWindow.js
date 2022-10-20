@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
 import { ChatWindowStyles } from '../styles/Styles';
 
 const ChatWindow = (props) => {
+  const [message, setMessage] = useState('');
   return (
     <>
       <View style={ChatWindowStyles.headerContainer}>
@@ -25,7 +26,20 @@ const ChatWindow = (props) => {
 
       </View>
       <View style={ChatWindowStyles.footerContainer}>
-
+        <View style={ChatWindowStyles.textBoxContainer}>
+          <TextInput
+            style={ChatWindowStyles.textInput}
+            onChangeText={setMessage}
+            value={message}
+            placeholder="Message"
+          />
+        </View>
+        <TouchableOpacity style={ChatWindowStyles.sendButtonContainer}>
+          <Image
+              style={ChatWindowStyles.sendButton}
+              source={require('./../../assets/images/send.png')}
+            />
+        </TouchableOpacity>
       </View>
     </>
   );
