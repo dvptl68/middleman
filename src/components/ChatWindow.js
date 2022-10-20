@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, TextInput, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  FlatList,
+} from 'react-native';
 import { ChatWindowStyles } from '../styles/Styles';
 
 const ChatWindow = (props) => {
@@ -29,19 +36,30 @@ const ChatWindow = (props) => {
     const message = item.message;
     return (
       <View style={ChatWindowStyles.singleMessageContainer}>
-        {type === 'sent' ? <View style={ChatWindowStyles.messagePaddingContainer}></View> : <></>}
-        <View style={type === 'sent' ? ChatWindowStyles.sentMessageTextContainer : ChatWindowStyles.receivedMessageTextContainer}>
-          <Text style={ChatWindowStyles.messageText}>
-            {message}
-          </Text>
+        {type === 'sent' ? (
+          <View style={ChatWindowStyles.messagePaddingContainer}></View>
+        ) : (
+          <></>
+        )}
+        <View
+          style={
+            type === 'sent'
+              ? ChatWindowStyles.sentMessageTextContainer
+              : ChatWindowStyles.receivedMessageTextContainer
+          }
+        >
+          <Text style={ChatWindowStyles.messageText}>{message}</Text>
         </View>
-        {type === 'received' ? <View style={ChatWindowStyles.messagePaddingContainer}></View> : <></>}
+        {type === 'received' ? (
+          <View style={ChatWindowStyles.messagePaddingContainer}></View>
+        ) : (
+          <></>
+        )}
       </View>
     );
   };
   const sendMessage = () => {
-    if (currMessage === '')
-      return;
+    if (currMessage === '') return;
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -51,11 +69,11 @@ const ChatWindow = (props) => {
         message: currMessage,
       }),
     };
-    fetch(
-      `http://127.0.0.1:3000/make_chat`,
-      requestOptions
-    );
-    setMessages(prevMessages => [...prevMessages, { type: 'sent', message: currMessage }]);
+    fetch(`http://127.0.0.1:3000/make_chat`, requestOptions);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: 'sent', message: currMessage },
+    ]);
     setCurrMessage('');
   };
   return (

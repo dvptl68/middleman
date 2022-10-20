@@ -36,7 +36,7 @@ const Discover = (props) => {
     };
     fetchData();
   }, []);
-  const likeProfile = (liked, _) => {
+  const likeProfile = (liked) => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

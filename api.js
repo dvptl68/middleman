@@ -39,7 +39,7 @@ app.post('/matchmaker_profiles', (req, res) => {
 });
 
 // Likes/dislikes {userB} from {matchmakerA}
-app.post('/matchmaker_like', (req, res) => {
+app.post('/matchmaker_like', (req) => {
   const username = req.body.username;
   const matchmaking = data[username]['matchmaking'];
   const likedUsername = req.body.likedUsername;
@@ -89,7 +89,7 @@ app.post('/user_profiles', (req, res) => {
 });
 
 // Likes/dislikes {userB} from {userA}
-app.post('/user_like', (req, res) => {
+app.post('/user_like', (req) => {
   const username = req.body.username;
   const matchmaker = data[username]['matchmaker'];
   const likedUsername = req.body.likedUsername;
@@ -138,7 +138,7 @@ app.post('/get_chat', (req, res) => {
 });
 
 // Makes a new chat
-app.post('/make_chat', (req, res) => {
+app.post('/make_chat', (req) => {
   const fromUsername = req.body.fromUsername;
   const toUsername = req.body.toUsername;
   data[fromUsername]['chat'][toUsername] = [
