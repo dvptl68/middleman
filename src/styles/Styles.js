@@ -232,7 +232,45 @@ const DisplayProfileStyles = StyleSheet.create({
 });
 
 const ChatWindowStyles = StyleSheet.create({
-
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  backButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  backButton: {
+    width: 50,
+    height: 50,
+    margin: 5,
+    resizeMode: 'stretch',
+  },
+  titleContainer: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  titleText: {
+    fontSize: 30,
+  },
+  messagesContainer: {
+    flex: 6,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  footerContainer: {
+    flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
 });
 
 export {

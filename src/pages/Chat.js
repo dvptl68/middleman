@@ -21,6 +21,9 @@ const Chat = (props) => {
     }
     fetchData();
   }, []);
+  const backButton = () => {
+    setCurrChat('');
+  }
   const renderItem = (username) => {
     return (
       <TouchableOpacity
@@ -52,10 +55,13 @@ const Chat = (props) => {
       />
     </View>
   ) : (
-    <ChatWindow
-      username={props['username']}
-      chatUsername={currChat}
-    />
+    <View style={ChatStyles.container}>
+      <ChatWindow
+        username={props['username']}
+        chatUsername={currChat}
+        backButton={backButton}
+      />
+    </View>
   );
 };
 
