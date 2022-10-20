@@ -4,7 +4,6 @@ import { ChatWindowStyles } from '../styles/Styles';
 
 const ChatWindow = (props) => {
   const [messages, setMessages] = useState([]);
-  
   const [currMessage, setCurrMessage] = useState('');
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +39,25 @@ const ChatWindow = (props) => {
       </View>
     );
   };
+  const sendMessage = () => {
+    if (currMessage === '')
+      return;
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fromUsername: props['username'],
+        toUsername: props['chatUsername'],
+        message: currMessage,
+      }),
+    };
+    fetch(
+      `http://127.0.0.1:3000/make_chat`,
+      requestOptions
+    );
+    setMessages(prevMessages => [...prevMessages, { type: 'sent', message: currMessage }]);
+    setCurrMessage('');
+  };
   return (
     <>
       <View style={ChatWindowStyles.headerContainer}>
@@ -73,7 +91,10 @@ const ChatWindow = (props) => {
             placeholder="Message"
           />
         </View>
-        <TouchableOpacity style={ChatWindowStyles.sendButtonContainer}>
+        <TouchableOpacity
+          style={ChatWindowStyles.sendButtonContainer}
+          onPress={sendMessage}
+        >
           <Image
             style={ChatWindowStyles.sendButton}
             source={require('./../../assets/images/send.png')}
