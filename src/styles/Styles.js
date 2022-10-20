@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import Colors from './Colors';
 
-const showContainerBorders = true;
+const showContainerBorders = false;
 const containerBorderWidth = 4;
 const defaultFont = 'sans-serif';
 
@@ -265,6 +265,33 @@ const ChatWindowStyles = StyleSheet.create({
     flex: 6,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'green',
+  },
+  singleMessageContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+    margin: 5,
+    padding: 3,
+  },
+  sentMessageTextContainer: {
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+    backgroundColor: 'powderblue',
+  },
+  receivedMessageTextContainer: {
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+    backgroundColor: 'silver',
+  },
+  messagePaddingContainer: {
+    flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  messageText: {
+    fontSize: 20,
+    padding: 8,
   },
   footerContainer: {
     flex: 1,
