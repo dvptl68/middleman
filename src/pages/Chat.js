@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import ChatWindow from '../components/ChatWindow';
 import { ChatStyles } from '../styles/Styles';
 
 const Chat = (props) => {
   const [chatProfiles, setChatProfiles] = useState([]);
+  const [currChat, setCurrChat] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       const requestOptions = {
@@ -21,30 +23,39 @@ const Chat = (props) => {
   }, []);
   const renderItem = (username) => {
     return (
-      <View style={ChatStyles.listItemContainer}>
-        <Image
-          style={ChatStyles.profilePicture}
-          source={require(`./../../assets/images/profile-pic.png`)}
-        />
-        <View style={ChatStyles.listItemTextContainer}>
-          <Text style={ChatStyles.listItemText}>
-            {username}
-          </Text>
+      <TouchableOpacity
+        onPress={() => setCurrChat(username)}
+        >
+        <View style={ChatStyles.listItemContainer}>
+            <Image
+              style={ChatStyles.profilePicture}
+              source={require(`./../../assets/images/profile-pic.png`)}
+            />
+            <View style={ChatStyles.listItemTextContainer}>
+              <Text style={ChatStyles.listItemText}>
+                {username}
+              </Text>
+            </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return chatProfiles.length === 0 ? (
     <View style={ChatStyles.noProfilesTextContainer}>
       <Text style={ChatStyles.noProfilesText}>No chats yet!</Text>
     </View>
-  ) : (
+  ) : currChat === '' ? (
     <View style={ChatStyles.container}>
       <FlatList
         data={chatProfiles}
         renderItem={({ item }) => renderItem(item)}
       />
     </View>
+  ) : (
+    <ChatWindow
+      username={props['username']}
+      chatUsername={currChat}
+    />
   );
 };
 

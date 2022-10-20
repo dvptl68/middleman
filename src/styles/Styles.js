@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import Colors from './Colors';
 
-const showContainerBorders = false;
+const showContainerBorders = true;
 const containerBorderWidth = 4;
 const defaultFont = 'sans-serif';
 
@@ -231,6 +231,10 @@ const DisplayProfileStyles = StyleSheet.create({
   },
 });
 
+const ChatWindowStyles = StyleSheet.create({
+
+});
+
 export {
   LoginStyles,
   MainViewStyles,
@@ -239,4 +243,5 @@ export {
   ChatStyles,
   ProfileStyles,
   DisplayProfileStyles,
+  ChatWindowStyles,
 };
