@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { LoginStyles } from './styles/Styles';
 import MainView from './MainView';
@@ -14,20 +14,17 @@ const Login = () => {
       headers: { 'Content-Type': 'application/json' },
     };
     fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const userProfile = data[0];
         setUserData(userProfile);
         console.log(userProfile);
         setIsLoggedIn(true);
       })
       .catch(console.error);
-  }
+  };
   return isLoggedIn ? (
-    <MainView
-      {...userData}
-      setLoggedIn={setIsLoggedIn}
-    />
+    <MainView {...userData} setLoggedIn={setIsLoggedIn} />
   ) : (
     <View style={LoginStyles.loginContainer}>
       <TextInput

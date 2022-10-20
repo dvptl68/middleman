@@ -4,25 +4,25 @@ const port = 3000;
 
 const app = express();
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 app.use(express.urlencoded());
 
 const data = {
-  'batman': {
-    'matchmaker': '',
-    'matchmaking': '',
-    'mProfiles': [],
-    'approvedProfiles': [],
-    'userLiked': ['catwoman'],
-    'chat': {},
+  batman: {
+    matchmaker: '',
+    matchmaking: '',
+    mProfiles: [],
+    approvedProfiles: [],
+    userLiked: ['catwoman'],
+    chat: {},
   },
-  'catwoman': {
-    'matchmaker': '',
-    'matchmaking': '',
-    'mProfiles': [],
-    'approvedProfiles': [],
-    'userLiked': ['batman'],
-    'chat': {},
+  catwoman: {
+    matchmaker: '',
+    matchmaking: '',
+    mProfiles: [],
+    approvedProfiles: [],
+    userLiked: ['batman'],
+    chat: {},
   },
 };
 
@@ -30,23 +30,23 @@ const data = {
 const initProfile = (username, matchmaker) => {
   if (!(username in data)) {
     data[username] = {
-      'matchmaker': matchmaker,
-      'matchmaking': matchmaker,
-      'mProfiles': [],
-      'approvedProfiles': [],
-      'userLiked': [],
-      'chat': {},
-    }
+      matchmaker: matchmaker,
+      matchmaking: matchmaker,
+      mProfiles: [],
+      approvedProfiles: [],
+      userLiked: [],
+      chat: {},
+    };
   }
   if (!(matchmaker in data)) {
     data[matchmaker] = {
-      'matchmaker': username,
-      'matchmaking': username,
-      'mProfiles': [],
-      'approvedProfiles': [],
-      'userLiked': [],
-      'chat': {},
-    }
+      matchmaker: username,
+      matchmaking: username,
+      mProfiles: [],
+      approvedProfiles: [],
+      userLiked: [],
+      chat: {},
+    };
   }
 };
 
@@ -63,17 +63,25 @@ app.post('/matchmaker_like', (req, res) => {
   const likedUsernameMatchmaker = req.body.likedUsernameMatchmaker;
   initProfile(likedUsername, likedUsernameMatchmaker);
   // Remove likedUsername from matchmaker's mProfiles
-  data[username]['mProfiles'] = data[username]['mProfiles'].filter(mUser => mUser !== likedUsername);
+  data[username]['mProfiles'] = data[username]['mProfiles'].filter(
+    (mUser) => mUser !== likedUsername
+  );
   if (req.body.liked) {
     // Add to approved profiles
     data[username]['approvedProfiles'].push(likedUsername);
     // Add to other matchmaker's mProfiles if it's not in their approvedProfiles
-    if (!data[likedUsernameMatchmaker]['approvedProfiles'].includes(matchmaking)) {
-      data[likedUsernameMatchmaker]['mProfiles'].push(matchmaking)
+    if (
+      !data[likedUsernameMatchmaker]['approvedProfiles'].includes(matchmaking)
+    ) {
+      data[likedUsernameMatchmaker]['mProfiles'].push(matchmaking);
     }
   } else {
     // Remove disliked user from other matchmaker's approvedProfiles if it exists
-    data[likedUsernameMatchmaker]['approvedProfiles'] = data[likedUsernameMatchmaker]['approvedProfiles'].filter(approvedUser => approvedUser !== matchmaking)
+    data[likedUsernameMatchmaker]['approvedProfiles'] = data[
+      likedUsernameMatchmaker
+    ]['approvedProfiles'].filter(
+      (approvedUser) => approvedUser !== matchmaking
+    );
   }
 });
 
@@ -82,12 +90,15 @@ app.post('/user_profiles', (req, res) => {
   const username = req.body.username;
   const matchmaker = req.body.matchmaker;
   initProfile(username, matchmaker);
-  const userProfiles = []
+  const userProfiles = [];
   // Get every profile from matchmaker's approvedProfiles
-  for (approvedUser of data[matchmaker]['approvedProfiles']) {
-    const approvedUserMatchmaker = data[approvedUser]['matchmaker']
+  for (let approvedUser of data[matchmaker]['approvedProfiles']) {
+    const approvedUserMatchmaker = data[approvedUser]['matchmaker'];
     // Add approved user to list if user exists in their matchmaker's approvedProfiles
-    if (data[approvedUserMatchmaker]['approvedProfiles'].includes(username) && !data[username]['userLiked'].includes(approvedUser)) {
+    if (
+      data[approvedUserMatchmaker]['approvedProfiles'].includes(username) &&
+      !data[username]['userLiked'].includes(approvedUser)
+    ) {
       userProfiles.push(approvedUser);
     }
   }
@@ -102,13 +113,19 @@ app.post('/user_like', (req, res) => {
   const likedUsernameMatchmaker = data[likedUsername]['matchmaker'];
   if (req.body.liked) {
     // Add liked user to user's userLiked
-    data[username]['userLiked'].push(likedUsername)
+    data[username]['userLiked'].push(likedUsername);
   } else {
     // Remove user from disliked user's userLiked if it exists
-    data[likedUsername]['userLiked'] = data[likedUsername]['userLiked'].filter(likedUser => likedUser !== username)
+    data[likedUsername]['userLiked'] = data[likedUsername]['userLiked'].filter(
+      (likedUser) => likedUser !== username
+    );
     // Remove selves from each other's matchmakers approvedProfiles
-    data[matchmaker]['approvedProfiles'] = data[matchmaker]['approvedProfiles'].filter(approvedUser => approvedUser !== likedUsername);
-    data[likedUsernameMatchmaker]['approvedProfiles'] = data[likedUsernameMatchmaker]['approvedProfiles'].filter(approvedUser => approvedUser !== username);
+    data[matchmaker]['approvedProfiles'] = data[matchmaker][
+      'approvedProfiles'
+    ].filter((approvedUser) => approvedUser !== likedUsername);
+    data[likedUsernameMatchmaker]['approvedProfiles'] = data[
+      likedUsernameMatchmaker
+    ]['approvedProfiles'].filter((approvedUser) => approvedUser !== username);
   }
 });
 
@@ -117,7 +134,7 @@ app.post('/chat_profiles', (req, res) => {
   const username = req.body.username;
   const chatProfiles = [];
   // Get every profile from user's userLiked
-  for (likedUser of data[username]['userLiked']) {
+  for (let likedUser of data[username]['userLiked']) {
     // Add liked user to list if user exists in their userLiked
     if (data[likedUser]['userLiked'].includes(username)) {
       chatProfiles.push(likedUser);
@@ -141,8 +158,14 @@ app.post('/get_chat', (req, res) => {
 app.post('/make_chat', (req, res) => {
   const fromUsername = req.body.fromUsername;
   const toUsername = req.body.toUsername;
-  data[fromUsername]['chat'][toUsername] = [...data[fromUsername]['chat'][toUsername], { 'type': 'sent', 'message': req.body.message }];
-  data[toUsername]['chat'][fromUsername] = [...data[toUsername]['chat'][fromUsername], { 'type': 'received', 'message': req.body.message }];
+  data[fromUsername]['chat'][toUsername] = [
+    ...data[fromUsername]['chat'][toUsername],
+    { type: 'sent', message: req.body.message },
+  ];
+  data[toUsername]['chat'][fromUsername] = [
+    ...data[toUsername]['chat'][fromUsername],
+    { type: 'received', message: req.body.message },
+  ];
 });
 
 // Returns all data

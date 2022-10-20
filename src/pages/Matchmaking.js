@@ -12,29 +12,40 @@ const Matchmaking = (props) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'username': props['username']
-        })
+          username: props['username'],
+        }),
       };
-      let response = await fetch(`http://127.0.0.1:3000/matchmaker_profiles/`, requestOptions);
+      let response = await fetch(
+        `http://127.0.0.1:3000/matchmaker_profiles/`,
+        requestOptions
+      );
       let responseJSON = await response.json();
       usernameList = responseJSON;
       requestOptions = {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       };
-      response = await fetch(`http://127.0.0.1:5000/get_user_detail/${props.matchmaking}/`, requestOptions);
+      response = await fetch(
+        `http://127.0.0.1:5000/get_user_detail/${props.matchmaking}/`,
+        requestOptions
+      );
       const user = (await response.json())[0];
-      response = await fetch(`http://127.0.0.1:5000/get_users/5/${user.age}/${user.height}/${user.sex}/${user.orientation}`, requestOptions);
+      response = await fetch(
+        `http://127.0.0.1:5000/get_users/5/${user.age}/${user.height}/${user.sex}/${user.orientation}`,
+        requestOptions
+      );
       responseJSON = await response.json();
-      for (let profile of responseJSON)
-        usernameList.push(profile.username);
+      for (let profile of responseJSON) usernameList.push(profile.username);
       requestOptions = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       };
       const profilesList = [];
       for (let username of usernameList) {
-        response = await fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions);
+        response = await fetch(
+          `http://127.0.0.1:5000/get_user_detail/${username}/`,
+          requestOptions
+        );
         profilesList.push((await response.json())[0]);
       }
       setProfiles(profilesList);
@@ -46,14 +57,15 @@ const Matchmaking = (props) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        'username': props['username'],
-        'likedUsername': profiles[0]['username'],
-        'likedUsernameMatchmaker': matchmaker,
-        'liked': liked
-      })
+        username: props['username'],
+        likedUsername: profiles[0]['username'],
+        likedUsernameMatchmaker: matchmaker,
+        liked: liked,
+      }),
     };
-    fetch(`http://127.0.0.1:3000/matchmaker_like/`, requestOptions)
-      .catch(console.error);
+    fetch(`http://127.0.0.1:3000/matchmaker_like/`, requestOptions).catch(
+      console.error
+    );
     setProfiles(profiles.slice(1));
   };
   return profiles.length === 0 ? (
@@ -62,10 +74,7 @@ const Matchmaking = (props) => {
     </View>
   ) : (
     <View style={MatchmakingStyles.container}>
-      <DisplayProfile
-        profile={profiles[0]}
-        likeProfile={likeProfile}
-      />
+      <DisplayProfile profile={profiles[0]} likeProfile={likeProfile} />
     </View>
   );
 };

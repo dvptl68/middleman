@@ -12,33 +12,32 @@ const Chat = (props) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'username': props['username']
-        })
+          username: props['username'],
+        }),
       };
-      const response = await fetch(`http://127.0.0.1:3000/chat_profiles`, requestOptions);
+      const response = await fetch(
+        `http://127.0.0.1:3000/chat_profiles`,
+        requestOptions
+      );
       const responseJSON = await response.json();
       setChatProfiles(responseJSON);
-    }
+    };
     fetchData();
   }, []);
   const backButton = () => {
     setCurrChat('');
-  }
+  };
   const renderItem = (username) => {
     return (
-      <TouchableOpacity
-        onPress={() => setCurrChat(username)}
-        >
+      <TouchableOpacity onPress={() => setCurrChat(username)}>
         <View style={ChatStyles.listItemContainer}>
-            <Image
-              style={ChatStyles.profilePicture}
-              source={require(`./../../assets/images/profile-pic.png`)}
-            />
-            <View style={ChatStyles.listItemTextContainer}>
-              <Text style={ChatStyles.listItemText}>
-                {username}
-              </Text>
-            </View>
+          <Image
+            style={ChatStyles.profilePicture}
+            source={require(`./../../assets/images/profile-pic.png`)}
+          />
+          <View style={ChatStyles.listItemTextContainer}>
+            <Text style={ChatStyles.listItemText}>{username}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     );

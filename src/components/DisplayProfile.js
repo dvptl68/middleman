@@ -8,7 +8,10 @@ const DisplayProfile = (props) => {
     <>
       <View style={DisplayProfileStyles.profileContainer}>
         <View style={DisplayProfileStyles.container}>
-          <Image style={DisplayProfileStyles.picture} source={require(`./../../assets/images/profile-pic.png`)} />
+          <Image
+            style={DisplayProfileStyles.picture}
+            source={require(`./../../assets/images/profile-pic.png`)}
+          />
           <Text style={DisplayProfileStyles.nameText}>{profile.name}</Text>
           <Text style={DisplayProfileStyles.text}>
             {profile.orientation} ({profile.sex}), Age {profile.age}

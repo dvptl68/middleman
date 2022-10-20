@@ -11,11 +11,14 @@ const Discover = (props) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'username': props['username'],
-          'matchmaker': props['matchmaker']
-        })
+          username: props['username'],
+          matchmaker: props['matchmaker'],
+        }),
       };
-      let response = await fetch(`http://127.0.0.1:3000/user_profiles/`, requestOptions);
+      let response = await fetch(
+        `http://127.0.0.1:3000/user_profiles/`,
+        requestOptions
+      );
       let usernameList = await response.json();
       requestOptions = {
         method: 'GET',
@@ -23,7 +26,10 @@ const Discover = (props) => {
       };
       const profilesList = [];
       for (let username of usernameList) {
-        response = await fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions);
+        response = await fetch(
+          `http://127.0.0.1:5000/get_user_detail/${username}/`,
+          requestOptions
+        );
         profilesList.push((await response.json())[0]);
       }
       setProfiles(profilesList);
@@ -35,13 +41,14 @@ const Discover = (props) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        'username': props['username'],
-        'likedUsername': profiles[0]['username'],
-        'liked': liked
-      })
+        username: props['username'],
+        likedUsername: profiles[0]['username'],
+        liked: liked,
+      }),
     };
-    fetch(`http://127.0.0.1:3000/user_like/`, requestOptions)
-      .catch(console.error);
+    fetch(`http://127.0.0.1:3000/user_like/`, requestOptions).catch(
+      console.error
+    );
     setProfiles(profiles.slice(1));
   };
   return profiles.length === 0 ? (
@@ -50,10 +57,7 @@ const Discover = (props) => {
     </View>
   ) : (
     <View style={DiscoverStyles.container}>
-      <DisplayProfile
-        profile={profiles[0]}
-        likeProfile={likeProfile}
-      />
+      <DisplayProfile profile={profiles[0]} likeProfile={likeProfile} />
     </View>
   );
 };

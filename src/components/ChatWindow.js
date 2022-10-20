@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
 import { ChatWindowStyles } from '../styles/Styles';
 
@@ -10,11 +10,11 @@ const ChatWindow = (props) => {
         <TouchableOpacity
           style={ChatWindowStyles.backButtonContainer}
           onPress={() => props['backButton']()}
-          >
+        >
           <Image
-              style={ChatWindowStyles.backButton}
-              source={require('./../../assets/images/back.png')}
-            />
+            style={ChatWindowStyles.backButton}
+            source={require('./../../assets/images/back.png')}
+          />
         </TouchableOpacity>
         <View style={ChatWindowStyles.titleContainer}>
           <Text style={ChatWindowStyles.titleText}>
@@ -22,9 +22,7 @@ const ChatWindow = (props) => {
           </Text>
         </View>
       </View>
-      <View style={ChatWindowStyles.messagesContainer}>
-
-      </View>
+      <View style={ChatWindowStyles.messagesContainer}></View>
       <View style={ChatWindowStyles.footerContainer}>
         <View style={ChatWindowStyles.textBoxContainer}>
           <TextInput
@@ -36,9 +34,9 @@ const ChatWindow = (props) => {
         </View>
         <TouchableOpacity style={ChatWindowStyles.sendButtonContainer}>
           <Image
-              style={ChatWindowStyles.sendButton}
-              source={require('./../../assets/images/send.png')}
-            />
+            style={ChatWindowStyles.sendButton}
+            source={require('./../../assets/images/send.png')}
+          />
         </TouchableOpacity>
       </View>
     </>
