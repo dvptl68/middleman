@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import DisplayProfile from '../components/DisplayProfile';
 import { DiscoverStyles } from '../styles/Styles';
@@ -6,44 +6,58 @@ import { DiscoverStyles } from '../styles/Styles';
 const Discover = (props) => {
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    const matchmakerApproved =
-      props.userData[props.userData[props.username].matchmaker]
-        .approvedProfiles;
-    matchmakerApproved.forEach((username) => {
-      const otherMatchmakerApproved =
-        props.userData[props.userData[username].matchmaker].approvedProfiles;
-      const userLiked = props.userData[props.username].userLiked;
-      if (
-        otherMatchmakerApproved.includes(props.username) &&
-        !userLiked.includes(username)
-      ) {
-        setProfiles((prevArr) => [...prevArr, username]);
+    const fetchData = async () => {
+      let requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: props['username'],
+          matchmaker: props['matchmaker'],
+        }),
+      };
+      let response = await fetch(
+        `http://127.0.0.1:3000/user_profiles/`,
+        requestOptions
+      );
+      let usernameList = await response.json();
+      requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      const profilesList = [];
+      for (let username of usernameList) {
+        response = await fetch(
+          `http://127.0.0.1:5000/get_user_detail/${username}/`,
+          requestOptions
+        );
+        profilesList.push((await response.json())[0]);
       }
-    });
+      setProfiles(profilesList);
+    };
+    fetchData();
   }, []);
   const likeProfile = (liked) => {
-    const username = profiles[0];
-    const newUserData = { ...props.userData };
-    if (liked) {
-      newUserData[props.username].userLiked = [
-        ...newUserData[props.username].userLiked,
-        username,
-      ];
-    }
-    props.setUserData(newUserData);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: props['username'],
+        likedUsername: profiles[0]['username'],
+        liked: liked,
+      }),
+    };
+    fetch(`http://127.0.0.1:3000/user_like/`, requestOptions).catch(
+      console.error
+    );
     setProfiles(profiles.slice(1));
   };
-  return profiles.length > 0 ? (
-    <View style={DiscoverStyles.container}>
-      <DisplayProfile
-        username={profiles[0]}
-        likeProfile={likeProfile}
-        {...props.userData[profiles[0]].profile}
-      />
-    </View>
-  ) : (
+  return profiles.length === 0 ? (
     <View style={DiscoverStyles.noProfilesTextContainer}>
       <Text style={DiscoverStyles.noProfilesText}>No profiles to show!</Text>
+    </View>
+  ) : (
+    <View style={DiscoverStyles.container}>
+      <DisplayProfile profile={profiles[0]} likeProfile={likeProfile} />
     </View>
   );
 };

@@ -218,6 +218,113 @@ const DisplayProfileStyles = StyleSheet.create({
     color: Colors.PINK,
     margin: 5,
   },
+  loadingTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  loadingText: {
+    fontSize: 20,
+    alignSelf: 'center',
+  },
+});
+
+const ChatWindowStyles = StyleSheet.create({
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  backButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  backButton: {
+    width: 50,
+    height: 50,
+    margin: 5,
+    resizeMode: 'stretch',
+  },
+  titleContainer: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  titleText: {
+    fontSize: 30,
+  },
+  messagesContainer: {
+    flex: 6,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  singleMessageContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+    margin: 5,
+    padding: 3,
+  },
+  sentMessageTextContainer: {
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+    backgroundColor: 'powderblue',
+  },
+  receivedMessageTextContainer: {
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+    backgroundColor: 'silver',
+  },
+  messagePaddingContainer: {
+    flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  messageText: {
+    fontSize: 20,
+    padding: 8,
+  },
+  footerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  textBoxContainer: {
+    flex: 4,
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  textInput: {
+    height: 50,
+    margin: 5,
+    borderWidth: 1,
+    padding: 10,
+  },
+  sendButtonContainer: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  sendButton: {
+    width: 50,
+    height: 50,
+    margin: 5,
+    resizeMode: 'stretch',
+  },
 });
 
 export {
@@ -228,4 +335,5 @@ export {
   ChatStyles,
   ProfileStyles,
   DisplayProfileStyles,
+  ChatWindowStyles,
 };

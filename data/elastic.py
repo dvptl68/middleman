@@ -41,15 +41,20 @@ for column in data:
 df = data.replace({np.nan: None}) # replace with None instead of np.nan since elastic does not parse np.nan
 
 # Store the First 100 Dating Profiles into dating_profiles index in Elastic
-for i in range(400):
-    fname = names.get_first_name()
-    lname = names.get_last_name()
-    name = fname + ' ' + lname
-    df.loc[i, 'name'] = name
-    df.loc[i, 'username'] = lname + fname + str(i + 1)
+for i in range(0, 400, 2):
+    fname1 = names.get_first_name()
+    lname1 = names.get_last_name()
+    name1 = fname1 + ' ' + lname1
+    username1 = lname1 + fname1 + str(i + 1)
+    fname2 = names.get_first_name()
+    lname2 = names.get_last_name()
+    name2 = fname2 + ' ' + lname2
+    username2 = lname2 + fname2 + str(i + 2)
+    df.loc[i, 'name'] = name1
+    df.loc[i, 'username'] = username1
     df.loc[i, 'password'] = 'pw'
-    df.loc[i, 'matchmaker'] = 'nan'
-    df.loc[i, 'matchmaking'] = 'nan'
+    df.loc[i, 'matchmaker'] = username2
+    df.loc[i, 'matchmaking'] = username2
     df.loc[i, 'id'] = i+1
     json = df.loc[i].to_dict()
     json['usersLiked'] = []
@@ -57,4 +62,15 @@ for i in range(400):
     json['approvedProfiles'] = []
     print(json)
     client.index(index="dating_profiles", id=i+1, document=json)
-    #time.sleep(2)
+    df.loc[i, 'name'] = name2
+    df.loc[i, 'username'] = username2
+    df.loc[i, 'password'] = 'pw'
+    df.loc[i, 'matchmaker'] = username1
+    df.loc[i, 'matchmaking'] = username1
+    df.loc[i, 'id'] = i+2
+    json = df.loc[i].to_dict()
+    json['usersLiked'] = []
+    json['mProfiles'] = []
+    json['approvedProfiles'] = []
+    print(json)
+    client.index(index="dating_profiles", id=i+2, document=json)
