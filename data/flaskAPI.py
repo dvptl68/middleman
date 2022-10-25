@@ -539,6 +539,115 @@ class GetChatUsers(Resource):
         response.headers["Access-Control-Allow-Origin"] = "*"
         return response
 
+class GetChat(Resource):
+    def get(self, fromUsername, toUsername):
+        messages = []
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : fromUsername
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileA = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        fromChat = profileA[0]['chat']
+
+        if toUsername in fromChat:
+            messages = fromChat[toUsername]
+
+        response = make_response(json.dumps(messages))
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
+
+
+class Message(Resource):
+    def post(self):
+        es.indices.refresh(index="dating_profiles")
+        record = json.loads(request.data)
+        for r in record:
+            if r == 'fromUsername':
+                userFrom = record[r]
+            elif r == 'toUsername':
+                userTo = record[r]
+            elif r == 'message':
+                message = record[r]
+
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : userFrom
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileA = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        fromChat = profileA[0]['chat']
+        
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+            "size": 1,
+            "query": {
+                "bool": {
+                    "should": [
+                        {  
+                            "match": {
+                            "username" : userTo
+                        } 
+                        }   
+
+                    ]
+                }
+            }
+        }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileB = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        toChat = profileB[0]['chat']
+
+        if userTo in fromChat:
+            fromChat[userTo].append({'type':'sent', 'message':message})
+        else:
+            fromChat[userTo] = [{'type':'sent', 'message':message}]
+
+        if userFrom in toChat:
+            toChat[userFrom].append({'type':'recieved', 'message':message})
+        else:
+            toChat[userFrom] = [{'type':'recieved', 'message':message}]
+
+        body_a_update = {
+            "doc": {
+            "chat" : fromChat
+            }
+        }
+
+        body_b_update = {
+            "doc": {
+            "chat" : toChat
+            }
+        }
+
+        response = es.update(index='dating_profiles', id=profileA[0]['id'], body=body_a_update)
+
+        response = es.update(index='dating_profiles', id=profileB[0]['id'], body=body_b_update)
+        
+
 # mProfiles_post_args = reqparse.RequestParser()
 # mProfiles_post_args.add_argument("user",type=str, help="Please specify username with \"field\" to add to mProfiles", required=True)
 
@@ -633,5 +742,7 @@ api.add_resource(DisLikeUser, '/dis_like_user/')
 api.add_resource(DiscoverTab, '/discover_tab/<userAusername>')
 api.add_resource(GetChatUsers, '/chat_users/<userA>/')
 api.add_resource(MProfiles, '/matchmaker_profiles/<matchmaker>/')
+api.add_resource(Message, '/chat_messaging/')
+api.add_resource(GetChat, '/get_chat/<fromUsername>/<toUsername>')
 if __name__ == '__main__':
     app.run(debug=True)
