@@ -299,7 +299,7 @@ class LikedUser(Resource):
 
         body_update = {
             "doc": {
-            "usersLiked" : users_liked
+            "usersLiked" : list(set(users_liked))
             }
         } 
         response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)
@@ -410,25 +410,25 @@ class DisLikeUser(Resource):
 
         body_m_a_update = {
             "doc": {
-            "approvedProfiles" : matchmaker_A_approved
+            "approvedProfiles" : list(set(matchmaker_A_approved))
             }
         } 
 
         body_m_b_update = {
             "doc": {
-            "approvedProfiles" : matchmaker_B_approved
+            "approvedProfiles" : list(set(matchmaker_B_approved))
             }
         }
 
         body_a_update = {
             "doc": {
-            "usersLiked" : userALiked
+            "usersLiked" : list(set(userALiked))
             }
         }
 
         body_b_update = {
             "doc": {
-            "usersLiked" : userBLiked
+            "usersLiked" : list(set(userBLiked))
             }
         }
         response = es.update(index='dating_profiles', id=profileA[0]['id'], body=body_a_update)
@@ -655,8 +655,8 @@ class MProfiles(Resource):
         # return lis
         body_update = {
             "doc": {
-            "mProfiles" : mProfiles,
-            "approvedProfiles" : approvedProfiles
+            "mProfiles" : list(set(mProfiles)),
+            "approvedProfiles" : list(set(approvedProfiles))
             }
         } 
         response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)  
