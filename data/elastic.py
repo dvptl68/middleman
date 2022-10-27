@@ -60,6 +60,7 @@ for i in range(0, 400, 2):
     json['usersLiked'] = []
     json['mProfiles'] = []
     json['approvedProfiles'] = []
+    json['chat'] = {}
     print(json)
     client.index(index="dating_profiles", id=i+1, document=json)
     df.loc[i, 'name'] = name2
@@ -72,5 +73,6 @@ for i in range(0, 400, 2):
     json['usersLiked'] = []
     json['mProfiles'] = []
     json['approvedProfiles'] = []
+    json['chat'] = {}
     print(json)
     client.index(index="dating_profiles", id=i+2, document=json)
