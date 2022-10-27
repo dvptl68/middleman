@@ -667,7 +667,7 @@ app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(User, '/get_user/')  # '/users' is our entry point for Users
-api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>') 
+api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>/<education>/<religion>/<income>') 
 api.add_resource(Add, '/add_user')  # adding users api
 api.add_resource(GetUserDetails, '/get_user_detail/<username>/')
 # New API endpoints
