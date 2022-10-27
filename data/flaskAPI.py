@@ -40,7 +40,7 @@ class User(Resource):
 # api for selecting a subset of n users given some parameters
 class Users(Resource):
     
-    def get(self,n, age, height, gender, orientation):                
+    def get(self,n, age, height, gender, orientation, religion, education, income):                
         es.indices.refresh(index="dating_profiles")
         searchGender = ""
         if gender == 'm':
@@ -61,6 +61,8 @@ class Users(Resource):
         gap = 3
         lowerAgeLimit = int(age) - gap
         upperAgeLimit = int(age) + gap
+        upperIncome = float(income) + gap * 1000
+        lowerIncome = float(income) - gap * 1000
         lowerHeightLimit = int(height) - gap
         upperHeightLimit = int(height) + gap
         search_param = ""
@@ -109,7 +111,17 @@ class Users(Resource):
                                         "boost": 2.0
                                     }
                                 }
+                            },
+                             {
+                                "range": {
+                                    "income":{
+                                        "gte": lowerHeightLimit - 3000,
+                                        "lte": upperHeightLimit + 3000,
+                                        "boost": 2.0
+                                    }
+                                }
                             }
+                            
                         ]
                     }
                 }
@@ -135,6 +147,16 @@ class Users(Resource):
                             }
                             },
                             {
+                            "match" :{
+                                "religion": religion
+                            }
+                            },
+                            {
+                            "match" :{
+                                "education": education
+                            }
+                            },
+                            {
                                 "range":{
                                         "age":{
                                             "gte": lowerAgeLimit,
@@ -148,6 +170,15 @@ class Users(Resource):
                                     "height":{
                                         "gte": lowerHeightLimit,
                                         "lte": upperHeightLimit,
+                                        "boost": 2.0
+                                    }
+                                }
+                            },
+                             {
+                                "range": {
+                                    "income":{
+                                        "gte": lowerIncome - 3000,
+                                        "lte": upperIncome + 3000,
                                         "boost": 2.0
                                     }
                                 }
