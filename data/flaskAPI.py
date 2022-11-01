@@ -438,6 +438,114 @@ class DisLikeUser(Resource):
         response = es.update(index='dating_profiles', id=profileMatchA[0]['id'], body=body_m_a_update)
 
         response = es.update(index='dating_profiles', id=profileMatchB[0]['id'], body=body_m_b_update)
+
+class GetChat(Resource):
+    def get(self, fromUsername, toUsername):
+        messages = []
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : fromUsername
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileA = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        fromChat = profileA[0]['chat']
+
+        if toUsername in fromChat:
+            messages = fromChat[toUsername]
+
+        response = make_response(json.dumps(messages))
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
+
+
+class Message(Resource):
+    def post(self):
+        es.indices.refresh(index="dating_profiles")
+        record = json.loads(request.data)
+        for r in record:
+            if r == 'fromUsername':
+                userFrom = record[r]
+            elif r == 'toUsername':
+                userTo = record[r]
+            elif r == 'message':
+                message = record[r]
+
+        search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                "username" : userFrom
+                            } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileA = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        fromChat = profileA[0]['chat']
+
+        es.indices.refresh(index="dating_profiles")
+        search_param = {
+            "size": 1,
+            "query": {
+                "bool": {
+                    "should": [
+                        {  
+                            "match": {
+                            "username" : userTo
+                        } 
+                        }   
+
+                    ]
+                }
+            }
+        }
+        resp = es.search(index="dating_profiles", body=search_param)
+        profileB = ProcessProfiles.get_source_list(resp['hits']['hits'])
+        toChat = profileB[0]['chat']
+
+        if userTo in fromChat:
+            fromChat[userTo].append({'type':'sent', 'message':message})
+        else:
+            fromChat[userTo] = [{'type':'sent', 'message':message}]
+
+        if userFrom in toChat:
+            toChat[userFrom].append({'type':'recieved', 'message':message})
+        else:
+            toChat[userFrom] = [{'type':'recieved', 'message':message}]
+
+        body_a_update = {
+            "doc": {
+            "chat" : fromChat
+            }
+        }
+
+        body_b_update = {
+            "doc": {
+            "chat" : toChat
+            }
+        }
+
+        response = es.update(index='dating_profiles', id=profileA[0]['id'], body=body_a_update)
+
+        response = es.update(index='dating_profiles', id=profileB[0]['id'], body=body_b_update)
       
 
 class DiscoverTab(Resource):
@@ -667,7 +775,7 @@ app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(User, '/get_user/')  # '/users' is our entry point for Users
-api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>') 
+api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>/<education>/<religion>/<income>') 
 api.add_resource(Add, '/add_user')  # adding users api
 api.add_resource(GetUserDetails, '/get_user_detail/<username>/')
 # New API endpoints
@@ -676,5 +784,7 @@ api.add_resource(DisLikeUser, '/dis_like_user/')
 api.add_resource(DiscoverTab, '/discover_tab/<userAusername>')
 api.add_resource(GetChatUsers, '/chat_users/<userA>/')
 api.add_resource(MProfiles, '/matchmaker_profiles/<matchmaker>/')
+api.add_resource(Message, '/chat_messaging/')
+api.add_resource(GetChat, '/get_chat/<fromUsername>/<toUsername>')
 if __name__ == '__main__':
     app.run(debug=True)
