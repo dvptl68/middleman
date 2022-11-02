@@ -9,14 +9,11 @@ const Matchmaking = (props) => {
     const fetchData = async () => {
       let usernameList = [];
       let requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: props['username'],
-        }),
       };
       let response = await fetch(
-        `http://127.0.0.1:3000/matchmaker_profiles/`,
+        `http://127.0.0.1:5000/matchmaker_profiles/${props['username']}`,
         requestOptions
       );
       let responseJSON = await response.json();
@@ -52,18 +49,16 @@ const Matchmaking = (props) => {
     };
     fetchData();
   }, []);
-  const likeProfile = (liked, matchmaker) => {
+  const likeProfile = (liked) => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: props['username'],
-        likedUsername: profiles[0]['username'],
-        likedUsernameMatchmaker: matchmaker,
-        liked: liked,
+        user: profiles[0]['username'],
+        liked: (liked) ? 'y' : 'n',
       }),
     };
-    fetch(`http://127.0.0.1:3000/matchmaker_like/`, requestOptions).catch(
+    fetch(`http://127.0.0.1:5000/matchmaker_profiles/${props['username']}`, requestOptions).catch(
       console.error
     );
     setProfiles(profiles.slice(1));
