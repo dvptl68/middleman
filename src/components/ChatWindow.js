@@ -15,15 +15,11 @@ const ChatWindow = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fromUsername: props['username'],
-          toUsername: props['chatUsername'],
-        }),
       };
       const response = await fetch(
-        `http://127.0.0.1:3000/get_chat`,
+        `http://127.0.0.1:5000/get_chat/${props['username']}/${props['chatUsername']}/`,
         requestOptions
       );
       const responseJSON = await response.json();
@@ -69,7 +65,7 @@ const ChatWindow = (props) => {
         message: currMessage,
       }),
     };
-    fetch(`http://127.0.0.1:3000/make_chat`, requestOptions);
+    fetch(`http://127.0.0.1:5000/chat_messaging/`, requestOptions);
     setMessages((prevMessages) => [
       ...prevMessages,
       { type: 'sent', message: currMessage },

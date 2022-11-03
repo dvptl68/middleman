@@ -9,14 +9,11 @@ const Chat = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: props['username'],
-        }),
       };
       const response = await fetch(
-        `http://127.0.0.1:3000/chat_profiles`,
+        `http://127.0.0.1:5000/chat_users/${props['username']}`,
         requestOptions
       );
       const responseJSON = await response.json();
