@@ -39,6 +39,8 @@ const Matchmaking = (props) => {
       };
       const profilesList = [];
       for (let username of usernameList) {
+        if (username === props['username'] || username === props['matchmaking'])
+          continue;
         response = await fetch(
           `http://127.0.0.1:5000/get_user_detail/${username}/`,
           requestOptions

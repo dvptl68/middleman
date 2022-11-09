@@ -51,6 +51,14 @@ const MainViewStyles = StyleSheet.create({
     borderColor: 'blue',
     backgroundColor: Colors.LIGHT_PINK,
   },
+  boldedSingleTabContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 5,
+    borderColor: Colors.PINK,
+    backgroundColor: Colors.LIGHT_PINK,
+  },
   buttons: {
     width: 30,
     height: 30,

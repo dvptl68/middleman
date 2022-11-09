@@ -22,7 +22,7 @@ const MainView = (props) => {
           return (
             <TouchableOpacity
               key={i}
-              style={MainViewStyles.singleTabContainer}
+              style={(activeTab === i) ? MainViewStyles.boldedSingleTabContainer : MainViewStyles.singleTabContainer}
               onPress={() => setActiveTab(i)}
             >
               <Image
