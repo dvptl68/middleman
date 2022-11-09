@@ -8,15 +8,11 @@ const Discover = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       let requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: props['username'],
-          matchmaker: props['matchmaker'],
-        }),
       };
       let response = await fetch(
-        `http://127.0.0.1:3000/user_profiles/`,
+        `http://127.0.0.1:5000/discover_tab/${props['username']}`,
         requestOptions
       );
       let usernameList = await response.json();
@@ -41,14 +37,14 @@ const Discover = (props) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: props['username'],
-        likedUsername: profiles[0]['username'],
-        liked: liked,
+        userA: props['username'],
+        userB: profiles[0]['username'],
       }),
     };
-    fetch(`http://127.0.0.1:3000/user_like/`, requestOptions).catch(
-      console.error
-    );
+    fetch(
+      `http://127.0.0.1:5000/${liked ? 'like_user' : 'dis_like_user'}/`,
+      requestOptions
+    ).catch(console.error);
     setProfiles(profiles.slice(1));
   };
   return profiles.length === 0 ? (
