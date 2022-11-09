@@ -51,10 +51,11 @@ const MainViewStyles = StyleSheet.create({
     borderColor: 'blue',
     backgroundColor: Colors.LIGHT_PINK,
   },
-  boldedSingleTabContainer: {
+  boldedCurvedSingleTabContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius:  20,
     borderWidth: 5,
     borderColor: Colors.PINK,
     backgroundColor: Colors.LIGHT_PINK,
