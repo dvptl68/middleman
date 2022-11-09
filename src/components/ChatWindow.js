@@ -19,7 +19,7 @@ const ChatWindow = (props) => {
         headers: { 'Content-Type': 'application/json' },
       };
       const response = await fetch(
-        `http://127.0.0.1:5000/get_chat/${props['username']}/${props['chatUsername']}/`,
+        `http://127.0.0.1:5000/get_chat/${props['username']}/${props['chatUsername']}`,
         requestOptions
       );
       const responseJSON = await response.json();

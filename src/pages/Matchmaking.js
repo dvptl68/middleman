@@ -29,7 +29,6 @@ const Matchmaking = (props) => {
       const user = (await response.json())[0];
       response = await fetch(
         `http://127.0.0.1:5000/get_users/5/${user.age}/${user.height}/${user.sex}/${user.orientation}/bachelors/agnostic/500`,
-        // /get_users/<n>/<age>/<height>/<gender>/<orientation>/<education>/<religion>/<income>
         requestOptions
       );
       responseJSON = await response.json();
@@ -56,12 +55,13 @@ const Matchmaking = (props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user: profiles[0]['username'],
-        liked: (liked) ? 'y' : 'n',
+        liked: liked ? 'y' : 'n',
       }),
     };
-    fetch(`http://127.0.0.1:5000/matchmaker_profiles/${props['username']}/`, requestOptions).catch(
-      console.error
-    );
+    fetch(
+      `http://127.0.0.1:5000/matchmaker_profiles/${props['username']}/`,
+      requestOptions
+    ).catch(console.error);
     setProfiles(profiles.slice(1));
   };
   return profiles.length === 0 ? (

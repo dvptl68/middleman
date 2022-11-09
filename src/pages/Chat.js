@@ -13,7 +13,7 @@ const Chat = (props) => {
         headers: { 'Content-Type': 'application/json' },
       };
       const response = await fetch(
-        `http://127.0.0.1:5000/chat_users/${props['username']}`,
+        `http://127.0.0.1:5000/chat_users/${props['username']}/`,
         requestOptions
       );
       const responseJSON = await response.json();

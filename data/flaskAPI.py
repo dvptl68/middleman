@@ -724,20 +724,20 @@ class MProfiles(Resource):
     def post(self, matchmaker):
         es.indices.refresh(index="dating_profiles")
         search_param = {
-                "size": 1,
-                "query": {
-                    "bool": {
-                        "should": [
-                            {  
-                                "match": {
-                                "username" : matchmaker
-                                } 
-                            }   
+            "size": 1,
+            "query": {
+                "bool": {
+                    "should": [
+                        {  
+                            "match": {
+                            "username" : matchmaker
+                            } 
+                        }   
 
-                        ]
-                    }
+                    ]
                 }
             }
+        }
         
         resp = es.search(index="dating_profiles", body=search_param)
         profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
@@ -758,6 +758,51 @@ class MProfiles(Resource):
             mProfiles.remove(args['user'])
         if args['liked'] == 'y':
             approvedProfiles.append(args['user'])
+            search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                    "username" : args['user']
+                                } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+            resp = es.search(index="dating_profiles", body=search_param)
+            likedUserProfile = ProcessProfiles.get_source_list(resp['hits']['hits'])
+            likedUserMM = likedUserProfile[0]['matchmaker']
+            search_param = {
+                "size": 1,
+                "query": {
+                    "bool": {
+                        "should": [
+                            {  
+                                "match": {
+                                    "username" : likedUserMM
+                                } 
+                            }   
+
+                        ]
+                    }
+                }
+            }
+            resp = es.search(index="dating_profiles", body=search_param)
+            likedUserMMProfile = ProcessProfiles.get_source_list(resp['hits']['hits'])
+            likedMProfiles = likedUserMMProfile[0]['mProfiles']
+            likedMProfiles.append(profiles[0]['matchmaking'])
+            body_update = {
+                "doc": {
+                "mProfiles" : list(set(likedMProfiles)),
+                }
+            }
+            response = es.update(index='dating_profiles', id=likedUserMMProfile[0]['id'], body=body_update)    
+              
+            
         print(mProfiles)
         print(approvedProfiles)
         # return lis
@@ -768,6 +813,8 @@ class MProfiles(Resource):
             }
         } 
         response = es.update(index='dating_profiles', id=profiles[0]['id'], body=body_update)  
+        
+        
         print('response: ', response)
         return approvedProfiles
 
