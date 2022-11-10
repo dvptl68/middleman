@@ -18,12 +18,19 @@ client = Elasticsearch(
     ssl_assert_fingerprint=(CERT_FINGERPRINT),
     basic_auth=("elastic", ELASTIC_PASSWORD)
 )
+# in case there already exists the index
+client.options(ignore_status=[400,404]).indices.delete(index='dating_profiles')
 
 # Successful response!
 print(client.info())
 # {'name': 'instance-0000000000', 'cluster_name': ...}
 data = pd.read_csv('data/okcupid_profiles.csv')
 data['name'] = np.nan
+data['username'] = np.nan
+data['password'] = np.nan
+data['matchmaker'] = np.nan
+data['matchmaking'] = np.nan
+data['id'] = np.nan
 dataToStore = ['id','name', 'age','sex','height','location','orientation','religion', 'income', 'education']
 # delete not needed categories
 for column in data:
@@ -34,9 +41,38 @@ for column in data:
 df = data.replace({np.nan: None}) # replace with None instead of np.nan since elastic does not parse np.nan
 
 # Store the First 100 Dating Profiles into dating_profiles index in Elastic
-for i in range(100):
-    df.loc[i, 'name'] = names.get_full_name()
+for i in range(0, 400, 2):
+    fname1 = names.get_first_name()
+    lname1 = names.get_last_name()
+    name1 = fname1 + ' ' + lname1
+    username1 = lname1 + fname1 + str(i + 1)
+    fname2 = names.get_first_name()
+    lname2 = names.get_last_name()
+    name2 = fname2 + ' ' + lname2
+    username2 = lname2 + fname2 + str(i + 2)
+    df.loc[i, 'name'] = name1
+    df.loc[i, 'username'] = username1
+    df.loc[i, 'password'] = 'pw'
+    df.loc[i, 'matchmaker'] = username2
+    df.loc[i, 'matchmaking'] = username2
+    df.loc[i, 'id'] = i+1
     json = df.loc[i].to_dict()
+    json['usersLiked'] = []
+    json['mProfiles'] = []
+    json['approvedProfiles'] = []
+    json['chat'] = {}
     print(json)
     client.index(index="dating_profiles", id=i+1, document=json)
-    #time.sleep(2)
+    df.loc[i, 'name'] = name2
+    df.loc[i, 'username'] = username2
+    df.loc[i, 'password'] = 'pw'
+    df.loc[i, 'matchmaker'] = username1
+    df.loc[i, 'matchmaking'] = username1
+    df.loc[i, 'id'] = i+2
+    json = df.loc[i].to_dict()
+    json['usersLiked'] = []
+    json['mProfiles'] = []
+    json['approvedProfiles'] = []
+    json['chat'] = {}
+    print(json)
+    client.index(index="dating_profiles", id=i+2, document=json)

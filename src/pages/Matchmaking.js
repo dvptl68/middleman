@@ -4,59 +4,73 @@ import DisplayProfile from '../components/DisplayProfile';
 import { MatchmakingStyles } from '../styles/Styles';
 
 const Matchmaking = (props) => {
-  const [profiles, setProfiles] = useState([
-    ...props.userData[props.username].mProfiles,
-  ]);
+  const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    if (props.username == 'catwoman1') {
-      setProfiles((prevProfiles) => [
-        ...prevProfiles,
-        ...props.elasticProfiles,
-      ]);
-    }
+    const fetchData = async () => {
+      let usernameList = [];
+      let requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      let response = await fetch(
+        `http://127.0.0.1:5000/matchmaker_profiles/${props['username']}/`,
+        requestOptions
+      );
+      let responseJSON = await response.json();
+      usernameList = responseJSON;
+      requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      response = await fetch(
+        `http://127.0.0.1:5000/get_user_detail/${props.matchmaking}/`,
+        requestOptions
+      );
+      const user = (await response.json())[0];
+      response = await fetch(
+        `http://127.0.0.1:5000/get_users/5/${user.age}/${user.height}/${user.sex}/${user.orientation}/bachelors/agnostic/500`,
+        requestOptions
+      );
+      responseJSON = await response.json();
+      for (let profile of responseJSON) usernameList.push(profile.username);
+      requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      const profilesList = [];
+      for (let username of usernameList) {
+        response = await fetch(
+          `http://127.0.0.1:5000/get_user_detail/${username}/`,
+          requestOptions
+        );
+        profilesList.push((await response.json())[0]);
+      }
+      setProfiles(profilesList);
+    };
+    fetchData();
   }, []);
   const likeProfile = (liked) => {
-    const username = profiles[0];
-    if (typeof username === 'string') {
-      const newUserData = { ...props.userData };
-      newUserData[props.username].mProfiles = profiles.slice(1);
-      if (liked) {
-        newUserData[props.username].approvedProfiles.push(username);
-        if (
-          !newUserData[
-            newUserData[username].matchmaker
-          ].approvedProfiles.includes(newUserData[props.username].matchmaking)
-        ) {
-          newUserData[newUserData[username].matchmaker].mProfiles.push(
-            newUserData[props.username].matchmaking
-          );
-        }
-      }
-      props.setUserData(newUserData);
-      setProfiles(newUserData[props.username].mProfiles);
-    } else {
-      setProfiles((prevProfiles) => prevProfiles.slice(1));
-    }
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user: profiles[0]['username'],
+        liked: liked ? 'y' : 'n',
+      }),
+    };
+    fetch(
+      `http://127.0.0.1:5000/matchmaker_profiles/${props['username']}/`,
+      requestOptions
+    ).catch(console.error);
+    setProfiles(profiles.slice(1));
   };
-  let username = '';
-  let params = null;
-  if (typeof profiles[0] == 'string') {
-    username = profiles[0];
-    params = props.userData[username].profile;
-  } else {
-    params = profiles[0];
-  }
-  return profiles.length > 0 ? (
-    <View style={MatchmakingStyles.container}>
-      <DisplayProfile
-        username={username}
-        likeProfile={likeProfile}
-        {...params}
-      />
-    </View>
-  ) : (
+  return profiles.length === 0 ? (
     <View style={MatchmakingStyles.noProfilesTextContainer}>
       <Text style={MatchmakingStyles.noProfilesText}>No profiles to show!</Text>
+    </View>
+  ) : (
+    <View style={MatchmakingStyles.container}>
+      <DisplayProfile profile={profiles[0]} likeProfile={likeProfile} />
     </View>
   );
 };
