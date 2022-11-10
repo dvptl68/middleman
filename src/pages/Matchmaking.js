@@ -4,6 +4,31 @@ import DisplayProfile from '../components/DisplayProfile';
 import FilterWindow from '../components/FilterWindow';
 import { MatchmakingStyles } from '../styles/Styles';
 
+function isNum(num){
+  return num>='0' && num <='9';
+}
+function isUpperCase(str){
+  return str>='A' && str <='Z';
+}
+
+function naming(text){
+  var first = text.charAt(0);
+  for(var i=1;i<text.length;i++){
+      if(isNum(text.charAt(i))){
+        return first;
+      }
+      if(isUpperCase(text.charAt(i))){
+        first+=" ";
+        first+=text.charAt(i);
+      }
+      else{
+        first+=text.charAt(i);
+      }
+  }
+
+}
+
+
 const Matchmaking = (props) => {
   const [profiles, setProfiles] = useState([]);
   const [editingFilters, setEditingFilters] = useState(false);
@@ -122,7 +147,7 @@ const Matchmaking = (props) => {
       <View style={MatchmakingStyles.headerContainer}>
         <View style={MatchmakingStyles.titleContainer}>
           <Text style={MatchmakingStyles.titleText}>
-            Matchmaking for {props.matchmaking}
+            Matchmaking for {naming(props.matchmaking)}
           </Text>
         </View>
         <TouchableOpacity
@@ -146,7 +171,7 @@ const Matchmaking = (props) => {
       <View style={MatchmakingStyles.headerContainer}>
         <View style={MatchmakingStyles.titleContainer}>
           <Text style={MatchmakingStyles.titleText}>
-            Matchmaking for {props.matchmaking}
+            Matchmaking for {naming(props.matchmaking)}
           </Text>
         </View>
         <TouchableOpacity
