@@ -3,7 +3,8 @@ import Colors from './Colors';
 
 const showContainerBorders = false;
 const containerBorderWidth = 4;
-const defaultFont = 'sans-serif';
+const defaultFont = 'Cochin-Bold';
+const backColor = 'white';
 
 const LoginStyles = StyleSheet.create({
   baseText: {
@@ -15,9 +16,10 @@ const LoginStyles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'blue',
-    backgroundColor: Colors.LIGHT_PINK,
+    backgroundColor: backColor,
   },
   textInput: {
+    fontFamily: defaultFont,
     height: 40,
     width: 200,
     margin: 5,
@@ -34,14 +36,14 @@ const MainViewStyles = StyleSheet.create({
     flex: 8,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'green',
-    backgroundColor: Colors.LIGHT_PINK,
+    backgroundColor: backColor,
   },
   tabsContainer: {
     flex: 1,
     flexDirection: 'row',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
+    backgroundColor: backColor,
   },
   singleTabContainer: {
     flex: 1,
@@ -49,7 +51,7 @@ const MainViewStyles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'blue',
-    backgroundColor: Colors.LIGHT_PINK,
+    backgroundColor: backColor,
   },
   buttons: {
     width: 30,
@@ -72,6 +74,7 @@ const DiscoverStyles = StyleSheet.create({
     borderColor: 'blue',
   },
   noProfilesText: {
+    fontFamily: defaultFont,
     fontSize: 20,
     alignSelf: 'center',
   },
@@ -85,7 +88,7 @@ const MatchmakingStyles = StyleSheet.create({
     flex: 1,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
+    backgroundColor: backColor,
   },
   item: {
     padding: 10,
@@ -100,6 +103,7 @@ const MatchmakingStyles = StyleSheet.create({
     borderColor: 'blue',
   },
   noProfilesText: {
+    fontFamily: defaultFont,
     fontSize: 20,
     alignSelf: 'center',
   },
@@ -156,12 +160,13 @@ const ProfileStyles = StyleSheet.create({
     fontFamily: defaultFont,
   },
   container: {
+    fontFamily: defaultFont,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
+    backgroundColor: backColor,
   },
 });
 
@@ -172,12 +177,46 @@ const DisplayProfileStyles = StyleSheet.create({
     justifyContent: 'center',
     border: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
-    backgroundColor: Colors.LIGHT_PINK,
+    backgroundColor: backColor,
+  },
+
+  bio:{
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+
+
+  scrollContainer: {
+    paddingTop: 20,
+    borderColor: 'blue',
+
   },
   profileContainer: {
     flex: 3,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'green',
+  },
+
+  bioContainer:{
+    //justifyContent: 'space-around',
+  },
+
+  bioL1: {
+    flex: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderWidth: 1,
+    borderRadius: 20,
+    //textAlign: "center",
+    borderColor: 'brown',
+    margin: 3
   },
   buttonsContainer: {
     flex: 1,
@@ -198,10 +237,15 @@ const DisplayProfileStyles = StyleSheet.create({
     resizeMode: 'stretch',
   },
   picture: {
-    width: 200,
-    height: 200,
+    paddingTop: 20,
+    width: 250,
+    height: 250,
     resizeMode: 'stretch',
     margin: 5,
+
+    // height: '100%',
+    // resizeMode: 'cover',
+    borderRadius: 20,
   },
   nameText: {
     fontFamily: 'sans',
@@ -212,7 +256,7 @@ const DisplayProfileStyles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontFamily: 'sans',
+    fontFamily: defaultFont,
     fontSize: 20,
     fontWeight: 'bold',
     color: Colors.PINK,
