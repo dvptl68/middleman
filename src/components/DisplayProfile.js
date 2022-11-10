@@ -43,19 +43,19 @@ const DisplayProfile = (props) => {
             style={{ padding: 10, flexDirection: 'row', alignItems: 'center' }}
           >
             <FontAwesome name="transgender" size={24} color="black" />
-            <Text>{capitalName(profile.sex)}</Text>
+            <Text>{' '}{capitalName(profile.sex)}</Text>
           </View>
           <View
             style={{ padding: 10, flexDirection: 'row', alignItems: 'center' }}
           >
             <Ionicons name="ios-magnet-outline" size={24} color="black" />
-            <Text>{capitalName(profile.orientation)}</Text>
+            <Text>{' '}{capitalName(profile.orientation)}</Text>
           </View>
           <View
             style={{ padding: 10, flexDirection: 'row', alignItems: 'center' }}
           >
             <MaterialIcons name="timer" size={24} color="black" />
-            <Text>{profile.age}</Text>
+            <Text>{' '}{profile.age}</Text>
           </View>
           <View
             style={{ padding: 10, flexDirection: 'row', alignItems: 'center' }}
@@ -66,7 +66,7 @@ const DisplayProfile = (props) => {
               color="black"
             />
             <Text>
-              {Math.floor(profile.height / 12)}'{profile.height % 12}"
+              {' '}{Math.floor(profile.height / 12)}'{profile.height % 12}"
             </Text>
           </View>
         </View>
@@ -80,6 +80,7 @@ const DisplayProfile = (props) => {
           >
             <Entypo name="graduation-cap" size={24} color="black" />
             <Text>
+              {' '}
               {profile.education == null
                 ? 'N/A'
                 : capitalName(profile.education)}
@@ -94,7 +95,7 @@ const DisplayProfile = (props) => {
           >
             <MaterialCommunityIcons name="mosque" size={24} color="black" />
             <Text>
-              {profile.religion == null ? 'N/A' : capitalName(profile.religion)}
+              {' '}{profile.religion == null ? 'N/A' : capitalName(profile.religion)}
             </Text>
           </View>
         </View>
@@ -103,7 +104,7 @@ const DisplayProfile = (props) => {
             style={{ padding: 10, flexDirection: 'row', alignItems: 'center' }}
           >
             <Feather name="map-pin" size={24} color="black" />
-            <Text>{capitalName(profile.location)}</Text>
+            <Text>{' '}{capitalName(profile.location)}</Text>
           </View>
         </View>
         {/* <Text style={DisplayProfileStyles.text}>
