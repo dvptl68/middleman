@@ -12,6 +12,13 @@ import tw from 'twrnc';
 function capitalName(text){
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
+//const[url, setUrl] = useState(0);
+
+// function functionComb(){
+//   url = 'https://fakeface.rest/face/view';
+//   setUrl(url);
+//   return props['likeProfile'](false, profile.matchmaker);
+// }
 
 const DisplayProfile = (props) => {
   const profile = props.profile;
@@ -21,12 +28,12 @@ const DisplayProfile = (props) => {
               <View style={DisplayProfileStyles.container}>
                 <Image
                   style={DisplayProfileStyles.picture}
-                  source={require(`./../../assets/images/megan.jpg`)}
-                />
+                  source={{uri:'https://fakeface.rest/face/view'}}
+                  />
               </View>
             </View>
 
-            <View >
+            <View style = {DisplayProfileStyles.bioContainer}>
             <Text style={DisplayProfileStyles.nameText}>{profile.name}</Text>
             </View>
 
@@ -48,11 +55,11 @@ const DisplayProfile = (props) => {
               <View style={DisplayProfileStyles.bioL1}>
                 <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center'   }}>
                 <Entypo name="graduation-cap" size={24} color="black" />
-                    <Text>{capitalName(profile.education)}</Text>
+                    <Text>{profile.education == null ? 'N/A' : capitalName(profile.education)}</Text>
                 </View>
                 <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialCommunityIcons name="mosque" size={24} color="black" />
-                    <Text>{capitalName(profile.religion)}</Text>
+                    <Text>{profile.religion == null ? 'N/A' : capitalName(profile.religion)}</Text>
                 </View>
               </View>
               <View style={DisplayProfileStyles.bioL1}>
@@ -89,7 +96,7 @@ const DisplayProfile = (props) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={DisplayProfileStyles.singleButtonContainer}
-                onPress={() => props['likeProfile'](true, profile.matchmaker)}
+                onPress={() => props['likeProfile'](false, profile.matchmaker)}
               >
                 <Image
                   style={DisplayProfileStyles.buttons}

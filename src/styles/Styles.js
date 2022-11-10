@@ -162,7 +162,7 @@ const ProfileStyles = StyleSheet.create({
   container: {
     fontFamily: defaultFont,
     flex: 1,
-    justifyContent: 'center',
+    //justifyContent: 'center',
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
@@ -199,12 +199,15 @@ const DisplayProfileStyles = StyleSheet.create({
 
   },
   profileContainer: {
-    flex: 3,
+    flex: 2,
+    marginTop: 40,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'green',
+    marginBottom:10,
   },
 
   bioContainer:{
+    //marginTop:40,
     //justifyContent: 'space-around',
   },
 
@@ -238,8 +241,8 @@ const DisplayProfileStyles = StyleSheet.create({
   },
   picture: {
     paddingTop: 20,
-    width: 250,
-    height: 250,
+    width: 300,
+    height: 300,
     resizeMode: 'stretch',
     margin: 5,
 
@@ -248,11 +251,14 @@ const DisplayProfileStyles = StyleSheet.create({
     borderRadius: 20,
   },
   nameText: {
-    fontFamily: 'sans',
-    fontSize: 30,
+    marginTop:30,
+    fontFamily: 'Marker Felt',
+    fontSize: 40,
     fontWeight: 'bold',
-    color: Colors.BROWN,
-    margin: 5,
+    //color: Colors.BROWN,
+    alignContent: 'center',
+    alignSelf: 'center',
+    marginBottom:10,
   },
   text: {
     textAlign: 'center',
