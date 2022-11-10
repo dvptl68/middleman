@@ -29,10 +29,6 @@ const Matchmaking = (props) => {
       setUserSex(givenUserSex);
       setUserOrientation(givenUserOrientation);
     }
-    console.log(givenUserAge);
-    console.log(givenUserHeight);
-    console.log(givenUserSex);
-    console.log(givenUserOrientation);
     let requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
