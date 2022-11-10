@@ -8,23 +8,25 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState();
-  const regex = new RegExp("^[a-zA-Z0-9_]*$");
+  const regex = new RegExp('^[a-zA-Z0-9_]*$');
   const getUserProfile = () => {
     if (!regex.test(username)) {
-      console.log("Invalid username");
+      console.log('Invalid username');
     } else {
       const requestOptions = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       };
-      fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions)
+      fetch(
+        `http://127.0.0.1:5000/get_user_detail/${username}/`,
+        requestOptions
+      )
         .then((response) => response.json())
         .then((data) => {
           const userProfile = data[0];
           setUserData(userProfile);
           console.log(userProfile);
-          if (userProfile)
-            setIsLoggedIn(true);
+          if (userProfile) setIsLoggedIn(true);
         })
         .catch(console.error);
     }

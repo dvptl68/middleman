@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image, addons } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import DisplayProfile from '../components/DisplayProfile';
 import FilterWindow from '../components/FilterWindow';
 import { MatchmakingStyles } from '../styles/Styles';
@@ -11,7 +11,13 @@ const Matchmaking = (props) => {
   const [userHeight, setUserHeight] = useState(0);
   const [userSex, setUserSex] = useState('');
   const [userOrientation, setUserOrientation] = useState('');
-  const fetchData = async (usernameList = [], givenUserAge = 0, givenUserHeight = 0, givenUserSex = '', givenUserOrientation = '') => {
+  const fetchData = async (
+    usernameList = [],
+    givenUserAge = 0,
+    givenUserHeight = 0,
+    givenUserSex = '',
+    givenUserOrientation = ''
+  ) => {
     if (givenUserAge === 0) {
       givenUserAge = userAge;
       givenUserHeight = userHeight;
@@ -44,7 +50,11 @@ const Matchmaking = (props) => {
     };
     const profilesList = [];
     for (let username of usernameList) {
-      if (username === props['username'] || username === props['matchmaking'] || props.approvedProfiles.includes(username))
+      if (
+        username === props['username'] ||
+        username === props['matchmaking'] ||
+        props.approvedProfiles.includes(username)
+      )
         continue;
       response = await fetch(
         `http://127.0.0.1:5000/get_user_detail/${username}/`,
@@ -77,7 +87,13 @@ const Matchmaking = (props) => {
         requestOptions
       );
       const user = (await response.json())[0];
-      await fetchData(usernameList, user.age, user.height, user.sex, user.orientation);
+      await fetchData(
+        usernameList,
+        user.age,
+        user.height,
+        user.sex,
+        user.orientation
+      );
     };
     fetchInitialData();
   }, []);
@@ -125,7 +141,9 @@ const Matchmaking = (props) => {
         </TouchableOpacity>
       </View>
       <View style={MatchmakingStyles.noProfilesTextContainer}>
-        <Text style={MatchmakingStyles.noProfilesText}>No profiles to show!</Text>
+        <Text style={MatchmakingStyles.noProfilesText}>
+          No profiles to show!
+        </Text>
       </View>
     </>
   ) : (
