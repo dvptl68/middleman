@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import { ProfileStyles } from '../styles/Styles';
 import DisplayProfile from '../components/DisplayProfile';
 
