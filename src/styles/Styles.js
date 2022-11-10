@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import Colors from './Colors';
 
-const showContainerBorders = false;
+const showContainerBorders = true;
 const containerBorderWidth = 4;
 const defaultFont = 'sans-serif';
 
@@ -90,10 +90,40 @@ const MatchmakingStyles = StyleSheet.create({
     fontFamily: defaultFont,
   },
   container: {
-    flex: 1,
+    flex: 8,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
     backgroundColor: Colors.LIGHT_PINK,
+  },
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+    backgroundColor: Colors.LIGHT_PINK,
+  },
+  titleContainer: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  titleText: {
+    fontSize: 20,
+  },
+  filterButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  filterButton: {
+    width: 50,
+    height: 50,
+    margin: 5,
+    resizeMode: 'stretch',
   },
   item: {
     padding: 10,
@@ -335,6 +365,10 @@ const ChatWindowStyles = StyleSheet.create({
   },
 });
 
+const FilterWindowStyles = StyleSheet.create({
+
+});
+
 export {
   LoginStyles,
   MainViewStyles,
@@ -344,4 +378,5 @@ export {
   ProfileStyles,
   DisplayProfileStyles,
   ChatWindowStyles,
+  FilterWindowStyles,
 };

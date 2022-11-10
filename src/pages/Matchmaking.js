@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import DisplayProfile from '../components/DisplayProfile';
+import FilterWindow from '../components/FilterWindow';
 import { MatchmakingStyles } from '../styles/Styles';
 
 const Matchmaking = (props) => {
   const [profiles, setProfiles] = useState([]);
+  const [editingFilters, setEditingFilters] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       let usernameList = [];
@@ -66,14 +68,36 @@ const Matchmaking = (props) => {
     ).catch(console.error);
     setProfiles(profiles.slice(1));
   };
-  return profiles.length === 0 ? (
+  return editingFilters ? (
+    <View style={MatchmakingStyles.container}>
+      <FilterWindow/>
+    </View>
+  ) : profiles.length === 0 ? (
     <View style={MatchmakingStyles.noProfilesTextContainer}>
       <Text style={MatchmakingStyles.noProfilesText}>No profiles to show!</Text>
     </View>
   ) : (
-    <View style={MatchmakingStyles.container}>
-      <DisplayProfile profile={profiles[0]} likeProfile={likeProfile} />
-    </View>
+    <>
+      <View style={MatchmakingStyles.headerContainer}>
+        <View style={MatchmakingStyles.titleContainer}>
+          <Text style={MatchmakingStyles.titleText}>
+            Matchmaking for {props.matchmaking}
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={MatchmakingStyles.filterButtonContainer}
+          onPress={() => setEditingFilters(true)}
+        >
+          <Image
+            style={MatchmakingStyles.filterButton}
+            source={require('./../../assets/images/filter.png')}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={MatchmakingStyles.container}>
+        <DisplayProfile profile={profiles[0]} likeProfile={likeProfile} />
+      </View>
+    </>
   );
 };
 
