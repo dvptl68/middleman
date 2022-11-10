@@ -139,7 +139,7 @@ const DisplayProfile = (props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={DisplayProfileStyles.singleButtonContainer}
-            onPress={() => props['likeProfile'](false, profile.matchmaker)}
+            onPress={() => props['likeProfile'](true, profile.matchmaker)}
           >
             <Image
               style={DisplayProfileStyles.buttons}

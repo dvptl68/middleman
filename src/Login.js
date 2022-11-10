@@ -34,7 +34,7 @@ const Login = () => {
       <TextInput
         style={LoginStyles.textInput}
         onChangeText={(value) =>
-          setUsername(value.replace(/[^0-9a-z-A-Z ]/g, ''))
+          setUsername(value.replace(/[^0-9a-zA-Z ]/g, ''))
         }
         value={username}
         placeholder="Username"
@@ -42,7 +42,7 @@ const Login = () => {
       <TextInput
         style={LoginStyles.textInput}
         onChangeText={(value) =>
-          setPassword(value.replace(/[^0-9a-z-A-Z ]/g, ''))
+          setPassword(value.replace(/[^0-9a-zA-Z ]/g, ''))
         }
         value={password}
         placeholder="Password"
