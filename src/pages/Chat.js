@@ -30,7 +30,7 @@ const Chat = (props) => {
         <View style={ChatStyles.listItemContainer}>
           <Image
             style={ChatStyles.profilePicture}
-            source={require(`./../../assets/images/profile-pic.png`)}
+            source={{ uri: 'https://fakeface.rest/face/view?' + new Date() }}
           />
           <View style={ChatStyles.listItemTextContainer}>
             <Text style={ChatStyles.listItemText}>{username}</Text>

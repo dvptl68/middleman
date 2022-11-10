@@ -24,6 +24,7 @@ const LoginStyles = StyleSheet.create({
     width: 200,
     margin: 5,
     borderWidth: 1,
+    borderRadius: 20,
     padding: 10,
   },
   logo: {
@@ -188,6 +189,7 @@ const ChatStyles = StyleSheet.create({
     width: 50,
     height: 50,
     margin: 10,
+    borderRadius: 50,
     resizeMode: 'stretch',
   },
   noProfilesTextContainer: {
@@ -410,6 +412,7 @@ const ChatWindowStyles = StyleSheet.create({
     height: 50,
     margin: 5,
     borderWidth: 1,
+    borderRadius: 20,
     padding: 10,
   },
   sendButtonContainer: {
