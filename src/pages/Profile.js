@@ -4,7 +4,6 @@ import { ProfileStyles } from '../styles/Styles';
 import DisplayProfile from '../components/DisplayProfile';
 
 const Profile = (props) => {
-  console.log(props);
   return (
     <View style={ProfileStyles.container}>
       <DisplayProfile profile={props} hideButtons={true} />
