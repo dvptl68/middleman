@@ -131,7 +131,7 @@ const MatchmakingStyles = StyleSheet.create({
     height: 44,
   },
   noProfilesTextContainer: {
-    flex: 1,
+    flex: 8,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
@@ -368,11 +368,19 @@ const ChatWindowStyles = StyleSheet.create({
 const FilterWindowStyles = StyleSheet.create({
   filtersContainer: {
     flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  categoryContainer: {
     alignContent: 'center',
     justifyContent: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
-    borderColor: 'blue',
-  }
+    borderColor: 'green',
+  },
+  text: {
+    alignSelf: 'center',
+    fontSize: 20,
+  },
 });
 
 export {
