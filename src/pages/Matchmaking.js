@@ -38,7 +38,6 @@ const Matchmaking = (props) => {
       requestOptions
     );
     let responseJSON = await response.json();
-    console.log(responseJSON);
     for (let profile of responseJSON) usernameList.push(profile.username);
     requestOptions = {
       method: 'GET',

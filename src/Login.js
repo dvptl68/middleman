@@ -13,10 +13,7 @@ const Login = () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch(
-      `http://127.0.0.1:5000/get_user_detail/${username}/`,
-      requestOptions
-    )
+    fetch(`http://127.0.0.1:5000/get_user_detail/${username}/`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         const userProfile = data[0];
@@ -36,13 +33,17 @@ const Login = () => {
       />
       <TextInput
         style={LoginStyles.textInput}
-        onChangeText={value => setUsername(value.replace(/[^0-9a-z-A-Z ]/g, ''))}
+        onChangeText={(value) =>
+          setUsername(value.replace(/[^0-9a-z-A-Z ]/g, ''))
+        }
         value={username}
         placeholder="Username"
       />
       <TextInput
         style={LoginStyles.textInput}
-        onChangeText={value => setPassword(value.replace(/[^0-9a-z-A-Z ]/g, ''))}
+        onChangeText={(value) =>
+          setPassword(value.replace(/[^0-9a-z-A-Z ]/g, ''))
+        }
         value={password}
         placeholder="Password"
         secureTextEntry={true}
