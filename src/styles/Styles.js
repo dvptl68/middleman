@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import Colors from './Colors';
 
-const showContainerBorders = true;
+const showContainerBorders = false;
 const containerBorderWidth = 4;
 const defaultFont = 'sans-serif';
 
@@ -23,6 +23,12 @@ const LoginStyles = StyleSheet.create({
     margin: 5,
     borderWidth: 1,
     padding: 10,
+  },
+  logo: {
+    width: 300,
+    height: 125,
+    margin: 5,
+    resizeMode: 'stretch',
   },
 });
 

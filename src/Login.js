@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { View, TextInput, Button, Image } from 'react-native';
 import { LoginStyles } from './styles/Styles';
 import MainView from './MainView';
 
@@ -35,6 +35,10 @@ const Login = () => {
     <MainView {...userData} setLoggedIn={setIsLoggedIn} />
   ) : (
     <View style={LoginStyles.loginContainer}>
+      <Image
+        style={LoginStyles.logo}
+        source={require('../assets/images/logo.png')}
+      />
       <TextInput
         style={LoginStyles.textInput}
         onChangeText={setUsername}
