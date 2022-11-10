@@ -4,30 +4,28 @@ import DisplayProfile from '../components/DisplayProfile';
 import FilterWindow from '../components/FilterWindow';
 import { MatchmakingStyles } from '../styles/Styles';
 
-function isNum(num){
-  return num>='0' && num <='9';
-}
-function isUpperCase(str){
-  return str>='A' && str <='Z';
-}
+const isNum = (num) => {
+  return num >= '0' && num <= '9';
+};
 
-function naming(text){
+const isUpperCase = (str) => {
+  return str >= 'A' && str <= 'Z';
+};
+
+const naming = (text) => {
   var first = text.charAt(0);
-  for(var i=1;i<text.length;i++){
-      if(isNum(text.charAt(i))){
-        return first;
-      }
-      if(isUpperCase(text.charAt(i))){
-        first+=" ";
-        first+=text.charAt(i);
-      }
-      else{
-        first+=text.charAt(i);
-      }
+  for (var i = 1; i < text.length; i++) {
+    if (isNum(text.charAt(i))) {
+      return first.split(' ').reverse().join(' ');
+    }
+    if (isUpperCase(text.charAt(i))) {
+      first += ' ';
+      first += text.charAt(i);
+    } else {
+      first += text.charAt(i);
+    }
   }
-
-}
-
+};
 
 const Matchmaking = (props) => {
   const [profiles, setProfiles] = useState([]);

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import { Image, Text, View, TouchableOpacity } from 'react-native';
 import { DisplayProfileStyles } from '../styles/Styles';
 import { Icon } from '@rneui/themed';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -14,7 +9,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { FontAwesome } from '@expo/vector-icons';
-
 
 function capitalName(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
@@ -71,7 +65,9 @@ const DisplayProfile = (props) => {
               size={24}
               color="black"
             />
-            <Text>{Math.floor(profile.height/12)}'{profile.height%12}"</Text>
+            <Text>
+              {Math.floor(profile.height / 12)}'{profile.height % 12}"
+            </Text>
           </View>
         </View>
         <View style={DisplayProfileStyles.bioL1}>

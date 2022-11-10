@@ -3,6 +3,29 @@ import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import ChatWindow from '../components/ChatWindow';
 import { ChatStyles } from '../styles/Styles';
 
+const isNum = (num) => {
+  return num >= '0' && num <= '9';
+};
+
+const isUpperCase = (str) => {
+  return str >= 'A' && str <= 'Z';
+};
+
+const naming = (text) => {
+  var first = text.charAt(0);
+  for (var i = 1; i < text.length; i++) {
+    if (isNum(text.charAt(i))) {
+      return first.split(' ').reverse().join(' ');
+    }
+    if (isUpperCase(text.charAt(i))) {
+      first += ' ';
+      first += text.charAt(i);
+    } else {
+      first += text.charAt(i);
+    }
+  }
+};
+
 const Chat = (props) => {
   const [chatProfiles, setChatProfiles] = useState([]);
   const [currChat, setCurrChat] = useState('');
@@ -33,7 +56,7 @@ const Chat = (props) => {
             source={{ uri: 'https://fakeface.rest/face/view?' + new Date() }}
           />
           <View style={ChatStyles.listItemTextContainer}>
-            <Text style={ChatStyles.listItemText}>{username}</Text>
+            <Text style={ChatStyles.listItemText}>{naming(username)}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -55,6 +78,7 @@ const Chat = (props) => {
       <ChatWindow
         username={props['username']}
         chatUsername={currChat}
+        chatName={naming(currChat)}
         backButton={backButton}
       />
     </View>
