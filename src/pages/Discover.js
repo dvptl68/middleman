@@ -41,9 +41,10 @@ const Discover = (props) => {
         userB: profiles[0]['username'],
       }),
     };
-    fetch(`http://127.0.0.1:5000/${liked ? 'like_user' : 'dis_like_user'}/`, requestOptions).catch(
-      console.error
-    );
+    fetch(
+      `http://127.0.0.1:5000/${liked ? 'like_user' : 'dis_like_user'}/`,
+      requestOptions
+    ).catch(console.error);
     setProfiles(profiles.slice(1));
   };
   return profiles.length === 0 ? (

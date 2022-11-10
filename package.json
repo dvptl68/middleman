@@ -20,8 +20,9 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.5",
-    "react-native-vector-icons": "^9.2.0",
+    "react-native-range-slider-expo": "^1.4.3",
     "react-native-web": "~0.18.7",
+    "react-native-vector-icons": "^9.2.0",
     "tailwind-rn": "^4.2.0",
     "tw-tailwind": "^1.0.21",
     "twrnc": "^3.4.1"

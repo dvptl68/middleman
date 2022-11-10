@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { View, TextInput, Button, Image } from 'react-native';
 import { LoginStyles } from './styles/Styles';
 import MainView from './MainView';
 
@@ -19,7 +19,7 @@ const Login = () => {
         const userProfile = data[0];
         setUserData(userProfile);
         console.log(userProfile);
-        setIsLoggedIn(true);
+        if (userProfile) setIsLoggedIn(true);
       })
       .catch(console.error);
   };
@@ -27,15 +27,23 @@ const Login = () => {
     <MainView {...userData} setLoggedIn={setIsLoggedIn} />
   ) : (
     <View style={LoginStyles.loginContainer}>
+      <Image
+        style={LoginStyles.logo}
+        source={require('../assets/images/logo.png')}
+      />
       <TextInput
         style={LoginStyles.textInput}
-        onChangeText={setUsername}
+        onChangeText={(value) =>
+          setUsername(value.replace(/[^0-9a-z-A-Z ]/g, ''))
+        }
         value={username}
         placeholder="Username"
       />
       <TextInput
         style={LoginStyles.textInput}
-        onChangeText={setPassword}
+        onChangeText={(value) =>
+          setPassword(value.replace(/[^0-9a-z-A-Z ]/g, ''))
+        }
         value={password}
         placeholder="Password"
         secureTextEntry={true}

@@ -26,6 +26,12 @@ const LoginStyles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
+  logo: {
+    width: 300,
+    height: 125,
+    margin: 5,
+    resizeMode: 'stretch',
+  },
 });
 
 const MainViewStyles = StyleSheet.create({
@@ -52,6 +58,15 @@ const MainViewStyles = StyleSheet.create({
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'blue',
     backgroundColor: backColor,
+  },
+  boldedCurvedSingleTabContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    borderWidth: 5,
+    borderColor: Colors.PINK,
+    backgroundColor: Colors.LIGHT_PINK,
   },
   buttons: {
     width: 30,
@@ -85,18 +100,50 @@ const MatchmakingStyles = StyleSheet.create({
     fontFamily: defaultFont,
   },
   container: {
-    flex: 1,
+    flex: 8,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'red',
     backgroundColor: backColor,
   },
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+    backgroundColor: backColor,
+  },
+  titleContainer: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'red',
+  },
+  titleText: {
+    fontFamily: defaultFont,
+    fontSize: 20,
+  },
+  filterButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  filterButton: {
+    width: 50,
+    height: 50,
+    margin: 5,
+    resizeMode: 'stretch',
+  },
   item: {
+    fontFamily: defaultFont,
     padding: 10,
     fontSize: 18,
     height: 44,
   },
   noProfilesTextContainer: {
-    flex: 1,
+    flex: 8,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
@@ -134,6 +181,7 @@ const ChatStyles = StyleSheet.create({
     borderColor: 'green',
   },
   listItemText: {
+    fontFamily: defaultFont,
     fontSize: 20,
   },
   profilePicture: {
@@ -150,6 +198,7 @@ const ChatStyles = StyleSheet.create({
     borderColor: 'blue',
   },
   noProfilesText: {
+    fontFamily: defaultFont,
     fontSize: 20,
     alignSelf: 'center',
   },
@@ -180,33 +229,31 @@ const DisplayProfileStyles = StyleSheet.create({
     backgroundColor: backColor,
   },
 
-  bio:{
+  bio: {
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderRadius: 4,
-    backgroundColor: "oldlace",
-    alignSelf: "flex-start",
-    marginHorizontal: "1%",
+    backgroundColor: 'oldlace',
+    alignSelf: 'flex-start',
+    marginHorizontal: '1%',
     marginBottom: 6,
-    minWidth: "48%",
-    textAlign: "center",
+    minWidth: '48%',
+    textAlign: 'center',
   },
-
 
   scrollContainer: {
     paddingTop: 20,
     borderColor: 'blue',
-
   },
   profileContainer: {
     flex: 2,
     marginTop: 40,
     borderWidth: showContainerBorders ? containerBorderWidth : 0,
     borderColor: 'green',
-    marginBottom:10,
+    marginBottom: 10,
   },
 
-  bioContainer:{
+  bioContainer: {
     //marginTop:40,
     //justifyContent: 'space-around',
   },
@@ -219,7 +266,7 @@ const DisplayProfileStyles = StyleSheet.create({
     borderRadius: 20,
     //textAlign: "center",
     borderColor: 'brown',
-    margin: 3
+    margin: 3,
   },
   buttonsContainer: {
     flex: 1,
@@ -251,14 +298,14 @@ const DisplayProfileStyles = StyleSheet.create({
     borderRadius: 20,
   },
   nameText: {
-    marginTop:30,
+    marginTop: 30,
     fontFamily: 'Marker Felt',
     fontSize: 40,
     fontWeight: 'bold',
     //color: Colors.BROWN,
     alignContent: 'center',
     alignSelf: 'center',
-    marginBottom:10,
+    marginBottom: 10,
   },
   text: {
     textAlign: 'center',
@@ -276,6 +323,7 @@ const DisplayProfileStyles = StyleSheet.create({
     borderColor: 'blue',
   },
   loadingText: {
+    fontFamily: defaultFont,
     fontSize: 20,
     alignSelf: 'center',
   },
@@ -309,6 +357,7 @@ const ChatWindowStyles = StyleSheet.create({
     borderColor: 'green',
   },
   titleText: {
+    fontFamily: defaultFont,
     fontSize: 30,
   },
   messagesContainer: {
@@ -340,6 +389,7 @@ const ChatWindowStyles = StyleSheet.create({
     borderColor: 'green',
   },
   messageText: {
+    fontFamily: defaultFont,
     fontSize: 20,
     padding: 8,
   },
@@ -377,6 +427,25 @@ const ChatWindowStyles = StyleSheet.create({
   },
 });
 
+const FilterWindowStyles = StyleSheet.create({
+  filtersContainer: {
+    flex: 1,
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  },
+  categoryContainer: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'green',
+  },
+  text: {
+    alignSelf: 'center',
+    fontFamily: defaultFont,
+    fontSize: 20,
+  },
+});
+
 export {
   LoginStyles,
   MainViewStyles,
@@ -386,4 +455,5 @@ export {
   ProfileStyles,
   DisplayProfileStyles,
   ChatWindowStyles,
+  FilterWindowStyles,
 };
