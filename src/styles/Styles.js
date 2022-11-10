@@ -366,7 +366,13 @@ const ChatWindowStyles = StyleSheet.create({
 });
 
 const FilterWindowStyles = StyleSheet.create({
-
+  filtersContainer: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderWidth: showContainerBorders ? containerBorderWidth : 0,
+    borderColor: 'blue',
+  }
 });
 
 export {

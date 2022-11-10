@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  FlatList,
-} from 'react-native';
-import { ChatWindowStyles } from '../styles/Styles';
+import { View, TextInput, Button } from 'react-native';
+import { FilterWindowStyles } from '../styles/Styles';
 
 const FilterWindow = (props) => {
   return (
     <>
+      <View style={FilterWindowStyles.filtersContainer}>
+        
+      </View>
+      <Button title="filter" onPress={() => props.fetchData()} />
     </>
   );
 };
