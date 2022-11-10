@@ -3,7 +3,7 @@ import Colors from './Colors';
 
 const showContainerBorders = false;
 const containerBorderWidth = 4;
-const defaultFont = 'Cochin-Bold';
+const defaultFont = 'serif';
 const backColor = 'white';
 
 const LoginStyles = StyleSheet.create({

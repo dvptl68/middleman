@@ -4,8 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
 } from 'react-native';
 import { DisplayProfileStyles } from '../styles/Styles';
 import { Icon } from '@rneui/themed';
@@ -29,13 +27,14 @@ function capitalName(text) {
 
 const DisplayProfile = (props) => {
   const profile = props.profile;
+  const hideButtons = props.hideButtons;
   return (
     <>
       <View style={DisplayProfileStyles.profileContainer}>
         <View style={DisplayProfileStyles.container}>
           <Image
             style={DisplayProfileStyles.picture}
-            source={{ uri: 'https://fakeface.rest/face/view' }}
+            source={{ uri: 'https://fakeface.rest/face/view?' + new Date() }}
           />
         </View>
       </View>
@@ -118,26 +117,28 @@ const DisplayProfile = (props) => {
                   Religion: {profile.religion == null ? 'N/A' : profile.religion}
                 </Text> */}
       </View>
-      <View style={DisplayProfileStyles.buttonsContainer}>
-        <TouchableOpacity
-          style={DisplayProfileStyles.singleButtonContainer}
-          onPress={() => props['likeProfile'](false, profile.matchmaker)}
-        >
-          <Image
-            style={DisplayProfileStyles.buttons}
-            source={require('./../../assets/images/broken-heart.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={DisplayProfileStyles.singleButtonContainer}
-          onPress={() => props['likeProfile'](false, profile.matchmaker)}
-        >
-          <Image
-            style={DisplayProfileStyles.buttons}
-            source={require('./../../assets/images/heart.png')}
-          />
-        </TouchableOpacity>
-      </View>
+      {!hideButtons && (
+        <View style={DisplayProfileStyles.buttonsContainer}>
+          <TouchableOpacity
+            style={DisplayProfileStyles.singleButtonContainer}
+            onPress={() => props['likeProfile'](false, profile.matchmaker)}
+          >
+            <Image
+              style={DisplayProfileStyles.buttons}
+              source={require('./../../assets/images/broken-heart.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={DisplayProfileStyles.singleButtonContainer}
+            onPress={() => props['likeProfile'](false, profile.matchmaker)}
+          >
+            <Image
+              style={DisplayProfileStyles.buttons}
+              source={require('./../../assets/images/heart.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
     </>
   );
 };

@@ -4,11 +4,10 @@ import { ProfileStyles } from '../styles/Styles';
 import DisplayProfile from '../components/DisplayProfile';
 
 const Profile = (props) => {
+  console.log(props);
   return (
     <View style={ProfileStyles.container}>
-      <DisplayProfile
-        {...props}
-      />
+      <DisplayProfile profile={props} hideButtons={true} />
       <Button title="logout" onPress={() => props.setLoggedIn(false)} />
     </View>
   );
