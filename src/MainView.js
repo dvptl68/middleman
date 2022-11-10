@@ -24,7 +24,7 @@ const MainView = (props) => {
               key={i}
               style={
                 activeTab === i
-                  ? MainViewStyles.boldedSingleTabContainer
+                  ? MainViewStyles.boldedCurvedSingleTabContainer
                   : MainViewStyles.singleTabContainer
               }
               onPress={() => setActiveTab(i)}
