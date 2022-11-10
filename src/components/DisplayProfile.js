@@ -71,7 +71,7 @@ const DisplayProfile = (props) => {
               size={24}
               color="black"
             />
-            <Text>{profile.height}</Text>
+            <Text>{Math.floor(profile.height/12)}'{profile.height%12}"</Text>
           </View>
         </View>
         <View style={DisplayProfileStyles.bioL1}>

@@ -3,7 +3,7 @@ import Colors from './Colors';
 
 const showContainerBorders = false;
 const containerBorderWidth = 4;
-const defaultFont = '';
+const defaultFont = 'Cochin-Bold';
 const backColor = 'white';
 
 const LoginStyles = StyleSheet.create({
@@ -437,6 +437,7 @@ const FilterWindowStyles = StyleSheet.create({
     borderColor: 'blue',
   },
   categoryContainer: {
+    flex: 1,
     alignContent: 'center',
     justifyContent: 'center',
     borderWidth: showContainerBorders ? containerBorderWidth : 0,

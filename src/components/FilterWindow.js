@@ -7,6 +7,7 @@ const FilterWindow = (props) => {
   return (
     <>
       <View style={FilterWindowStyles.filtersContainer}>
+        <View style={FilterWindowStyles.categoryContainer} />
         <View style={FilterWindowStyles.categoryContainer}>
           <Text style={FilterWindowStyles.text}>Age:</Text>
           <Slider
@@ -25,6 +26,7 @@ const FilterWindow = (props) => {
             initialValue={Math.min(Math.max(props.userHeight, 60), 80)}
           />
         </View>
+        <View style={FilterWindowStyles.categoryContainer} />
       </View>
       <Button title="filter" onPress={() => props.fetchData()} />
     </>
