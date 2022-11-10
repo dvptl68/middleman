@@ -288,8 +288,8 @@ const DisplayProfileStyles = StyleSheet.create({
   },
   picture: {
     paddingTop: 20,
-    width: 300,
-    height: 300,
+    width: 280,
+    height: 280,
     resizeMode: 'stretch',
     margin: 5,
 

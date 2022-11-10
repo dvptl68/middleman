@@ -13,6 +13,8 @@ import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import tw from 'twrnc';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 function capitalName(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
@@ -43,6 +45,12 @@ const DisplayProfile = (props) => {
       </View>
       <View style={DisplayProfileStyles.bioContainer}>
         <View style={DisplayProfileStyles.bioL1}>
+          <View
+            style={{ padding: 10, flexDirection: 'row', alignItems: 'center' }}
+          >
+            <FontAwesome name="transgender" size={24} color="black" />
+            <Text>{capitalName(profile.sex)}</Text>
+          </View>
           <View
             style={{ padding: 10, flexDirection: 'row', alignItems: 'center' }}
           >
@@ -103,6 +111,7 @@ const DisplayProfile = (props) => {
           </View>
         </View>
         {/* <Text style={DisplayProfileStyles.text}>
+
                   {profile.orientation} ({profile.sex}), Age {profile.age}
                 </Text>
                 
