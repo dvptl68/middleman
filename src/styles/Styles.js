@@ -282,14 +282,14 @@ const DisplayProfileStyles = StyleSheet.create({
     borderColor: 'green',
   },
   buttons: {
-    width: 75,
-    height: 75,
+    width: 50,
+    height: 50,
     resizeMode: 'stretch',
   },
   picture: {
     paddingTop: 20,
-    width: 280,
-    height: 280,
+    width: 260,
+    height: 260,
     resizeMode: 'stretch',
     margin: 5,
 
@@ -298,7 +298,7 @@ const DisplayProfileStyles = StyleSheet.create({
     borderRadius: 20,
   },
   nameText: {
-    marginTop: 30,
+    marginTop: 50,
     fontFamily: 'Marker Felt',
     fontSize: 40,
     fontWeight: 'bold',
