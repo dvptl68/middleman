@@ -1,12 +1,90 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import DisplayProfile from '../components/DisplayProfile';
+import FilterWindow from '../components/FilterWindow';
 import { MatchmakingStyles } from '../styles/Styles';
+
+const isNum = (num) => {
+  return num >= '0' && num <= '9';
+};
+
+const isUpperCase = (str) => {
+  return str >= 'A' && str <= 'Z';
+};
+
+const naming = (text) => {
+  var first = text.charAt(0);
+  for (var i = 1; i < text.length; i++) {
+    if (isNum(text.charAt(i))) {
+      return first.split(' ').reverse().join(' ');
+    }
+    if (isUpperCase(text.charAt(i))) {
+      first += ' ';
+      first += text.charAt(i);
+    } else {
+      first += text.charAt(i);
+    }
+  }
+};
 
 const Matchmaking = (props) => {
   const [profiles, setProfiles] = useState([]);
+  const [editingFilters, setEditingFilters] = useState(false);
+  const [userAge, setUserAge] = useState(0);
+  const [userHeight, setUserHeight] = useState(0);
+  const [userSex, setUserSex] = useState('');
+  const [userOrientation, setUserOrientation] = useState('');
+  const fetchData = async (
+    usernameList = [],
+    givenUserAge = 0,
+    givenUserHeight = 0,
+    givenUserSex = '',
+    givenUserOrientation = ''
+  ) => {
+    if (givenUserAge === 0) {
+      givenUserAge = userAge;
+      givenUserHeight = userHeight;
+      givenUserSex = userSex;
+      givenUserOrientation = userOrientation;
+    } else {
+      setUserAge(givenUserAge);
+      setUserHeight(givenUserHeight);
+      setUserSex(givenUserSex);
+      setUserOrientation(givenUserOrientation);
+    }
+    let requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    let response = await fetch(
+      `http://127.0.0.1:5000/get_users/5/${givenUserAge}/${givenUserHeight}/${givenUserSex}/${givenUserOrientation}/bachelors/agnostic/500`,
+      requestOptions
+    );
+    let responseJSON = await response.json();
+    for (let profile of responseJSON) usernameList.push(profile.username);
+    requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    const profilesList = [];
+    for (let username of usernameList) {
+      if (
+        username === props['username'] ||
+        username === props['matchmaking'] ||
+        props.approvedProfiles.includes(username)
+      )
+        continue;
+      response = await fetch(
+        `http://127.0.0.1:5000/get_user_detail/${username}/`,
+        requestOptions
+      );
+      profilesList.push((await response.json())[0]);
+    }
+    setProfiles(profilesList);
+    setEditingFilters(false);
+  };
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchInitialData = async () => {
       let usernameList = [];
       let requestOptions = {
         method: 'GET',
@@ -27,27 +105,15 @@ const Matchmaking = (props) => {
         requestOptions
       );
       const user = (await response.json())[0];
-      response = await fetch(
-        `http://127.0.0.1:5000/get_users/5/${user.age}/${user.height}/${user.sex}/${user.orientation}/bachelors/agnostic/500`,
-        requestOptions
+      await fetchData(
+        usernameList,
+        user.age,
+        user.height,
+        user.sex,
+        user.orientation
       );
-      responseJSON = await response.json();
-      for (let profile of responseJSON) usernameList.push(profile.username);
-      requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      };
-      const profilesList = [];
-      for (let username of usernameList) {
-        response = await fetch(
-          `http://127.0.0.1:5000/get_user_detail/${username}/`,
-          requestOptions
-        );
-        profilesList.push((await response.json())[0]);
-      }
-      setProfiles(profilesList);
     };
-    fetchData();
+    fetchInitialData();
   }, []);
   const likeProfile = (liked) => {
     const requestOptions = {
@@ -64,14 +130,62 @@ const Matchmaking = (props) => {
     ).catch(console.error);
     setProfiles(profiles.slice(1));
   };
-  return profiles.length === 0 ? (
-    <View style={MatchmakingStyles.noProfilesTextContainer}>
-      <Text style={MatchmakingStyles.noProfilesText}>No profiles to show!</Text>
-    </View>
-  ) : (
+  return editingFilters ? (
     <View style={MatchmakingStyles.container}>
-      <DisplayProfile profile={profiles[0]} likeProfile={likeProfile} />
+      <FilterWindow
+        fetchData={fetchData}
+        userAge={userAge}
+        userHeight={userHeight}
+        setUserAge={setUserAge}
+        setUserHeight={setUserHeight}
+      />
     </View>
+  ) : profiles.length === 0 ? (
+    <>
+      <View style={MatchmakingStyles.headerContainer}>
+        <View style={MatchmakingStyles.titleContainer}>
+          <Text style={MatchmakingStyles.titleText}>
+            Matchmaking for {naming(props.matchmaking)}
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={MatchmakingStyles.filterButtonContainer}
+          onPress={() => setEditingFilters(true)}
+        >
+          <Image
+            style={MatchmakingStyles.filterButton}
+            source={require('./../../assets/images/filter.png')}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={MatchmakingStyles.noProfilesTextContainer}>
+        <Text style={MatchmakingStyles.noProfilesText}>
+          No profiles to show!
+        </Text>
+      </View>
+    </>
+  ) : (
+    <>
+      <View style={MatchmakingStyles.headerContainer}>
+        <View style={MatchmakingStyles.titleContainer}>
+          <Text style={MatchmakingStyles.titleText}>
+            Matchmaking for {naming(props.matchmaking)}
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={MatchmakingStyles.filterButtonContainer}
+          onPress={() => setEditingFilters(true)}
+        >
+          <Image
+            style={MatchmakingStyles.filterButton}
+            source={require('./../../assets/images/filter.png')}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={MatchmakingStyles.container}>
+        <DisplayProfile profile={profiles[0]} likeProfile={likeProfile} />
+      </View>
+    </>
   );
 };
 

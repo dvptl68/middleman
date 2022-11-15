@@ -85,9 +85,7 @@ const ChatWindow = (props) => {
           />
         </TouchableOpacity>
         <View style={ChatWindowStyles.titleContainer}>
-          <Text style={ChatWindowStyles.titleText}>
-            {props['chatUsername']}
-          </Text>
+          <Text style={ChatWindowStyles.titleText}>{props['chatName']}</Text>
         </View>
       </View>
       <View style={ChatWindowStyles.messagesContainer}>
