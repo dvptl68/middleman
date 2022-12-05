@@ -55,7 +55,7 @@ for i in range(0, 400, 2):
     username2 = lname2 + fname2 + str(i + 2)
     if df.loc[i, 'sex'] == 'm':
         df.loc[i, 'gpa'] = random.uniform(2.0, 4.0)
-        df.loc[i, 'act'] = random.uniform(18, 36)
+        #df.loc[i, 'act'] = int(random.uniform(18.0, 36.0))
         df.loc[i, 'education'] = "High School student"
         df.loc[i, 'college'] = ""
     else:
