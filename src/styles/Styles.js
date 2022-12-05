@@ -28,8 +28,8 @@ const LoginStyles = StyleSheet.create({
     padding: 10,
   },
   logo: {
-    width: 300,
-    height: 125,
+    width: 250,
+    height: 250,
     margin: 5,
     resizeMode: 'stretch',
   },

@@ -199,21 +199,7 @@ class Users(Resource):
     def get(self,n, gender, orientation, gpa):                
         es.indices.refresh(index="dating_profiles")
         searchGender = ""
-        if gender == 'm':
-            if orientation == 'gay':
-                searchGender = 'm'
-            elif orientation == 'bisexual':
-                searchGender = None
-            else:
-                searchGender = 'f'
-        else:
-            if orientation == 'gay':
-                searchGender = 'f'
-            elif orientation == 'bisexual':
-                searchGender = None
-            else:
-                searchGender = 'm'
-                
+
         upperGpaLimit = float(gpa)
         lowerLimit = float(2.0)
         if float(gpa) > 3.0 and float(gpa) < 3.5:

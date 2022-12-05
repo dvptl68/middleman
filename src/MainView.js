@@ -8,17 +8,16 @@ import Profile from './pages/Profile';
 
 const MainView = (props) => {
   const [tabs] = useState([
-    <Discover key={1} {...props} />,
-    <Matchmaking key={2} {...props} />,
-    <Chat key={3} {...props} />,
-    <Profile key={4} {...props} />,
+    (props['orientation'] === 'straight') ? <Discover key={1} {...props} /> : <Matchmaking key={1} {...props} />,
+    <Chat key={2} {...props} />,
+    <Profile key={3} {...props} />,
   ]);
   const [activeTab, setActiveTab] = useState(0);
   return (
     <>
       <View style={MainViewStyles.pageContainer}>{tabs[activeTab]}</View>
       <View style={MainViewStyles.tabsContainer}>
-        {['discover', 'matchmaking', 'chat', 'profile'].map((tabName, i) => {
+        {[(props['orientation'] === 'straight') ? 'discover' : 'matchmaking', 'chat', 'profile'].map((tabName, i) => {
           return (
             <TouchableOpacity
               key={i}

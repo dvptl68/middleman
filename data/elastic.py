@@ -55,6 +55,7 @@ for i in range(0, 400, 2):
     username2 = lname2 + fname2 + str(i + 2)
     if df.loc[i, 'sex'] == 'm':
         df.loc[i, 'gpa'] = random.uniform(2.0, 4.0)
+        df.loc[i, 'act'] = random.uniform(18, 36)
         df.loc[i, 'education'] = "High School student"
         df.loc[i, 'college'] = ""
     else:
@@ -76,17 +77,9 @@ for i in range(0, 400, 2):
     json['chat'] = {}
     print(json)
     client.index(index="dating_profiles", id=i+1, document=json)
-    if df.loc[i, 'sex'] == 'm':
-        df.loc[i, 'gpa'] = random.uniform(2.0, 4.0)
-        df.loc[i, 'education'] = "High School student"
-        df.loc[i, 'college'] = ""
-    else:
-        item = random.choice(colleges)
-        df.loc[i, 'college'] = item['name']
-        df.loc[i, 'gpa'] = item['gpa']
-        df.loc[i, 'location'] = item['location']
+    df.loc[i, 'gpa'] = random.uniform(2.0, 4.0)
     df.loc[i, 'name'] = name2
-    df.loc[i, 'orientation'] = 'straight'
+    df.loc[i, 'orientation'] = 'asexual'
     df.loc[i, 'username'] = username2
     df.loc[i, 'password'] = 'pw'
     df.loc[i, 'matchmaker'] = username1
