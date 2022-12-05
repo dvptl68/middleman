@@ -40,7 +40,163 @@ class User(Resource):
 # api for selecting a subset of n users given some parameters
 class Users(Resource):
     
-    def get(self,n, age, height, gender, orientation, religion, education, income):                
+    # def get(self,n, age, height, gender, orientation, religion, education, income):                
+    #     es.indices.refresh(index="dating_profiles")
+    #     searchGender = ""
+    #     if gender == 'm':
+    #         if orientation == 'gay':
+    #             searchGender = 'm'
+    #         elif orientation == 'bisexual':
+    #             searchGender = None
+    #         else:
+    #             searchGender = 'f'
+    #     else:
+    #         if orientation == 'gay':
+    #             searchGender = 'f'
+    #         elif orientation == 'bisexual':
+    #             searchGender = None
+    #         else:
+    #             searchGender = 'm'
+                
+    #     gap = 3
+    #     lowerAgeLimit = int(age) - gap
+    #     upperAgeLimit = int(age) + gap
+    #     upperIncome = float(income) + gap * 1000
+    #     lowerIncome = float(income) - gap * 1000
+    #     lowerHeightLimit = int(height) - gap
+    #     upperHeightLimit = int(height) + gap
+    #     search_param = ""
+    #     if searchGender is None:
+    #         search_param = {
+    #             "size": n,
+    #             "query": {
+    #                 "bool": {
+    #                     "should": [
+    #                         {
+    #                          "range":{
+                        
+    #                                 "age":{
+    #                                     "gte": lowerAgeLimit,
+    #                                     "lte": upperAgeLimit,
+    #                                     "boost": 2.0
+    #                                 }
+                                        
+    #                             }   
+    #                         },
+    #                         {
+    #                          "range":{
+    #                                 "age":{
+    #                                     "gte": lowerAgeLimit - 3,
+    #                                     "lte": upperAgeLimit + 3,
+    #                                     "boost": 2.0
+    #                                 }      
+    #                             }   
+    #                         },
+    #                         {
+                                
+    #                             "range": {
+    #                                 "height":{
+    #                                     "gte": lowerHeightLimit,
+    #                                     "lte": upperHeightLimit,
+    #                                     "boost": 2.0
+    #                                 }
+    #                             }
+    #                         },
+    #                         {
+                                
+    #                             "range": {
+    #                                 "height":{
+    #                                     "gte": lowerHeightLimit - 3,
+    #                                     "lte": upperHeightLimit + 3,
+    #                                     "boost": 2.0
+    #                                 }
+    #                             }
+    #                         },
+    #                          {
+    #                             "range": {
+    #                                 "income":{
+    #                                     "gte": lowerHeightLimit - 3000,
+    #                                     "lte": upperHeightLimit + 3000,
+    #                                     "boost": 2.0
+    #                                 }
+    #                             }
+    #                         }
+                            
+    #                     ]
+    #                 }
+    #             }
+    #         }
+    #     else:
+    #         search_param = {
+    #             "size": n,
+    #             "query": {
+    #                 "bool": {
+    #                     "should": [
+                            
+    #                         {
+    #                         "match": {
+    #                             "orientation" : orientation
+    #                         }
+    #                         }
+    #                     ],
+    #                     "should": [
+                            
+    #                         {
+    #                         "match" :{
+    #                             "sex": searchGender
+    #                         }
+    #                         },
+    #                         {
+    #                         "match" :{
+    #                             "religion": religion
+    #                         }
+    #                         },
+    #                         {
+    #                         "match" :{
+    #                             "education": education
+    #                         }
+    #                         },
+    #                         {
+    #                             "range":{
+    #                                     "age":{
+    #                                         "gte": lowerAgeLimit,
+    #                                         "lte": upperAgeLimit,
+    #                                         "boost": 2.0
+    #                                     }
+    #                             }   
+    #                         },
+    #                         {
+    #                             "range": {
+    #                                 "height":{
+    #                                     "gte": lowerHeightLimit,
+    #                                     "lte": upperHeightLimit,
+    #                                     "boost": 2.0
+    #                                 }
+    #                             }
+    #                         },
+    #                          {
+    #                             "range": {
+    #                                 "income":{
+    #                                     "gte": lowerIncome - 3000,
+    #                                     "lte": upperIncome + 3000,
+    #                                     "boost": 2.0
+    #                                 }
+    #                             }
+    #                         }
+    #                     ]
+    #                 }        
+    #             }
+    #         }
+            
+    #     resp = es.search(index="dating_profiles", body=search_param)
+    #     profiles = ProcessProfiles.get_source_list(resp['hits']['hits'])
+    #     response = make_response(json.dumps(profiles))
+    #     response.headers["Access-Control-Allow-Origin"] = "*"
+    #     return response
+    # # methods go here
+    # pass
+
+    def get(self,n, gender, orientation, gpa):                
         es.indices.refresh(index="dating_profiles")
         searchGender = ""
         if gender == 'm':
@@ -58,13 +214,13 @@ class Users(Resource):
             else:
                 searchGender = 'm'
                 
-        gap = 5
-        lowerAgeLimit = int(age) - gap
-        upperAgeLimit = int(age) + gap
-        upperIncome = float(income) + gap * 1000
-        lowerIncome = float(income) - gap * 1000
-        lowerHeightLimit = int(height) - gap
-        upperHeightLimit = int(height) + gap
+        upperGpaLimit = float(gpa)
+        lowerLimit = float(2.0)
+        if float(gpa) > 3.0 and float(gpa) < 3.5:
+            lowerLimit = float(3.0)
+        elif float(gpa) > 3.5:
+            lowerLimit = float(3.5)
+        
         search_param = ""
         if searchGender is None:
             search_param = {
@@ -75,51 +231,13 @@ class Users(Resource):
                             {
                              "range":{
                         
-                                    "age":{
-                                        "gte": lowerAgeLimit,
-                                        "lte": upperAgeLimit,
+                                    "gpa":{
+                                        "gte": lowerLimit,
+                                        "lte": upperGpaLimit,
                                         "boost": 2.0
                                     }
                                         
                                 }   
-                            },
-                            {
-                             "range":{
-                                    "age":{
-                                        "gte": lowerAgeLimit - 3,
-                                        "lte": upperAgeLimit + 3,
-                                        "boost": 2.0
-                                    }      
-                                }   
-                            },
-                            {
-                                
-                                "range": {
-                                    "height":{
-                                        "gte": lowerHeightLimit,
-                                        "lte": upperHeightLimit,
-                                        "boost": 2.0
-                                    }
-                                }
-                            },
-                            {
-                                
-                                "range": {
-                                    "height":{
-                                        "gte": lowerHeightLimit - 3,
-                                        "lte": upperHeightLimit + 3,
-                                        "boost": 2.0
-                                    }
-                                }
-                            },
-                             {
-                                "range": {
-                                    "income":{
-                                        "gte": lowerHeightLimit - 3000,
-                                        "lte": upperHeightLimit + 3000,
-                                        "boost": 2.0
-                                    }
-                                }
                             }
                             
                         ]
@@ -147,40 +265,12 @@ class Users(Resource):
                             }
                             },
                             {
-                            "match" :{
-                                "religion": religion
-                            }
-                            },
-                            {
-                            "match" :{
-                                "education": education
-                            }
-                            },
-                            {
-                                "range":{
-                                        "age":{
-                                            "gte": lowerAgeLimit,
-                                            "lte": upperAgeLimit,
-                                            "boost": 2.0
-                                        }
-                                }   
-                            },
-                            {
                                 "range": {
-                                    "height":{
-                                        "gte": lowerHeightLimit,
-                                        "lte": upperHeightLimit,
+                                 "gpa":{
+                                        "gte": lowerLimit,
+                                        "lte": upperGpaLimit,
                                         "boost": 2.0
-                                    }
-                                }
-                            },
-                             {
-                                "range": {
-                                    "income":{
-                                        "gte": lowerIncome - 3000,
-                                        "lte": upperIncome + 3000,
-                                        "boost": 2.0
-                                    }
+                                    } 
                                 }
                             }
                         ]
@@ -823,7 +913,8 @@ api = Api(app)
 CORS(app)
 
 api.add_resource(User, '/get_user/')  # '/users' is our entry point for Users
-api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>/<education>/<religion>/<income>') 
+# api.add_resource(Users, '/get_users/<n>/<age>/<height>/<gender>/<orientation>/<education>/<religion>/<income>') 
+api.add_resource(Users, '/get_users/<n>/<gender>/<orientation>/<gpa>') 
 api.add_resource(Add, '/add_user')  # adding users api
 api.add_resource(GetUserDetails, '/get_user_detail/<username>/')
 # New API endpoints
